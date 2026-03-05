@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+locale: "ja"
+
+collections:
+  - name: "news"
+    label: "NEWS"
+    label_singular: "ニュース記事"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} | {{category}} | {{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - label: "タイトル"
+        name: "title"
+        widget: "string"
+      - label: "日付"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY.MM.DD"
+        date_format: "YYYY.MM.DD"
+        time_format: false
+      - label: "カテゴリ"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Company", value: "Company" }
+          - { label: "Service", value: "Service" }
+          - { label: "Event", value: "Event" }
+          - { label: "Press", value: "Press" }
+      - label: "本文（任意）"
+        name: "body"
+        widget: "markdown"
+        required: false
+      - label: "外部リンク（任意）"
+        name: "link"
+        widget: "string"
+        required: false
+      - label: "公開"
+        name: "published"
+        widget: "boolean"
+        default: true
