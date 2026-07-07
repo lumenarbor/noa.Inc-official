@@ -2368,6 +2368,7 @@ html[data-transitions="v2"] #sbar{view-transition-name:noa-sbar}
 html[data-transitions="v2"] #mcta{view-transition-name:noa-mcta}
 html[data-transitions="v2"] #cur-dot{view-transition-name:noa-curdot}
 html[data-transitions="v2"] #cur-ring{view-transition-name:noa-curring}
+html[data-transitions="v2"] #crail{view-transition-name:noa-crail}
 /* 退場はブラウザ側(VT)が担い、入場は .page.in が担う */
 html[data-transitions="v2"]::view-transition-old(root){animation:vtOut .3s cubic-bezier(0.22,1,0.36,1) both}
 html[data-transitions="v2"]::view-transition-new(root){animation:none}
@@ -2557,6 +2558,52 @@ html[data-hero="v2"] .hero-data{
 @media(max-width:639px){
   .hero-data-est,.hero-data-sep:last-of-type{display:none}
 }
+
+/* ============================================================
+   [flag:chapterRail] 章レール — 本の背表紙 (Phase 2)
+   デスクトップのみ。モバイルはインフローの章インデックスが担う。
+   ============================================================ */
+#crail{display:none}
+/* ≥1280px のみ: それ未満はヒーロータイポの左余白(40px)と干渉するため
+   インフローの章インデックス(01 / Our Vision 等)が章の役割を担う */
+@media(min-width:1280px){
+  html[data-crail="on"] #crail{
+    display:flex;flex-direction:column;align-items:center;gap:1rem;
+    position:fixed;left:1.35rem;top:50%;transform:translateY(-50%);
+    z-index:90;
+    opacity:0;transition:opacity 1.2s ease;
+  }
+  html[data-crail="on"] #crail.crail-in{opacity:1}
+  html[data-crail="on"] #crail.crail-hide{opacity:0;pointer-events:none}
+}
+.crail-item{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  background:none;border:none;cursor:pointer;padding:.2rem;
+}
+.crail-num{
+  font-size:9px;font-weight:700;letter-spacing:.14em;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  color:rgba(255,255,255,.25);
+  transition:color .5s ease;
+}
+.crail-item--last .crail-num{color:rgba(116,214,232,.45)}
+.crail-item.on .crail-num{color:#74D6E8}
+.crail-label{
+  writing-mode:vertical-rl;
+  font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .6s cubic-bezier(0.22,1,0.36,1),opacity .5s ease;
+}
+.crail-item.on .crail-label{max-height:6rem;opacity:1}
+.crail-item:hover .crail-label{max-height:6rem;opacity:.45}
+.crail-item.on:hover .crail-label{opacity:1}
+.crail-item:focus-visible{outline:1px solid rgba(116,214,232,.5);outline-offset:2px;border-radius:2px}
+.crail-seg{width:1px;height:1.7rem;background:rgba(255,255,255,.1)}
+@media(prefers-reduced-motion:reduce){
+  html[data-crail="on"] #crail,
+  .crail-num,.crail-label{transition:none}
+}
 </style>
 </head>
 <body>
@@ -2628,6 +2675,25 @@ html[data-hero="v2"] .hero-data{
     <span class="mcta-jp">相談する</span>
   </button>
 </div>
+
+<!-- [flag:chapterRail] 章レール（本の背表紙・デスクトップのみ） -->
+<nav id="crail" aria-label="Chapters">
+  <button class="crail-item" data-ch="phil" onclick="navTo('phil')" aria-label="Chapter 01 Vision">
+    <span class="crail-num">01</span><span class="crail-label">Vision</span>
+  </button>
+  <span class="crail-seg" aria-hidden="true"></span>
+  <button class="crail-item" data-ch="svcs" onclick="navTo('svcs')" aria-label="Chapter 02 Services">
+    <span class="crail-num">02</span><span class="crail-label">Services</span>
+  </button>
+  <span class="crail-seg" aria-hidden="true"></span>
+  <button class="crail-item" data-ch="company" onclick="navTo('company')" aria-label="Chapter 03 Company">
+    <span class="crail-num">03</span><span class="crail-label">Company</span>
+  </button>
+  <span class="crail-seg" aria-hidden="true"></span>
+  <button class="crail-item crail-item--last" data-ch="cta" onclick="showPage('contact')" aria-label="Final chapter — Contact">
+    <span class="crail-num">04</span><span class="crail-label">Contact</span>
+  </button>
+</nav>
 
 <!-- ===== HOME ===== -->
 <div id="page-home" class="page">
@@ -3526,6 +3592,7 @@ const SITE_FLAGS = {
   formPlus:    'on',  // 'off' = フォーム現行のまま
   services:    'v2',  // 'v1' = 3行ミニマルリスト（現行）
   hero:        'v2',  // 'v1' = 静的タイポのみ（現行）
+  chapterRail: 'on',  // 'off' = 章レールなし（現行）
 };
 try{
   (new URLSearchParams(location.search).get('flags')||'')
@@ -3537,6 +3604,7 @@ try{
 document.documentElement.dataset.transitions = SITE_FLAGS.transitions;
 document.documentElement.dataset.services = SITE_FLAGS.services;
 document.documentElement.dataset.hero = SITE_FLAGS.hero;
+document.documentElement.dataset.crail = SITE_FLAGS.chapterRail;
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // DATA
@@ -4839,13 +4907,59 @@ if (SITE_FLAGS.hero === 'v2') {
   }, 1000);
 }
 
+// --- [flag:chapterRail] 章レール ---
+// ホームではスクロール位置（ビューポート中央を含む章）で現在章を判定。
+// 他ページでは「そのページが属する章」を点灯（vmv→01 / service→02 / contact→04）。
+// Hero滞在中はどの章も点灯しない = 航海がまだ始まっていない状態。
+let railPageUpdate = null;
+if (SITE_FLAGS.chapterRail === 'on') {
+  const rail = document.getElementById('crail');
+  let railCur = null;
+  const railSet = ch => {
+    if (ch === railCur) return;
+    railCur = ch;
+    rail.querySelectorAll('.crail-item').forEach(b => b.classList.toggle('on', b.dataset.ch === ch));
+  };
+  const railSecs = ['phil', 'svcs', 'company', 'cta'];
+  let railRaf = false;
+  const railScroll = () => {
+    if (railRaf || curPage !== 'home') return;
+    railRaf = true;
+    requestAnimationFrame(() => {
+      railRaf = false;
+      // 「最後に通過した章」= 現在章。章間の余白でも消灯せず、
+      // 最終章(04)はフッターまで灯り続ける。Hero滞在中のみ全休。
+      const mid = window.innerHeight * .5;
+      let ch = null;
+      for (const id of railSecs) {
+        const r = document.getElementById(id)?.getBoundingClientRect();
+        if (r && r.top <= mid) ch = id;
+      }
+      railSet(ch);
+    });
+  };
+  window.addEventListener('scroll', railScroll, { passive: true });
+  railPageUpdate = p => {
+    const chapterOf = { home: 'SCROLL', vmv: 'phil', service: 'svcs', contact: 'cta' };
+    const ch = chapterOf[p];
+    rail.classList.toggle('crail-hide', !ch);
+    if (ch === 'SCROLL') railScroll();
+    else if (ch) railSet(ch);
+  };
+  // 章体系の最終形: 01 Vision / 02 Services / 03 Company / 04 Contact
+  const ctaIdx = document.querySelector('.cta-index-l');
+  if (ctaIdx) ctaIdx.textContent = '04 / Invitation';
+  // 静かな立ち上がり（ローダー明け後にフェードイン）
+  setTimeout(() => rail.classList.add('crail-in'), REDUCE_MOTION ? 0 : 1200);
+}
+
 // --- [flag:transitions v2] ページ遷移: View Transitions で退場を演出 ---
 // フレーム(#hdr/#noise/#sbar等)は view-transition-name で分離済み → 不動。
 // 非対応ブラウザ / reduced-motion では素通し（v2のCSS入場のみ）。
 {
   const _showPageV1 = showPage;
   showPage = function(p, opts){
-    const run = () => { _showPageV1(p, opts); mctaUpdate(); };
+    const run = () => { _showPageV1(p, opts); mctaUpdate(); if (railPageUpdate) railPageUpdate(p); };
     if (SITE_FLAGS.transitions === 'v2' &&
         document.startViewTransition && !REDUCE_MOTION && !isBooting) {
       document.startViewTransition(run);
