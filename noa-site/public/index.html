@@ -2422,6 +2422,112 @@ html[data-transitions="v2"]::view-transition-new(root){animation:none}
 .ct-assure.on{display:flex}
 .ct-assure li{font-size:11.5px;letter-spacing:.03em;color:#64748b;display:flex;align-items:center;gap:.55rem}
 .ct-assure li::before{content:"";width:3px;height:3px;border-radius:50%;background:#74D6E8;flex:none}
+
+/* ============================================================
+   [flag:services v2] SERVICES 拡張行 + 共有要素遷移 (Phase 2)
+   ============================================================ */
+
+/* 章インデックス（phil-index のダーク背景版） */
+.svcs-index{
+  display:none;
+  justify-content:space-between;align-items:center;gap:1rem;
+  margin:0 .5rem 2.5rem;padding-bottom:.9rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+}
+html[data-services="v2"] .svcs-index{display:flex}
+.svcs-index-l{color:#74D6E8}
+.svcs-index-c{display:none}
+.svcs-index-r{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.08em;text-transform:none;font-size:12px;color:rgba(255,255,255,.42)}
+@media(min-width:768px){
+  .svcs-index{margin:0 2rem 4rem}
+  .svcs-index-c{display:block;color:rgba(255,255,255,.24);letter-spacing:.3em}
+}
+
+/* 拡張行: 静止時は v1 と同じ佇まい。hover/focus で detail が呼吸するように開く */
+.svc-row-v2{
+  display:flex;flex-direction:column;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  padding:2.25rem .5rem;
+  cursor:pointer;text-decoration:none;color:inherit;
+  transition:background .5s;
+}
+@media(min-width:768px){.svc-row-v2{padding:3.25rem 3rem}}
+.svc-row-v2:hover{background:rgba(255,255,255,.04)}
+.svc-row-v2:focus-visible{outline:1px solid rgba(116,214,232,.55);outline-offset:-1px;background:rgba(255,255,255,.04)}
+.svc-v2-main{display:flex;flex-direction:column;gap:1.25rem}
+@media(min-width:768px){.svc-v2-main{flex-direction:row;align-items:center;justify-content:space-between;gap:2rem}}
+.svc-row-v2:hover .svc-num,.svc-row-v2:focus-visible .svc-num{opacity:1}
+.svc-row-v2:hover .svc-title,.svc-row-v2:focus-visible .svc-title{color:#74D6E8}
+.svc-row-v2:hover .svc-jp,.svc-row-v2:focus-visible .svc-jp{color:white}
+.svc-row-v2:hover .svc-arrow,.svc-row-v2:focus-visible .svc-arrow{background:#74D6E8;border-color:transparent}
+.svc-row-v2:hover .arr1,.svc-row-v2:focus-visible .arr1{transform:translate(3rem,-3rem)}
+@media(min-width:768px){.svc-row-v2:hover .arr1,.svc-row-v2:focus-visible .arr1{transform:translate(6rem,-6rem)}}
+.svc-row-v2:hover .arr2,.svc-row-v2:focus-visible .arr2{transform:translate(0,0)}
+
+/* detail の開閉は grid-rows 0fr→1fr（reflow負荷を避けつつ滑らかに） */
+.svc-v2-detail{
+  display:grid;grid-template-rows:0fr;opacity:0;
+  transition:grid-template-rows .7s cubic-bezier(0.22,1,0.36,1),opacity .5s ease .05s;
+}
+.svc-row-v2:hover .svc-v2-detail,
+.svc-row-v2:focus-visible .svc-v2-detail{grid-template-rows:1fr;opacity:1}
+.svc-v2-detail-in{
+  overflow:hidden;min-height:0;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;
+}
+.svc-v2-info{padding-top:1.7rem;max-width:36rem}
+.svc-v2-summary{font-size:clamp(.9rem,1.5vw,1.1rem);color:#cbd5e1;font-weight:500;letter-spacing:.05em;line-height:1.9}
+.svc-v2-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
+.svc-v2-tag{
+  padding:.35rem .85rem;border-radius:9999px;
+  font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.14);
+}
+.svc-v2-thumb-wrap{
+  flex:none;width:clamp(200px,23vw,320px);aspect-ratio:16/10;
+  overflow:hidden;border-radius:2px;display:none;margin-top:1.7rem;
+}
+@media(min-width:900px){.svc-v2-thumb-wrap{display:block}}
+.svc-v2-thumb{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.55) contrast(1.08) saturate(.85);
+  transform:scale(1.07);
+  transition:transform .9s cubic-bezier(0.22,1,0.36,1);
+}
+.svc-row-v2:hover .svc-v2-thumb{transform:scale(1)}
+
+/* モバイル: hoverが無いため最初から半開き（要約+タグ、画像なし） */
+@media(max-width:767px){
+  .svc-v2-detail{grid-template-rows:1fr;opacity:1}
+  .svc-v2-info{padding-top:1.1rem}
+}
+
+/* 共有要素遷移: クリック行のタイトル/画像 → 詳細Heroへモーフ
+   （行側の名前は JS がクリック時に付与。重複回避のため常に1行のみ） */
+html[data-services="v2"] #sv-hero-title{view-transition-name:svc-title}
+html[data-services="v2"] #sv-hero-img{view-transition-name:svc-img}
+
+/* 中間CTA（迷い層レーン・services v2 + ctaLanes 両ON時のみ） */
+.svcs-midcta{
+  display:none;flex-direction:column;align-items:center;gap:.55rem;
+  margin-top:3rem;text-align:center;
+}
+.svcs-midcta.on{display:flex}
+.svcs-midcta-note{font-size:11px;letter-spacing:.16em;color:#64748b}
+.svcs-midcta-link{
+  background:none;border:none;cursor:pointer;
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;
+  border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:.2rem;
+  transition:color .3s,border-color .3s;
+}
+.svcs-midcta-link:hover{color:#74D6E8;border-color:#74D6E8}
+
+@media(prefers-reduced-motion:reduce){
+  .svc-v2-detail{transition:opacity .3s ease}
+  .svc-v2-thumb{transition:none;transform:none}
+}
 </style>
 </head>
 <body>
@@ -2571,6 +2677,12 @@ html[data-transitions="v2"]::view-transition-new(root){animation:none}
 
   <section id="svcs">
     <div class="svcs-inner">
+      <!-- [flag:services v2] 章インデックス（01 Vision / 02 Services / 03 Invitation） -->
+      <div class="svcs-index" aria-hidden="true">
+        <span class="svcs-index-l">02 / Services</span>
+        <span class="svcs-index-c">Chapter Two — Capabilities</span>
+        <span class="svcs-index-r">noa Inc.</span>
+      </div>
       <div class="svcs-hdr anim-up">
         <div>
           <span style="font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;display:block;margin-bottom:1rem">Expertise</span>
@@ -2579,6 +2691,11 @@ html[data-transitions="v2"]::view-transition-new(root){animation:none}
         <p class="svcs-desc">人・事業・顧客接点を横断し、成長の構造そのものを設計する3つのソリューション。</p>
       </div>
       <div class="svcs-list" id="svcs-list"></div>
+      <!-- [flag:services v2 + ctaLanes] 中間CTA（迷い層レーン） -->
+      <div class="svcs-midcta" id="svcs-midcta">
+        <span class="svcs-midcta-note">どのサービスかは、決まっていなくて大丈夫です。</span>
+        <button class="svcs-midcta-link" onclick="showPage('contact')">まずは相談してみる</button>
+      </div>
     </div>
   </section>
 
@@ -3368,6 +3485,7 @@ const SITE_FLAGS = {
   stickyCta:   'on',  // 'off' = モバイル固定CTAなし（現行）
   ctaLanes:    'on',  // 'off' = 最終CTA第二レーンなし（現行）
   formPlus:    'on',  // 'off' = フォーム現行のまま
+  services:    'v2',  // 'v1' = 3行ミニマルリスト（現行）
 };
 try{
   (new URLSearchParams(location.search).get('flags')||'')
@@ -3377,6 +3495,7 @@ try{
     });
 }catch(e){}
 document.documentElement.dataset.transitions = SITE_FLAGS.transitions;
+document.documentElement.dataset.services = SITE_FLAGS.services;
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // DATA
@@ -3883,7 +4002,7 @@ if(mt){
 
 // RENDER SERVICES
 const svcsEl=document.getElementById('svcs-list');
-if(svcsEl){
+if(svcsEl && SITE_FLAGS.services !== 'v2'){ // [flag:services] v2時は renderServicesV2 が担当
   Object.entries(SVC).forEach(([id,s],i)=>{
     svcsEl.innerHTML+=`<div class="svc-row anim-up" onclick="showSvc('${id}')">
       <div class="svc-row-l">
@@ -4499,6 +4618,69 @@ if (SITE_FLAGS.stickyCta === 'on') {
     mcta.querySelectorAll('button').forEach(b => b.tabIndex = show ? 0 : -1);
   };
   window.addEventListener('scroll', mctaUpdate, { passive: true });
+}
+
+// --- [flag:services v2] SERVICES 拡張行 + 共有要素遷移 ---
+// トップは「予告編」: 一行の価値提案 + 提供領域タグ + ビジュアル断片のみ。
+// 説得（課題/フロー/事例/FAQ）は詳細ページに任せる。
+const SVC_V2_SUMMARY = {
+  hr:        "採用の入口から定着まで、仕組みごと設計する。",
+  web:       "ブランドの質感と成果を両立する、事業に効くWebを組み立てる。",
+  marketing: "施策を足す前に、伸び続ける構造を整える。",
+};
+function renderServicesV2(){
+  const el = document.getElementById('svcs-list');
+  if(!el) return;
+  el.innerHTML = Object.entries(SVC).map(([id, s], i) => `
+    <a class="svc-row-v2 anim-up" href="?page=services&service=${id}"
+       onclick="return svcRowClick(event,'${id}')"
+       aria-label="${escapeHtml(s.jp)}の詳細を見る">
+      <div class="svc-v2-main">
+        <div class="svc-row-l">
+          <span class="svc-num">0${i+1}</span>
+          <h4 class="svc-title">${s.title}</h4>
+        </div>
+        <div class="svc-row-r">
+          <span class="svc-jp">${escapeHtml(s.jp)}</span>
+          <div class="svc-arrow">
+            <svg class="arr1 arrow-svg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            <svg class="arr2 arrow-svg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="svc-v2-detail" aria-hidden="true">
+        <div class="svc-v2-detail-in">
+          <div class="svc-v2-info">
+            <p class="svc-v2-summary">${escapeHtml(SVC_V2_SUMMARY[id] || s.heroSub || '')}</p>
+            <div class="svc-v2-tags">${(s.tags || []).slice(0,3).map(t => `<span class="svc-v2-tag">${escapeHtml(t)}</span>`).join('')}</div>
+          </div>
+          <div class="svc-v2-thumb-wrap"><img class="svc-v2-thumb" src="${s.img}" alt="" loading="lazy" width="640" height="400"></div>
+        </div>
+      </div>
+    </a>`).join('');
+}
+function svcRowClick(e, id){
+  // 修飾キー付きクリック（新規タブ等）はブラウザに任せる
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return true;
+  e.preventDefault();
+  // 共有要素名はドキュメント内で一意である必要があるため、
+  // 全行をクリアしてからクリック行にのみ付与する
+  document.querySelectorAll('.svc-row-v2 .svc-title, .svc-v2-thumb').forEach(t => t.style.viewTransitionName = '');
+  const row = e.currentTarget;
+  const title = row.querySelector('.svc-title');
+  if (title) title.style.viewTransitionName = 'svc-title';
+  const thumb = row.querySelector('.svc-v2-thumb');
+  if (thumb && thumb.offsetParent) thumb.style.viewTransitionName = 'svc-img';
+  showSvc(id);
+  return false;
+}
+if (SITE_FLAGS.services === 'v2') {
+  renderServicesV2();
+  // 章体系を 01 Vision / 02 Services / 03 Invitation に整理
+  const ctaIdx = document.querySelector('.cta-index-l');
+  if (ctaIdx) ctaIdx.textContent = '03 / Invitation';
+  // 中間CTA（迷い層レーン）は ctaLanes と連動
+  if (SITE_FLAGS.ctaLanes === 'on') document.getElementById('svcs-midcta')?.classList.add('on');
 }
 
 // --- [flag:transitions v2] ページ遷移: View Transitions で退場を演出 ---
