@@ -2955,11 +2955,79 @@ html[data-svdetail="v2"] .sv-consult-exchange{
 }
 @media(max-width:767px){.sv-exch-mid{justify-content:flex-start}.sv-exch-line{width:1.4rem}}
 
-/* 進め方: 十字線とステップ点を一段だけ強調 */
-html[data-svdetail="v2"] .sv-flow-grid::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.09) 30%,rgba(255,255,255,.09) 70%,transparent)}
-html[data-svdetail="v2"] .sv-flow-grid::after{background:linear-gradient(180deg,transparent,rgba(255,255,255,.09) 30%,rgba(255,255,255,.09) 70%,transparent)}
-html[data-svdetail="v2"] .sv-flow-num{display:inline-flex;align-items:center;gap:.55rem}
-html[data-svdetail="v2"] .sv-flow-num::before{content:"";width:5px;height:5px;border-radius:50%;background:rgba(116,214,232,.75);flex:none}
+/* 進め方 v2: 曼荼羅 → 一本の工程線（CRAFT航路図と同じ言語）
+   何が先で何が後か、どの順で進むかが初見で読める */
+html[data-svdetail="v2"] .sv-flow-grid{
+  grid-template-columns:repeat(4,1fr);
+  column-gap:2rem;
+}
+/* 工程線: 左から右へ、終端はシアンの矢印 */
+html[data-svdetail="v2"] .sv-flow-grid::before{
+  top:3px;left:2px;right:14px;height:1px;
+  background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.18) 88%,rgba(116,214,232,.6));
+}
+html[data-svdetail="v2"] .sv-flow-grid::after{
+  top:0;left:auto;right:8px;bottom:auto;width:7px;height:7px;
+  border-top:1px solid rgba(116,214,232,.75);
+  border-right:1px solid rgba(116,214,232,.75);
+  transform:rotate(45deg);background:none;
+}
+html[data-svdetail="v2"] .sv-flow-cell{
+  position:relative;
+  align-items:flex-start!important;text-align:left!important;
+  justify-content:flex-start!important;
+  padding:2.1rem 0 .6rem;
+}
+/* 各工程の節点（線上に座る） */
+html[data-svdetail="v2"] .sv-flow-cell::before{
+  content:"";position:absolute;top:1px;left:2px;
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(116,214,232,.85);
+}
+html[data-svdetail="v2"] .sv-flow-num{
+  font-size:clamp(1.15rem,1.6vw,1.5rem);
+  color:rgba(116,214,232,.55);
+}
+/* 中央円 → 工程哲学のキャプションへ（線の下に静かに） */
+html[data-svdetail="v2"] .sv-flow-center{
+  position:static;transform:none;width:auto;height:auto;
+  border:0;border-radius:0;background:none;padding:0;
+  grid-column:1/-1;margin-top:2.6rem;
+  display:flex;align-items:center;justify-content:center;gap:1.1rem;
+}
+html[data-svdetail="v2"] .sv-flow-center::before,
+html[data-svdetail="v2"] .sv-flow-center::after{
+  content:"";width:2.6rem;height:1px;background:rgba(255,255,255,.14);
+}
+html[data-svdetail="v2"] .sv-flow-center-text{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;
+  font-size:.82rem;color:rgba(255,255,255,.42);letter-spacing:.12em;
+}
+/* SP: 縦の工程線（左レール） */
+@media(max-width:767px){
+  html[data-svdetail="v2"] .sv-flow-grid{grid-template-columns:1fr;row-gap:.4rem}
+  html[data-svdetail="v2"] .sv-flow-grid::before{
+    top:6px;bottom:10px;left:2px;right:auto;width:1px;height:auto;
+    background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.18) 86%,rgba(116,214,232,.6));
+  }
+  html[data-svdetail="v2"] .sv-flow-grid::after{
+    top:auto;bottom:4px;left:-.5px;right:auto;
+    border-top:0;border-left:0;
+    border-bottom:1px solid rgba(116,214,232,.75);
+    border-right:1px solid rgba(116,214,232,.75);
+  }
+  html[data-svdetail="v2"] .sv-flow-cell{padding:.4rem 0 1.3rem 1.5rem}
+  html[data-svdetail="v2"] .sv-flow-cell::before{top:.75rem;left:0}
+  html[data-svdetail="v2"] .sv-flow-center{margin-top:1.4rem}
+}
+
+/* 課題の連鎖図（チェック→特定→打ち手→変化の橋） */
+.sv-problem-diagram{display:none}
+html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
+.sv-problem-diagram svg{width:100%;max-width:680px;height:auto;display:block}
+
+/* 初回相談: 持ち帰り物の構造記号 */
+.sv-consult-glyph{width:30px;height:30px;display:block;margin-bottom:.75rem}
 </style>
 </head>
 <body>
@@ -2990,6 +3058,41 @@ html[data-svdetail="v2"] .sv-flow-num::before{content:"";width:5px;height:5px;bo
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
 <div id="sbar"></div>
+
+<!-- [v2] 構造記号の定義（散らばり/整列/優先/前進 — CRAFTと詳細ページで共用） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="g-issue" viewBox="0 0 44 44">
+      <line x1="8" y1="34" x2="30" y2="12" stroke="rgba(148,163,184,.28)" stroke-width="1"/>
+      <line x1="12" y1="10" x2="36" y2="30" stroke="rgba(148,163,184,.28)" stroke-width="1"/>
+      <circle cx="10" cy="12" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="33" cy="9" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="7" cy="31" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="36" cy="33" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="25" cy="22" r="2.2" fill="rgba(116,214,232,.8)"/>
+    </symbol>
+    <symbol id="g-approach" viewBox="0 0 44 44">
+      <path d="M6 15h32M6 29h32M15 6v32M29 6v32" stroke="rgba(148,163,184,.22)" stroke-width="1"/>
+      <line x1="6" y1="29" x2="38" y2="29" stroke="rgba(116,214,232,.6)" stroke-width="1"/>
+      <circle cx="15" cy="15" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="29" cy="15" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="15" cy="29" r="2.2" fill="rgba(116,214,232,.8)"/>
+      <circle cx="29" cy="29" r="1.8" fill="rgba(203,213,225,.55)"/>
+    </symbol>
+    <symbol id="g-priority" viewBox="0 0 44 44">
+      <rect x="8" y="12" width="28" height="3.5" fill="rgba(116,214,232,.8)"/>
+      <rect x="8" y="21" width="19" height="3.5" fill="rgba(203,213,225,.4)"/>
+      <rect x="8" y="30" width="12" height="3.5" fill="rgba(203,213,225,.25)"/>
+    </symbol>
+    <symbol id="g-shift" viewBox="0 0 44 44">
+      <path d="M7 35 L19 26 L27 29 L37 12" fill="none" stroke="rgba(116,214,232,.75)" stroke-width="1.2"/>
+      <path d="M33 12.5 L37 12 L36 16" fill="none" stroke="rgba(116,214,232,.75)" stroke-width="1.2"/>
+      <circle cx="7" cy="35" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="19" cy="26" r="1.8" fill="rgba(203,213,225,.55)"/>
+      <circle cx="27" cy="29" r="1.8" fill="rgba(203,213,225,.55)"/>
+    </symbol>
+  </defs>
+</svg>
 
 <!-- HEADER -->
 <div id="hdr">
@@ -3162,35 +3265,6 @@ html[data-svdetail="v2"] .sv-flow-num::before{content:"";width:5px;height:5px;bo
 
   <!-- [flag:work] CRAFT — Selected Works（Services章の付録として。章番号は増やさない） -->
   <section id="work">
-    <!-- 構造記号の定義（Issue=散らばり / Approach=整列 / Shift=前進） -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <defs>
-        <symbol id="g-issue" viewBox="0 0 44 44">
-          <line x1="8" y1="34" x2="30" y2="12" stroke="rgba(148,163,184,.28)" stroke-width="1"/>
-          <line x1="12" y1="10" x2="36" y2="30" stroke="rgba(148,163,184,.28)" stroke-width="1"/>
-          <circle cx="10" cy="12" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="33" cy="9" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="7" cy="31" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="36" cy="33" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="25" cy="22" r="2.2" fill="rgba(116,214,232,.8)"/>
-        </symbol>
-        <symbol id="g-approach" viewBox="0 0 44 44">
-          <path d="M6 15h32M6 29h32M15 6v32M29 6v32" stroke="rgba(148,163,184,.22)" stroke-width="1"/>
-          <line x1="6" y1="29" x2="38" y2="29" stroke="rgba(116,214,232,.6)" stroke-width="1"/>
-          <circle cx="15" cy="15" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="29" cy="15" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="15" cy="29" r="2.2" fill="rgba(116,214,232,.8)"/>
-          <circle cx="29" cy="29" r="1.8" fill="rgba(203,213,225,.55)"/>
-        </symbol>
-        <symbol id="g-shift" viewBox="0 0 44 44">
-          <path d="M7 35 L19 26 L27 29 L37 12" fill="none" stroke="rgba(116,214,232,.75)" stroke-width="1.2"/>
-          <path d="M33 12.5 L37 12 L36 16" fill="none" stroke="rgba(116,214,232,.75)" stroke-width="1.2"/>
-          <circle cx="7" cy="35" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="19" cy="26" r="1.8" fill="rgba(203,213,225,.55)"/>
-          <circle cx="27" cy="29" r="1.8" fill="rgba(203,213,225,.55)"/>
-        </symbol>
-      </defs>
-    </svg>
     <div class="work-inner">
       <div class="work-index" aria-hidden="true">
         <span class="work-index-l">02 / Services — Craft</span>
@@ -3977,6 +4051,8 @@ html[data-svdetail="v2"] .sv-flow-num::before{content:"";width:5px;height:5px;bo
           <h2 class="sv-sec-title">こんな課題に</h2>
         </div>
         <div id="sv-problem-list" class="sv-problem-list"></div>
+        <!-- [flag:svDetail v2] 課題の連鎖図: チェック→特定→打ち手→変化の橋 -->
+        <div id="sv-problem-diagram" class="sv-problem-diagram" aria-hidden="true"></div>
         <!-- [flag:svDetail v2] 中間CTA（共感の直後・迷い層レーン） -->
         <div class="sv-midcta">
           <span class="sv-midcta-note">いくつか心当たりがあれば、話が早いかもしれません。</span>
@@ -5698,11 +5774,46 @@ const SVC_V2_DIAGRAMS = {
   <text x="240" y="142" font-size="10" font-weight="700" fill="white" text-anchor="middle">成長構造</text>
 </svg>`,
 };
+// 課題の連鎖図: 各サービスの事業連鎖のどこで詰まるかを1枚で見せる。
+// 連鎖(グレー) → 詰まりの特定(シアンのリング) → 下段に「特定→絞る→流れ出す」の橋
+function svChainSvg(labels, ringIndex, ringNote){
+  const xs = [70, 205, 340, 475, 610];
+  const nodes = labels.map((l, i) => {
+    const x = xs[i], ringed = i === ringIndex;
+    return `
+    <circle cx="${x}" cy="66" r="${ringed ? 3.5 : 3}" fill="${ringed ? 'rgba(116,214,232,.9)' : 'rgba(203,213,225,.5)'}"/>
+    ${ringed ? `<circle cx="${x}" cy="66" r="11" fill="none" stroke="rgba(116,214,232,.4)"/>
+    <text x="${x}" y="40" text-anchor="middle" font-size="9.5" fill="#74D6E8" letter-spacing="1">${ringNote}</text>` : ''}
+    <text x="${x}" y="92" text-anchor="middle" font-size="10.5" font-weight="700" fill="${ringed ? '#74D6E8' : '#cbd5e1'}">${l}</text>`;
+  }).join('');
+  return `
+<svg viewBox="0 0 680 158" role="img" aria-label="課題は${labels.join('・')}の連鎖のどこかで起きる。noaは詰まりを特定し、打ち手を絞る">
+  <text x="16" y="18" font-size="9" font-weight="700" letter-spacing="2.5" fill="#475569">DIAGNOSIS — 連鎖のどこで止まっているか</text>
+  <line x1="70" y1="66" x2="610" y2="66" stroke="rgba(255,255,255,.14)"/>
+  ${nodes}
+  <g font-size="10" font-weight="700">
+    <text x="180" y="136" text-anchor="middle" fill="#94a3b8">詰まりを特定</text>
+    <line x1="238" y1="132" x2="268" y2="132" stroke="rgba(255,255,255,.2)"/>
+    <path d="M262 128 L269 132 L262 136" fill="none" stroke="rgba(255,255,255,.3)"/>
+    <text x="340" y="136" text-anchor="middle" fill="#94a3b8">打ち手を絞る</text>
+    <line x1="398" y1="132" x2="428" y2="132" stroke="rgba(255,255,255,.2)"/>
+    <path d="M422 128 L429 132 L422 136" fill="none" stroke="rgba(116,214,232,.6)"/>
+    <text x="502" y="136" text-anchor="middle" fill="#74D6E8">連鎖が流れ出す</text>
+  </g>
+</svg>`;
+}
+const SVC_V2_CHAINS = {
+  hr:        () => svChainSvg(['母集団','訴求','面接','承諾','定着'], 2, '例えば、ここ'),
+  web:       () => svChainSvg(['情報','導線','表現','実装','改善'], 1, '例えば、ここ'),
+  marketing: () => svChainSvg(['集客','導線','接客','分析','改善'], 3, '例えば、ここ'),
+};
 function svDetailFill(id){
   const d = SVC_V2_DETAIL[id];
   if (!d) return;
   const dia = document.getElementById('sv-edge-diagram');
   if (dia) dia.innerHTML = SVC_V2_DIAGRAMS[id] || '';
+  const chain = document.getElementById('sv-problem-diagram');
+  if (chain) chain.innerHTML = SVC_V2_CHAINS[id] ? SVC_V2_CHAINS[id]() : '';
   const idx = document.getElementById('sv-index-detail');
   if (idx) idx.textContent = `Detail ${d.num} / 03`;
   const num = document.getElementById('sv-hero-num');
@@ -5716,9 +5827,12 @@ function svDetailFill(id){
         <p class="sv-edge-desc">${escapeHtml(e.desc)}</p>
       </div>
     </div>`).join('');
+  // 持ち帰り物の記号: 01 整理(グリッド) / 02 優先順位(バー) / 03 次の一手(前進)
+  const CONSULT_GLYPHS = ['#g-approach', '#g-priority', '#g-shift'];
   const conEl = document.getElementById('sv-consult-list');
   if (conEl) conEl.innerHTML = d.consult.map((c, i) => `
     <div class="sv-consult-cell">
+      <svg class="sv-consult-glyph" aria-hidden="true"><use href="${CONSULT_GLYPHS[i] || CONSULT_GLYPHS[0]}"/></svg>
       <span class="sv-consult-num">0${i+1}</span>
       <div class="sv-consult-title">${escapeHtml(c.title)}</div>
       <p class="sv-consult-desc">${escapeHtml(c.desc)}</p>
