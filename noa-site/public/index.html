@@ -2604,6 +2604,43 @@ html[data-hero="v2"] .hero-data{
   html[data-crail="on"] #crail,
   .crail-num,.crail-label{transition:none}
 }
+
+/* ============================================================
+   [flag:ctaMagnetic] 最終CTA 触感の仕上げ (Phase 2)
+   構造・ビジュアルは現行維持。反応の質感のみ調整する。
+   ============================================================ */
+/* 反応の段差: 境界が先に灯り(0.35s)、塗りがわずかに遅れて満ちる(0.7s +0.05s) */
+html[data-ctamag="on"] .cta-invite::before{
+  transition:transform .7s cubic-bezier(.22,1,.36,1) .05s;
+}
+/* 磁力有効化後: transform は JS(lerp)が駆動するため CSS transition から外す */
+html[data-ctamag="on"] .cta-invite.magnet-ready{
+  transition:border-color .35s ease,color .5s ease;
+  will-change:transform;
+}
+html[data-ctamag="on"] .cta-invite.magnet-ready .cta-invite-arrow{
+  transition:border-color .45s ease,background .45s ease,color .45s ease;
+}
+/* 期待感: セクション入場後、矢印の輪が一度だけ静かに呼吸（1回きり・2.4s） */
+html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
+  animation:ctaArrowCue 2.4s ease 1.8s 1;
+}
+@keyframes ctaArrowCue{
+  0%,100%{border-color:rgba(255,255,255,.26)}
+  45%{border-color:rgba(116,214,232,.75)}
+}
+/* モバイル: hover擬似はせず、押下の瞬間に塗りが素早く満ちる触感のみ */
+@media(hover:none){
+  html[data-ctamag="on"] .cta-invite{-webkit-tap-highlight-color:transparent}
+  html[data-ctamag="on"] .cta-invite:active{border-color:#74D6E8;color:#050505}
+  html[data-ctamag="on"] .cta-invite:active::before{transform:scaleX(1);transition-duration:.22s;transition-delay:0s}
+  html[data-ctamag="on"] .cta-invite:active .cta-invite-jp{color:rgba(5,5,5,.6)}
+  html[data-ctamag="on"] .cta-invite:active .cta-invite-arrow{border-color:#050505;background:#050505}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{animation:none}
+  html[data-ctamag="on"] .cta-invite::before{transition:transform .4s ease}
+}
 </style>
 </head>
 <body>
@@ -3593,6 +3630,7 @@ const SITE_FLAGS = {
   services:    'v2',  // 'v1' = 3行ミニマルリスト（現行）
   hero:        'v2',  // 'v1' = 静的タイポのみ（現行）
   chapterRail: 'on',  // 'off' = 章レールなし（現行）
+  ctaMagnetic: 'on',  // 'off' = CTA磁力・触感調整なし（現行）
 };
 try{
   (new URLSearchParams(location.search).get('flags')||'')
@@ -3605,6 +3643,7 @@ document.documentElement.dataset.transitions = SITE_FLAGS.transitions;
 document.documentElement.dataset.services = SITE_FLAGS.services;
 document.documentElement.dataset.hero = SITE_FLAGS.hero;
 document.documentElement.dataset.crail = SITE_FLAGS.chapterRail;
+document.documentElement.dataset.ctamag = SITE_FLAGS.ctaMagnetic;
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // DATA
@@ -4951,6 +4990,51 @@ if (SITE_FLAGS.chapterRail === 'on') {
   if (ctaIdx) ctaIdx.textContent = '04 / Invitation';
   // 静かな立ち上がり（ローダー明け後にフェードイン）
   setTimeout(() => rail.classList.add('crail-in'), REDUCE_MOTION ? 0 : 1200);
+}
+
+// --- [flag:ctaMagnetic] 最終CTA 磁力 + 押下感 ---
+// カーソルがボタン外縁+130px圏に入ると、最大6pxだけ引力方向へ寄る。
+// lerp(0.14)で滑らかに、圏外/離脱でゼロへ帰還。矢印は35%の深度で追従。
+// pointer:fine のデスクトップのみ。reduced-motion / モバイルでは磁力なし。
+if (SITE_FLAGS.ctaMagnetic === 'on' && !REDUCE_MOTION &&
+    window.matchMedia('(pointer:fine)').matches) {
+  const magBtn = document.querySelector('.cta-invite');
+  const magArrow = magBtn?.querySelector('.cta-invite-arrow');
+  const magSec = document.getElementById('cta');
+  if (magBtn && magArrow && magSec) {
+    let tx = 0, ty = 0, cx = 0, cy = 0, sc = 1, tsc = 1, raf = 0;
+    const clamp = (v, m) => Math.max(-m, Math.min(m, v));
+    const loop = () => {
+      cx += (tx - cx) * .14;
+      cy += (ty - cy) * .14;
+      sc += (tsc - sc) * .3;
+      magBtn.style.transform = `translate3d(${cx.toFixed(2)}px,${cy.toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
+      magArrow.style.transform = `translate3d(${(cx * .35).toFixed(2)}px,${(cy * .35).toFixed(2)}px,0)`;
+      const settled = Math.abs(tx - cx) < .04 && Math.abs(ty - cy) < .04 && Math.abs(tsc - sc) < .001;
+      raf = settled ? 0 : requestAnimationFrame(loop);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+    magSec.addEventListener('pointermove', e => {
+      if (!magBtn.classList.contains('magnet-ready')) return;
+      const r = magBtn.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      const reach = Math.max(r.width, r.height) / 2 + 130;
+      if (Math.hypot(dx, dy) < reach) {
+        tx = clamp(dx * .05, 6);
+        ty = clamp(dy * .05, 6);
+      } else { tx = 0; ty = 0; }
+      kick();
+    }, { passive: true });
+    magSec.addEventListener('pointerleave', () => { tx = 0; ty = 0; kick(); });
+    magBtn.addEventListener('pointerdown', () => { tsc = .985; kick(); });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev =>
+      magBtn.addEventListener(ev, () => { tsc = 1; kick(); }));
+    // 入場アニメ(transform 1s +delay)と競合しないよう、CTA可視から2.2秒後に磁力を有効化
+    new IntersectionObserver(([e], o) => {
+      if (e.isIntersecting) { setTimeout(() => magBtn.classList.add('magnet-ready'), 2200); o.disconnect(); }
+    }, { threshold: .2 }).observe(magSec);
+  }
 }
 
 // --- [flag:transitions v2] ページ遷移: View Transitions で退場を演出 ---
