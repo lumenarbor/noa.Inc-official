@@ -2528,6 +2528,35 @@ html[data-services="v2"] #sv-hero-img{view-transition-name:svc-img}
   .svc-v2-detail{transition:opacity .3s ease}
   .svc-v2-thumb{transition:none;transform:none}
 }
+
+/* ============================================================
+   [flag:hero v2] 海図キャンバス + エディトリアルデータライン (Phase 2)
+   ============================================================ */
+#hero-chart{display:none}
+html[data-hero="v2"] #hero-chart{
+  display:block;position:absolute;inset:0;z-index:1;
+  width:100%;height:100%;
+  opacity:0;transition:opacity 1.4s ease .15s;
+  pointer-events:none;
+}
+html[data-hero="v2"] #hero-chart.on{opacity:1}
+
+.hero-data{display:none}
+html[data-hero="v2"] .hero-data{
+  display:flex;position:absolute;left:1rem;bottom:1.4rem;z-index:10;
+  align-items:center;gap:.8rem;
+  font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:#475569;white-space:nowrap;
+}
+@media(min-width:768px){
+  html[data-hero="v2"] .hero-data{left:3rem;bottom:3rem;font-size:9px;gap:1rem}
+}
+.hero-data-coord{color:#74D6E8;opacity:.7}
+.hero-data-sep{width:1.6rem;height:1px;background:rgba(255,255,255,.12)}
+.hero-data-est{color:#334155}
+@media(max-width:639px){
+  .hero-data-est,.hero-data-sep:last-of-type{display:none}
+}
 </style>
 </head>
 <body>
@@ -2603,6 +2632,16 @@ html[data-services="v2"] #sv-hero-img{view-transition-name:svc-img}
 <!-- ===== HOME ===== -->
 <div id="page-home" class="page">
   <section id="hero">
+    <!-- [flag:hero v2] 海図キャンバス（タイポの背面 z-1） -->
+    <canvas id="hero-chart" aria-hidden="true"></canvas>
+    <!-- [flag:hero v2] エディトリアルデータライン（左下・hero-subと対称） -->
+    <div class="hero-data" aria-hidden="true">
+      <span class="hero-data-coord">35.6580°N — 139.7016°E</span>
+      <span class="hero-data-sep"></span>
+      <span id="hero-data-time">LOCAL --:--:--</span>
+      <span class="hero-data-sep"></span>
+      <span class="hero-data-est">EST. 2023 — TOKYO</span>
+    </div>
     <div class="hero-text-block">
     <h1 class="hero-lines">
       <span class="sr-only">株式会社noa | 人材紹介・Web構築・マーケティング支援</span>
@@ -3486,6 +3525,7 @@ const SITE_FLAGS = {
   ctaLanes:    'on',  // 'off' = 最終CTA第二レーンなし（現行）
   formPlus:    'on',  // 'off' = フォーム現行のまま
   services:    'v2',  // 'v1' = 3行ミニマルリスト（現行）
+  hero:        'v2',  // 'v1' = 静的タイポのみ（現行）
 };
 try{
   (new URLSearchParams(location.search).get('flags')||'')
@@ -3496,6 +3536,7 @@ try{
 }catch(e){}
 document.documentElement.dataset.transitions = SITE_FLAGS.transitions;
 document.documentElement.dataset.services = SITE_FLAGS.services;
+document.documentElement.dataset.hero = SITE_FLAGS.hero;
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // DATA
@@ -4681,6 +4722,121 @@ if (SITE_FLAGS.services === 'v2') {
   if (ctaIdx) ctaIdx.textContent = '03 / Invitation';
   // 中間CTA（迷い層レーン）は ctaLanes と連動
   if (SITE_FLAGS.ctaLanes === 'on') document.getElementById('svcs-midcta')?.classList.add('on');
+}
+
+// --- [flag:hero v2] 海図キャンバス ---
+// 細い線と点が静かに漂う「海図」。Canvas 2D・依存ゼロ・30fps上限。
+// タブ非表示 / Hero圏外では停止。reduced-motion は静止画1フレームのみ。
+if (SITE_FLAGS.hero === 'v2') {
+  const cv = document.getElementById('hero-chart');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, pts = [];
+  let ox = 0, oy = 0, tox = 0, toy = 0;   // 視差オフセット(現在値/目標値)
+  let running = false, rafId = 0, last = 0;
+
+  function chartResize(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    if (!W || !H) return;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    chartSeed();
+  }
+  function chartSeed(){
+    const n = W < 768 ? 14 : 26;
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - .5) * .14,
+      vy: (Math.random() - .5) * .14,
+      r: Math.random() < .15 ? 1.7 : .9,          // 少数の「主要点」
+      tick: Math.random() < .22,                   // 測量十字を持つ点
+    }));
+  }
+  function chartDraw(){
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.translate(ox, oy);
+    const th = Math.min(W, H) * .3;
+    ctx.lineWidth = 1;
+    for (let i = 0; i < pts.length; i++){
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++){
+        const b = pts[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < th){
+          ctx.strokeStyle = `rgba(148,163,184,${((1 - d / th) * .09).toFixed(3)})`;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (const p of pts){
+      ctx.fillStyle = p.r > 1.2 ? 'rgba(116,214,232,.55)' : 'rgba(203,213,225,.28)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      if (p.tick){
+        ctx.strokeStyle = 'rgba(148,163,184,.16)';
+        ctx.beginPath();
+        ctx.moveTo(p.x - 7, p.y); ctx.lineTo(p.x - 3, p.y);
+        ctx.moveTo(p.x + 3, p.y); ctx.lineTo(p.x + 7, p.y);
+        ctx.moveTo(p.x, p.y - 7); ctx.lineTo(p.x, p.y - 3);
+        ctx.moveTo(p.x, p.y + 3); ctx.lineTo(p.x, p.y + 7);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+  function chartTick(t){
+    if (!running) { rafId = 0; return; }
+    rafId = requestAnimationFrame(chartTick);
+    if (t - last < 33) return;                     // 30fps 上限
+    last = t;
+    const m = 40;                                  // 端の折返しマージン
+    for (const p of pts){
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -m) p.x = W + m; if (p.x > W + m) p.x = -m;
+      if (p.y < -m) p.y = H + m; if (p.y > H + m) p.y = -m;
+    }
+    // ポインタ視差(±1.5%) + スクロール深度(-6%)へゆっくり追従
+    toy = -window.scrollY * .06;
+    oy += ((toy + _pty) - oy) * .04;
+    ox += (_ptx - ox) * .04;
+    chartDraw();
+  }
+  let _ptx = 0, _pty = 0;
+  function chartStart(){
+    if (!W) chartResize();
+    if (running || REDUCE_MOTION) return;
+    running = true; last = 0;
+    if (!rafId) rafId = requestAnimationFrame(chartTick);
+  }
+  function chartStop(){ running = false; }
+
+  window.addEventListener('resize', () => { chartResize(); if (REDUCE_MOTION) chartDraw(); }, { passive: true });
+  document.addEventListener('mousemove', e => {
+    _ptx = (e.clientX / window.innerWidth - .5) * W * .03;
+    _pty = (e.clientY / window.innerHeight - .5) * H * .03;
+  }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? chartStop() : heroVisible && chartStart();
+  });
+  let heroVisible = false;
+  new IntersectionObserver(([e]) => {
+    heroVisible = e.isIntersecting;
+    heroVisible ? chartStart() : chartStop();
+  }, { threshold: 0 }).observe(document.getElementById('hero'));
+
+  chartResize();
+  chartDraw();                                     // reduced-motion 時も静止画1枚は描く
+  cv.classList.add('on');
+
+  // データライン: ローカル時刻（1秒毎・Hero表示中のみ更新）
+  const timeEl = document.getElementById('hero-data-time');
+  setInterval(() => {
+    if (!heroVisible || !timeEl) return;
+    const d = new Date();
+    const z = n => String(n).padStart(2, '0');
+    timeEl.textContent = `LOCAL ${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`;
+  }, 1000);
 }
 
 // --- [flag:transitions v2] ページ遷移: View Transitions で退場を演出 ---
