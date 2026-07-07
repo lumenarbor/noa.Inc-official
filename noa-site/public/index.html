@@ -2335,6 +2335,93 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 @media(min-width:1280px){ .sdtl-back{ top:7.5rem; } }
 @media(max-width:767px){ .sdtl-back{ top:5.4rem; padding:.55rem .9rem; font-size:.52rem; } }
 
+/* ============================================================
+   [v2] Phase 1 — SITE_FLAGS で切替可能な追加スタイル
+   v1 のスタイルには一切触れない。フラグを v1/off に戻せば
+   以下は適用されず、現行の見た目に完全復帰する。
+   ============================================================ */
+
+/* ---- [flag:loader v2] 短縮ローダー（幕 + ワードマーク） ---- */
+#loader.v2 .loader-num-wrap,
+#loader.v2 .loader-bar-wrap{display:none}
+#loader.v2{transition:clip-path .8s cubic-bezier(0.76,0,0.24,1)}
+.loader-mark{display:none;flex-direction:column;align-items:center;gap:1.2rem}
+#loader.v2 .loader-mark{display:flex;opacity:0;animation:loaderMarkIn .5s cubic-bezier(0.22,1,0.36,1) .05s forwards}
+.loader-mark img{width:clamp(110px,18vw,170px);height:auto}
+.loader-mark-bar{width:120px;height:1px;background:rgba(255,255,255,.12);overflow:hidden;position:relative}
+.loader-mark-bar::after{content:"";position:absolute;inset:0;background:#74D6E8;transform:translateX(-101%);animation:loaderMarkBar .9s cubic-bezier(0.22,1,0.36,1) .15s forwards}
+#loader.v2.done .loader-mark{opacity:0;transition:opacity .25s ease}
+@keyframes loaderMarkIn{to{opacity:1}}
+@keyframes loaderMarkBar{to{transform:translateX(0)}}
+
+/* ---- [flag:transitions v2] ページ遷移（blur廃止・上昇リビール） ---- */
+html[data-transitions="v2"] .page{
+  filter:none;
+  transform:translateY(14px);
+  transition:opacity .45s ease, transform .65s cubic-bezier(0.22,1,0.36,1);
+}
+html[data-transitions="v2"] .page.in{filter:none;transform:none}
+/* フレームは動かない: 固定レイヤーを root スナップショットから分離 */
+html[data-transitions="v2"] #hdr{view-transition-name:noa-hdr}
+html[data-transitions="v2"] #noise{view-transition-name:noa-noise}
+html[data-transitions="v2"] #sbar{view-transition-name:noa-sbar}
+html[data-transitions="v2"] #mcta{view-transition-name:noa-mcta}
+html[data-transitions="v2"] #cur-dot{view-transition-name:noa-curdot}
+html[data-transitions="v2"] #cur-ring{view-transition-name:noa-curring}
+/* 退場はブラウザ側(VT)が担い、入場は .page.in が担う */
+html[data-transitions="v2"]::view-transition-old(root){animation:vtOut .3s cubic-bezier(0.22,1,0.36,1) both}
+html[data-transitions="v2"]::view-transition-new(root){animation:none}
+@keyframes vtOut{to{opacity:0;transform:translateY(-1.5%)}}
+@media(prefers-reduced-motion:reduce){
+  html[data-transitions="v2"] .page{transform:none;transition:opacity .4s ease}
+}
+
+/* ---- [flag:stickyCta] モバイル固定CTA（2レーン） ---- */
+#mcta{
+  position:fixed;left:.75rem;right:.75rem;bottom:.75rem;z-index:98;
+  display:none;gap:.45rem;padding:.45rem;border-radius:9999px;
+  background:rgba(5,5,5,.74);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.1);
+  transform:translateY(140%);
+  transition:transform .65s cubic-bezier(0.22,1,0.36,1);
+}
+#mcta.show{transform:none}
+@media(max-width:768px){#mcta{display:flex}}
+.mcta-primary,.mcta-secondary{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.05rem;
+  border-radius:9999px;padding:.7rem .6rem;transition:opacity .3s;
+}
+.mcta-primary{flex:1.25;background:#fff;color:#050505;border:none}
+.mcta-primary:active{opacity:.85}
+.mcta-secondary{flex:1;background:none;color:#cbd5e1;border:1px solid rgba(255,255,255,.18)}
+.mcta-secondary:active{opacity:.7}
+.mcta-en{font-size:7.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;opacity:.55}
+.mcta-jp{font-size:12.5px;font-weight:700;letter-spacing:.04em}
+@media(prefers-reduced-motion:reduce){
+  #mcta{transform:none;opacity:0;pointer-events:none;transition:opacity .3s ease}
+  #mcta.show{opacity:1;pointer-events:auto}
+}
+
+/* ---- [flag:ctaLanes] 最終CTA 第二レーン（迷い層の受け皿） ---- */
+.cta-alt{
+  display:none;flex-direction:column;align-items:center;gap:.3rem;
+  margin:2.2rem auto 0;background:none;border:none;cursor:pointer;
+}
+.cta-alt.on{display:flex}
+.cta-alt-note{font-size:10.5px;letter-spacing:.14em;color:#64748b}
+.cta-alt-link{
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;
+  border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:.2rem;
+  transition:color .3s,border-color .3s;
+}
+.cta-alt:hover .cta-alt-link{color:#74D6E8;border-color:#74D6E8}
+
+/* ---- [flag:formPlus] フォーム安心マイクロコピー ---- */
+.ct-assure{display:none;flex-direction:column;gap:.5rem;margin:1.2rem 0 0;padding:0;list-style:none}
+.ct-assure.on{display:flex}
+.ct-assure li{font-size:11.5px;letter-spacing:.03em;color:#64748b;display:flex;align-items:center;gap:.55rem}
+.ct-assure li::before{content:"";width:3px;height:3px;border-radius:50%;background:#74D6E8;flex:none}
 </style>
 </head>
 <body>
@@ -2354,6 +2441,11 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
       <div class="loader-bar-track"><div id="loader-bar-fill"></div></div>
     </div>
     <div class="loader-brand">NOA INC.</div>
+  </div>
+  <!-- [flag:loader v2] 短縮ローダー用ワードマーク（v1では非表示） -->
+  <div class="loader-mark" aria-hidden="true">
+    <img src="/logo-noa.png" alt="" width="170" height="34">
+    <span class="loader-mark-bar"></span>
   </div>
 </div>
 
@@ -2388,6 +2480,18 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
   <button class="mm-btn" onclick="navTo('svcs');closeMenu()"><span class="mm-label">Services</span><span class="mm-jp">事業内容</span></button>
   <button class="mm-btn" onclick="navTo('company');closeMenu()"><span class="mm-label">Company</span><span class="mm-jp">会社概要</span></button>
   <button class="mm-contact" onclick="showPage('contact');closeMenu()">Contact Us<br><span style="font-size:8px;letter-spacing:.2em;font-weight:400;opacity:.7">お問い合わせ</span></button>
+</div>
+
+<!-- [flag:stickyCta] モバイル固定CTA: 今すぐ層=相談する / 迷い層=サービスを見る -->
+<div id="mcta" aria-hidden="true">
+  <button class="mcta-secondary" onclick="navTo('svcs')" tabindex="-1">
+    <span class="mcta-en">Services</span>
+    <span class="mcta-jp">サービスを見る</span>
+  </button>
+  <button class="mcta-primary" onclick="showPage('contact')" tabindex="-1">
+    <span class="mcta-en">Contact</span>
+    <span class="mcta-jp">相談する</span>
+  </button>
 </div>
 
 <!-- ===== HOME ===== -->
@@ -2539,6 +2643,11 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
         <span class="cta-invite-arrow" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
+      </button>
+      <!-- [flag:ctaLanes] 迷い層の第二レーン -->
+      <button class="cta-alt" id="cta-alt" onclick="navTo('svcs')">
+        <span class="cta-alt-note">まだ構想段階の方へ</span>
+        <span class="cta-alt-link">サービス内容を見る</span>
       </button>
       <div class="cta-fin">
         <span class="cta-fin-line" aria-hidden="true"></span>
@@ -3161,7 +3270,7 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
       <div class="sv-cta-inner">
         <h2 id="sv-cta-headline" class="sv-cta-headline"></h2>
         <p id="sv-cta-sub" class="sv-cta-sub"></p>
-        <button class="sv-cta-btn" onclick="showPage('contact')">
+        <button class="sv-cta-btn" onclick="contactFromService()">
           <span id="sv-cta-btn-text">相談する</span>
           <svg width="20" height="20" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
@@ -3231,6 +3340,12 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
                 <span>Send Message</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </button>
+              <!-- [flag:formPlus] 安心マイクロコピー -->
+              <ul class="ct-assure" id="ct-assure">
+                <li>1営業日以内にご返信いたします</li>
+                <li>営業目的の強引なご連絡はいたしません</li>
+                <li>構想段階・情報整理段階のご相談も歓迎です</li>
+              </ul>
             </div>
           </form>
         </div>
@@ -3240,6 +3355,30 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 </div>
 
 <script>
+/* ============================================================
+   [v2] SITE_FLAGS — rollback スイッチ（Phase 1）
+   ここの値を 'v1' / 'off' に書き換えるだけで、該当機能は
+   現行(baseline)の挙動へ即座に戻る。
+   URL でも上書き可能: ?flags=loader:v1,transitions:v1
+   （本番を触らずに新旧比較 / 障害時の即時確認用）
+   ============================================================ */
+const SITE_FLAGS = {
+  loader:      'v2',  // 'v1' = 疑似カウントローダー（現行）
+  transitions: 'v2',  // 'v1' = blurクロスフェード（現行）
+  stickyCta:   'on',  // 'off' = モバイル固定CTAなし（現行）
+  ctaLanes:    'on',  // 'off' = 最終CTA第二レーンなし（現行）
+  formPlus:    'on',  // 'off' = フォーム現行のまま
+};
+try{
+  (new URLSearchParams(location.search).get('flags')||'')
+    .split(',').filter(Boolean).forEach(kv=>{
+      const [k,v]=kv.split(':');
+      if(k && v && (k.trim() in SITE_FLAGS)) SITE_FLAGS[k.trim()]=v.trim();
+    });
+}catch(e){}
+document.documentElement.dataset.transitions = SITE_FLAGS.transitions;
+const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // DATA
 const SVC = {
   hr:{
@@ -3677,24 +3816,48 @@ function applyServiceMeta(id, s){
 document.getElementById('yr').textContent=new Date().getFullYear();
 
 // LOADER
-let prog=0;
-const loaderNum=document.getElementById('loader-num');
-const loaderFill=document.getElementById('loader-bar-fill');
 const loader=document.getElementById('loader');
-function tick(){
-  if(prog>=100){
-    loader.classList.add('done');
-    setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';initHero();},1400);
-    return;
+if (SITE_FLAGS.loader === 'v2') {
+  // [flag:loader v2] 実ロード同期の短い幕（上限1.2s）。
+  // 同一セッション再訪 / reduced-motion 時はスキップして即表示。
+  const visited = sessionStorage.getItem('noa-visited');
+  if (visited || REDUCE_MOTION) {
+    loader.style.display='none';
+    requestAnimationFrame(()=>initHero());
+  } else {
+    try{ sessionStorage.setItem('noa-visited','1'); }catch(e){}
+    loader.classList.add('v2');
+    document.body.style.overflow='hidden';
+    let closed=false;
+    const close=()=>{
+      if(closed) return; closed=true;
+      loader.classList.add('done');
+      setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';initHero();},850);
+    };
+    if(document.readyState==='complete') setTimeout(close,500);
+    else window.addEventListener('load',()=>setTimeout(close,250),{once:true});
+    setTimeout(close,1200); // 上限: 何があっても1.2秒で開く
   }
-  const inc=prog<80?Math.max(1,Math.floor(Math.random()*8)):Math.max(1,Math.floor(Math.random()*3));
-  prog=Math.min(prog+inc,100);
-  loaderNum.textContent=prog;
-  loaderFill.style.width=prog+'%';
-  setTimeout(tick,prog<80?30:120);
+} else {
+  // [v1] 現行の疑似カウントローダー（無変更）
+  let prog=0;
+  const loaderNum=document.getElementById('loader-num');
+  const loaderFill=document.getElementById('loader-bar-fill');
+  function tick(){
+    if(prog>=100){
+      loader.classList.add('done');
+      setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';initHero();},1400);
+      return;
+    }
+    const inc=prog<80?Math.max(1,Math.floor(Math.random()*8)):Math.max(1,Math.floor(Math.random()*3));
+    prog=Math.min(prog+inc,100);
+    loaderNum.textContent=prog;
+    loaderFill.style.width=prog+'%';
+    setTimeout(tick,prog<80?30:120);
+  }
+  document.body.style.overflow='hidden';
+  setTimeout(tick,200);
 }
-document.body.style.overflow='hidden';
-setTimeout(tick,200);
 
 function initHero(){
   document.querySelectorAll('#page-home .reveal-line').forEach((el,i)=>{
@@ -4179,6 +4342,7 @@ function showSvc(id, opts = { push: true }){
   const s = SVC[id];
   if(!s) return;
 
+  curSvcId = id; // [flag:formPlus] 問い合わせ種別プリセレクト用
   renderServicePage(id, s);
 
   showPage('service', {
@@ -4287,6 +4451,71 @@ window.addEventListener('popstate', (e) => {
     }, 120);
   }
 });
+
+/* ============================================================
+   [v2] Phase 1 — フラグ制御の追加ふるまい
+   （このブロックを丸ごと削除しても v1 は完全動作する）
+   ============================================================ */
+
+// --- [flag:formPlus] 問い合わせ種別プリセレクト + 安心コピー ---
+let curSvcId = null;
+function contactFromService(){
+  showPage('contact');
+  if (SITE_FLAGS.formPlus === 'on' && curSvcId) {
+    const sel = document.querySelector('#ct-form select[name="subject"]');
+    if (sel && [...sel.options].some(o => o.value === curSvcId)) sel.value = curSvcId;
+  }
+}
+if (SITE_FLAGS.formPlus === 'on') {
+  document.getElementById('ct-assure')?.classList.add('on');
+  const sp = document.querySelector('.ct-success-p');
+  if (sp) sp.textContent = 'お問い合わせありがとうございます。1営業日以内に担当者よりご返信いたします。';
+}
+
+// --- [flag:ctaLanes] 最終CTA 第二レーン表示 ---
+if (SITE_FLAGS.ctaLanes === 'on') {
+  document.getElementById('cta-alt')?.classList.add('on');
+}
+
+// --- [flag:stickyCta] モバイル固定CTA ---
+let mctaUpdate = () => {};
+if (SITE_FLAGS.stickyCta === 'on') {
+  const mcta = document.getElementById('mcta');
+  let finalCtaVisible = false;
+  const finalCta = document.getElementById('cta');
+  if (finalCta) {
+    new IntersectionObserver(([e]) => {
+      finalCtaVisible = e.isIntersecting;
+      mctaUpdate();
+    }, { threshold: 0 }).observe(finalCta);
+  }
+  mctaUpdate = () => {
+    const show =
+      curPage === 'home' &&
+      window.scrollY > window.innerHeight * 0.6 &&
+      !finalCtaVisible;
+    mcta.classList.toggle('show', show);
+    mcta.setAttribute('aria-hidden', String(!show));
+    mcta.querySelectorAll('button').forEach(b => b.tabIndex = show ? 0 : -1);
+  };
+  window.addEventListener('scroll', mctaUpdate, { passive: true });
+}
+
+// --- [flag:transitions v2] ページ遷移: View Transitions で退場を演出 ---
+// フレーム(#hdr/#noise/#sbar等)は view-transition-name で分離済み → 不動。
+// 非対応ブラウザ / reduced-motion では素通し（v2のCSS入場のみ）。
+{
+  const _showPageV1 = showPage;
+  showPage = function(p, opts){
+    const run = () => { _showPageV1(p, opts); mctaUpdate(); };
+    if (SITE_FLAGS.transitions === 'v2' &&
+        document.startViewTransition && !REDUCE_MOTION && !isBooting) {
+      document.startViewTransition(run);
+    } else {
+      run();
+    }
+  };
+}
 
 initObserver();
 bootFromUrl();
