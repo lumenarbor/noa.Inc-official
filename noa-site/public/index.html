@@ -2641,6 +2641,134 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
   html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{animation:none}
   html[data-ctamag="on"] .cta-invite::before{transition:transform .4s ease}
 }
+
+/* ============================================================
+   [flag:svDetail v2] サービス詳細ページ強化 (Phase 2)
+   既存セクションのDOMは不動。v2要素は display 切替、
+   物語順の入替は flex order のみ（rollback = フラグ1行）
+   ============================================================ */
+
+/* 章インデックス（Hero内・トップの章体系と接続） */
+.sv-index{display:none}
+html[data-svdetail="v2"] .sv-index{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);padding-bottom:.9rem;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.sv-index-l{color:#74D6E8}
+.sv-index-r{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.08em;text-transform:none;font-size:12px;color:rgba(255,255,255,.55)}
+@media(max-width:639px){.sv-index-c{display:none}}
+
+/* Heroの大きなサービス番号（トップの行番号と同じ言語） */
+.sv-hero-num{display:none}
+html[data-svdetail="v2"] .sv-hero-num{
+  display:block;position:absolute;right:clamp(1rem,4vw,3rem);bottom:clamp(.5rem,2vw,1.5rem);
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;
+  font-size:clamp(4.5rem,10vw,9rem);line-height:1;
+  color:rgba(116,214,232,.13);pointer-events:none;z-index:5;
+}
+
+/* セクション章番号（キッカーに編集的な通し番号） */
+html[data-svdetail="v2"] .sv-values   .sv-kicker::before{content:"01 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-problems .sv-kicker::before{content:"02 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-flow     .sv-kicker::before{content:"03 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-scope    .sv-kicker::before{content:"04 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-cases    .sv-kicker::before{content:"05 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-edge     .sv-kicker::before{content:"06 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-faq      .sv-kicker::before{content:"07 — ";color:rgba(255,255,255,.28)}
+html[data-svdetail="v2"] .sv-consult  .sv-kicker::before{content:"08 — ";color:rgba(255,255,255,.28)}
+
+/* 物語順の整理: FAQ → crosslink/others(代替) → 初回相談 → CTA の直列
+   (DOMは不動、flex order のみで入替 = rollback安全) */
+html[data-svdetail="v2"] .sv-body{display:flex;flex-direction:column}
+html[data-svdetail="v2"] .sv-crosslink{order:9}
+html[data-svdetail="v2"] .sv-others{order:10}
+html[data-svdetail="v2"] .sv-consult{order:11}
+
+/* 中間CTA（02課題の直後・共感の熱で拾う） */
+.sv-midcta{display:none}
+html[data-svdetail="v2"] .sv-midcta{
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;
+  margin-top:2.4rem;text-align:center;
+}
+.sv-midcta-note{font-size:11px;letter-spacing:.14em;color:#64748b}
+.sv-midcta-link{
+  background:none;border:none;cursor:pointer;
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;
+  border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:.2rem;
+  transition:color .3s,border-color .3s;
+}
+.sv-midcta-link:hover{color:#74D6E8;border-color:#74D6E8}
+
+/* 06 noaの流儀（差別化・思考が見える編集的リスト行） */
+.sv-edge{display:none}
+html[data-svdetail="v2"] .sv-edge{display:block}
+.sv-edge-item{
+  display:grid;grid-template-columns:3.2rem 1fr;gap:1.2rem;align-items:baseline;
+  padding:1.7rem 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sv-edge-item:first-child{padding-top:.4rem}
+.sv-edge-num{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:1.5rem;color:#74D6E8;opacity:.65;line-height:1;
+}
+.sv-edge-title{font-size:1rem;font-weight:700;color:white;letter-spacing:.03em;margin-bottom:.55rem}
+@media(min-width:768px){.sv-edge-title{font-size:1.1rem}}
+.sv-edge-desc{font-size:.83rem;line-height:1.95;color:#94a3b8;max-width:44rem}
+
+/* 08 初回相談で得られるもの（構造線グリッド = トップの設計言語） */
+.sv-consult{display:none}
+html[data-svdetail="v2"] .sv-consult{display:block}
+.sv-consult-list{
+  display:grid;grid-template-columns:1fr;gap:1px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);
+}
+@media(min-width:768px){.sv-consult-list{grid-template-columns:repeat(3,1fr)}}
+.sv-consult-cell{background:#050505;padding:1.7rem 1.4rem 1.9rem}
+.sv-consult-num{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:1.2rem;color:#74D6E8;opacity:.65;display:block;margin-bottom:.8rem;
+}
+.sv-consult-title{font-size:.95rem;font-weight:700;color:white;letter-spacing:.03em;margin-bottom:.5rem}
+.sv-consult-desc{font-size:.8rem;line-height:1.9;color:#94a3b8}
+.sv-consult-note{
+  margin-top:1.4rem;text-align:center;
+  font-size:11.5px;letter-spacing:.08em;line-height:2;color:#64748b;
+}
+
+/* 最終CTAの安心コピー */
+.sv-assure{display:none}
+html[data-svdetail="v2"] .sv-assure{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem 1.8rem;
+  margin:1.6rem 0 0;padding:0;list-style:none;
+}
+.sv-assure li{font-size:11px;letter-spacing:.06em;color:#64748b;display:flex;align-items:center;gap:.5rem}
+.sv-assure li::before{content:"";width:3px;height:3px;border-radius:50%;background:#74D6E8;flex:none}
+
+/* 微細な入場: 課題チェックリストとフローのスタッガー */
+html[data-svdetail="v2"] .sv-problems .sv-problem-item,
+html[data-svdetail="v2"] .sv-flow .sv-flow-cell{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s ease,transform .7s cubic-bezier(0.22,1,0.36,1);
+}
+html[data-svdetail="v2"] .sv-problems.in .sv-problem-item,
+html[data-svdetail="v2"] .sv-flow.in .sv-flow-cell{opacity:1;transform:none}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(2),html[data-svdetail="v2"] .in .sv-flow-cell:nth-child(2){transition-delay:.07s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(3),html[data-svdetail="v2"] .in .sv-flow-cell:nth-child(3){transition-delay:.14s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(4),html[data-svdetail="v2"] .in .sv-flow-cell:nth-child(4){transition-delay:.21s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(5){transition-delay:.28s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(6){transition-delay:.35s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(7){transition-delay:.42s}
+html[data-svdetail="v2"] .in .sv-problem-item:nth-child(8){transition-delay:.49s}
+
+@media(prefers-reduced-motion:reduce){
+  html[data-svdetail="v2"] .sv-problems .sv-problem-item,
+  html[data-svdetail="v2"] .sv-flow .sv-flow-cell{
+    opacity:1;transform:none;transition:none;
+  }
+}
 </style>
 </head>
 <body>
@@ -3431,10 +3559,18 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
         <span>Services</span>
       </button>
       <div class="sv-hero-content">
+        <!-- [flag:svDetail v2] 章インデックス（トップの章体系 02/Services と接続） -->
+        <div class="sv-index" aria-hidden="true">
+          <span class="sv-index-l">02 / Services</span>
+          <span class="sv-index-c" id="sv-index-detail">Detail 01 / 03</span>
+          <span class="sv-index-r">noa Inc.</span>
+        </div>
         <div class="sv-hero-tags" id="sv-hero-tags"></div>
         <h1 id="sv-hero-title" class="sv-hero-title"></h1>
         <p id="sv-hero-sub" class="sv-hero-sub"></p>
       </div>
+      <!-- [flag:svDetail v2] サービス番号の透かし -->
+      <span class="sv-hero-num" id="sv-hero-num" aria-hidden="true">01</span>
     </div>
 
     <div class="sv-body">
@@ -3455,6 +3591,11 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
           <h2 class="sv-sec-title">こんな課題に</h2>
         </div>
         <div id="sv-problem-list" class="sv-problem-list"></div>
+        <!-- [flag:svDetail v2] 中間CTA（共感の直後・迷い層レーン） -->
+        <div class="sv-midcta">
+          <span class="sv-midcta-note">いくつか心当たりがあれば、話が早いかもしれません。</span>
+          <button class="sv-midcta-link" onclick="contactFromService()">まずは30分、話してみる</button>
+        </div>
       </section>
 
       <!-- 4. 進め方 -->
@@ -3482,6 +3623,15 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
           <h2 class="sv-sec-title">事例イメージ</h2>
         </div>
         <div id="sv-case-cards" class="sv-case-cards"></div>
+      </section>
+
+      <!-- [flag:svDetail v2] 6.5 noaの流儀（差別化） -->
+      <section class="sv-section sv-edge sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Approach</span>
+          <h2 class="sv-sec-title">noaの流儀</h2>
+        </div>
+        <div id="sv-edge-list" class="sv-edge-list"></div>
       </section>
 
       <!-- 7. FAQ -->
@@ -3522,6 +3672,16 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
         <div id="sv-other-services" class="sv-other-services"></div>
       </section>
 
+      <!-- [flag:svDetail v2] 8. 初回相談で得られるもの（CTAへの橋） -->
+      <section class="sv-section sv-consult sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">First Meeting</span>
+          <h2 class="sv-sec-title">初回相談で得られるもの</h2>
+        </div>
+        <div id="sv-consult-list" class="sv-consult-list"></div>
+        <p class="sv-consult-note">売り込みの場ではなく、状況を整理する30分です。その場で契約を求めることはありません。</p>
+      </section>
+
     </div>
 
     <!-- 8. CTA -->
@@ -3533,6 +3693,12 @@ html[data-ctamag="on"] #cta.cta-vis .cta-invite-arrow{
           <span id="sv-cta-btn-text">相談する</span>
           <svg width="20" height="20" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
+        <!-- [flag:svDetail v2] 安心コピー -->
+        <ul class="sv-assure">
+          <li>1営業日以内にご返信</li>
+          <li>構想段階のご相談も歓迎</li>
+          <li>強引な営業はいたしません</li>
+        </ul>
       </div>
     </div>
 
@@ -3631,6 +3797,7 @@ const SITE_FLAGS = {
   hero:        'v2',  // 'v1' = 静的タイポのみ（現行）
   chapterRail: 'on',  // 'off' = 章レールなし（現行）
   ctaMagnetic: 'on',  // 'off' = CTA磁力・触感調整なし（現行）
+  svDetail:    'v2',  // 'v1' = サービス詳細ページ現行のまま
 };
 try{
   (new URLSearchParams(location.search).get('flags')||'')
@@ -3644,6 +3811,7 @@ document.documentElement.dataset.services = SITE_FLAGS.services;
 document.documentElement.dataset.hero = SITE_FLAGS.hero;
 document.documentElement.dataset.crail = SITE_FLAGS.chapterRail;
 document.documentElement.dataset.ctamag = SITE_FLAGS.ctaMagnetic;
+document.documentElement.dataset.svdetail = SITE_FLAGS.svDetail;
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // DATA
@@ -4756,11 +4924,22 @@ if (SITE_FLAGS.stickyCta === 'on') {
       mctaUpdate();
     }, { threshold: 0 }).observe(finalCta);
   }
+  // [flag:svDetail v2] サービス詳細ページでも表示（そのページの最終CTAで退場）
+  let svCtaVisible = false;
+  const svCta = document.querySelector('.sv-cta');
+  if (svCta && SITE_FLAGS.svDetail === 'v2') {
+    new IntersectionObserver(([e]) => {
+      svCtaVisible = e.isIntersecting;
+      mctaUpdate();
+    }, { threshold: 0 }).observe(svCta);
+  }
   mctaUpdate = () => {
+    const onPage = curPage === 'home' ||
+      (curPage === 'service' && SITE_FLAGS.svDetail === 'v2');
     const show =
-      curPage === 'home' &&
+      onPage &&
       window.scrollY > window.innerHeight * 0.6 &&
-      !finalCtaVisible;
+      !finalCtaVisible && !svCtaVisible;
     mcta.classList.toggle('show', show);
     mcta.setAttribute('aria-hidden', String(!show));
     mcta.querySelectorAll('button').forEach(b => b.tabIndex = show ? 0 : -1);
@@ -4990,6 +5169,89 @@ if (SITE_FLAGS.chapterRail === 'on') {
   if (ctaIdx) ctaIdx.textContent = '04 / Invitation';
   // 静かな立ち上がり（ローダー明け後にフェードイン）
   setTimeout(() => rail.classList.add('crail-in'), REDUCE_MOTION ? 0 : 1200);
+}
+
+// --- [flag:svDetail v2] サービス詳細ページ強化 ---
+// 物語の欠けていた3章を補う: 06 noaの流儀(差別化) / 08 初回相談で
+// 得られるもの(相談の中身) / 安心コピー(今相談してよい理由)。
+// 既存データ(SVC)には触れず、v2専用データを分離して保持する。
+const SVC_V2_DETAIL = {
+  hr: {
+    num: '01',
+    edge: [
+      { title: '「紹介して終わり」にしない',
+        desc: '入社がゴールではなく、定着と活躍までを成果と定義します。人を送り込むのではなく、採用の仕組みごと残すことが私たちの仕事です。' },
+      { title: '数字の手前にある構造を見る',
+        desc: '母集団や歩留まりの数字を追う前に、訴求と選考体験のズレを特定します。原因が構造にあるなら、施策を足しても直らないからです。' },
+      { title: '属人化させない',
+        desc: '担当者が変わっても回る採用オペレーションとして設計し、手順ごと引き渡します。私たちがいなくなっても機能する状態が完成形です。' },
+    ],
+    consult: [
+      { title: '採用ファネルの現在地整理', desc: 'どの工程で採用が止まっているのか、現状の構造を一緒に言語化します。' },
+      { title: '打ち手の優先順位', desc: '効果と工数の両面から、何から着手すべきかの見立てをお渡しします。' },
+      { title: '進め方と体制の目安', desc: '支援の形・期間・費用感の目安を、その場でお伝えします。' },
+    ],
+  },
+  web: {
+    num: '02',
+    edge: [
+      { title: 'デザインの前に、情報を設計する',
+        desc: '誰が、何を求めて訪れるのか。情報の構造と優先順位を設計してから、はじめて見た目に進みます。美しさは正しい構造の上にしか成立しません。' },
+      { title: '体験は、遷移まで含めて設計する',
+        desc: 'ページ単体ではなく、入口から問い合わせまでの動線全体をひとつの体験として作ります。このサイト自体が、その設計思想のサンプルです。' },
+      { title: '公開日をゴールにしない',
+        desc: '計測と改善の仕組みを残し、事業と一緒に育つサイトにします。「作って終わり」の納品物ではなく、成果を出し続ける資産を渡します。' },
+    ],
+    consult: [
+      { title: '現状サイトの構造診断', desc: '情報設計・導線・表現の課題を、専門家の視点で言語化します。' },
+      { title: '改善の方向性', desc: '作り直すべきか、部分的に直すべきか。投資判断の見立てをお渡しします。' },
+      { title: '進め方の目安', desc: '体制・スケジュール・費用感の目安を、その場でお伝えします。' },
+    ],
+  },
+  marketing: {
+    num: '03',
+    edge: [
+      { title: '施策の前に、構造を疑う',
+        desc: '何が伸びを止めているのかを特定してから、打ち手を選びます。原因が導線にあるのに広告を増やしても、穴の空いたバケツに水を注ぐだけです。' },
+      { title: '分断させない',
+        desc: '集客・導線・接客を一つの流れとして設計します。チャネルごとの部分最適ではなく、事業全体の成長構造として捉えます。' },
+      { title: '再現性を残す',
+        desc: '感覚ではなくデータと手順で組み立て、社内で回し続けられる形にして引き渡します。依存させることを成果とは呼びません。' },
+    ],
+    consult: [
+      { title: '成長構造の現在地整理', desc: 'どこがボトルネックになっているのか、仮説を一緒に立てます。' },
+      { title: '伸ばす場所の特定', desc: '投資すべきチャネルと導線の見立てをお渡しします。' },
+      { title: '進め方の目安', desc: '支援範囲・期間・費用感の目安を、その場でお伝えします。' },
+    ],
+  },
+};
+function svDetailFill(id){
+  const d = SVC_V2_DETAIL[id];
+  if (!d) return;
+  const idx = document.getElementById('sv-index-detail');
+  if (idx) idx.textContent = `Detail ${d.num} / 03`;
+  const num = document.getElementById('sv-hero-num');
+  if (num) num.textContent = d.num;
+  const edgeEl = document.getElementById('sv-edge-list');
+  if (edgeEl) edgeEl.innerHTML = d.edge.map((e, i) => `
+    <div class="sv-edge-item">
+      <span class="sv-edge-num">0${i+1}</span>
+      <div>
+        <div class="sv-edge-title">${escapeHtml(e.title)}</div>
+        <p class="sv-edge-desc">${escapeHtml(e.desc)}</p>
+      </div>
+    </div>`).join('');
+  const conEl = document.getElementById('sv-consult-list');
+  if (conEl) conEl.innerHTML = d.consult.map((c, i) => `
+    <div class="sv-consult-cell">
+      <span class="sv-consult-num">0${i+1}</span>
+      <div class="sv-consult-title">${escapeHtml(c.title)}</div>
+      <p class="sv-consult-desc">${escapeHtml(c.desc)}</p>
+    </div>`).join('');
+}
+if (SITE_FLAGS.svDetail === 'v2') {
+  const _showSvcV1 = showSvc;
+  showSvc = function(id, opts){ _showSvcV1(id, opts); svDetailFill(id); };
 }
 
 // --- [flag:ctaMagnetic] 最終CTA 磁力 + 押下感 ---
