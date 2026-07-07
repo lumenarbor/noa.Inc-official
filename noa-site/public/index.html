@@ -2593,16 +2593,27 @@ html[data-hero="v2"] .hero-data{
   font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
   color:rgba(255,255,255,.55);
   max-height:0;opacity:0;overflow:hidden;
-  transition:max-height .6s cubic-bezier(0.22,1,0.36,1),opacity .5s ease;
+  transition:max-height .6s cubic-bezier(0.22,1,0.36,1),opacity .5s ease,color .6s ease;
 }
 .crail-item.on .crail-label{max-height:6rem;opacity:1}
 .crail-item:hover .crail-label{max-height:6rem;opacity:.45}
 .crail-item.on:hover .crail-label{opacity:1}
 .crail-item:focus-visible{outline:1px solid rgba(116,214,232,.5);outline-offset:2px;border-radius:2px}
-.crail-seg{width:1px;height:1.7rem;background:rgba(255,255,255,.1)}
+.crail-seg{width:1px;height:1.7rem;background:rgba(255,255,255,.1);transition:background-color .6s ease}
+
+/* 背景追従テーマ: レール直下の章セクションが白背景(phil/company)の間だけ
+   墨色ベースへ切り替える。黒背景(hero/svcs/work/news/cta)は既存トーンのまま。
+   構造・位置・モーションは不変、変わるのは color/background-color のみ。 */
+#crail.rail-light .crail-num{color:rgba(5,5,5,.32)}
+#crail.rail-light .crail-item--last .crail-num{color:rgba(24,130,149,.6)}
+#crail.rail-light .crail-item.on .crail-num{color:#188295}
+#crail.rail-light .crail-label{color:rgba(5,5,5,.62)}
+#crail.rail-light .crail-seg{background:rgba(5,5,5,.14)}
+#crail.rail-light .crail-item:focus-visible{outline-color:rgba(24,130,149,.85)}
+
 @media(prefers-reduced-motion:reduce){
   html[data-crail="on"] #crail,
-  .crail-num,.crail-label{transition:none}
+  .crail-num,.crail-label,.crail-seg{transition:none}
 }
 
 /* ============================================================
@@ -5621,6 +5632,16 @@ if (SITE_FLAGS.chapterRail === 'on') {
     railCur = ch;
     rail.querySelectorAll('.crail-item').forEach(b => b.classList.toggle('on', b.dataset.ch === ch));
   };
+  // 背景追従テーマ: phil/company の白背景セクション上でのみ 'light'。
+  // 他ページ(vmv/service/contact等)は章としては同じ01/02/04でも実際の
+  // ページ背景は常に黒のため、curPage='home' の時だけ白背景章を判定する。
+  let railThemeCur = null;
+  const LIGHT_CHAPTERS = { phil: 1, company: 1 };
+  const railTheme = t => {
+    if (t === railThemeCur) return;
+    railThemeCur = t;
+    rail.classList.toggle('rail-light', t === 'light');
+  };
   const railSecs = ['phil', 'svcs', 'company', 'cta'];
   let railRaf = false;
   const railScroll = () => {
@@ -5629,7 +5650,7 @@ if (SITE_FLAGS.chapterRail === 'on') {
     requestAnimationFrame(() => {
       railRaf = false;
       // 「最後に通過した章」= 現在章。章間の余白でも消灯せず、
-      // 最終章(04)はフッターまで灯り続ける。Hero滞在中のみ全休。
+      // 最終章(04)はフッターまで灯り続ける。Hero滞在中はどの章も点灯しない。
       const mid = window.innerHeight * .5;
       let ch = null;
       for (const id of railSecs) {
@@ -5637,6 +5658,7 @@ if (SITE_FLAGS.chapterRail === 'on') {
         if (r && r.top <= mid) ch = id;
       }
       railSet(ch);
+      railTheme(LIGHT_CHAPTERS[ch] ? 'light' : 'dark');
     });
   };
   window.addEventListener('scroll', railScroll, { passive: true });
@@ -5644,9 +5666,17 @@ if (SITE_FLAGS.chapterRail === 'on') {
     const chapterOf = { home: 'SCROLL', vmv: 'phil', service: 'svcs', contact: 'cta' };
     const ch = chapterOf[p];
     rail.classList.toggle('crail-hide', !ch);
-    if (ch === 'SCROLL') railScroll();
-    else if (ch) railSet(ch);
+    if (ch === 'SCROLL') {
+      railScroll();
+    } else if (ch) {
+      railSet(ch);
+      railTheme('dark'); // 詳細ページは章に関わらず常に黒背景
+    } else {
+      railTheme('dark'); // privacy/terms等の非表示時も既定値として保持
+    }
   };
+  // 初期状態(Hero)は既定CSSのまま(未点灯・dark)で正しいため明示呼び出し不要。
+  // scroll復元(戻る/進む)は既存の 'scroll' イベントリスナーが自然に処理する。
   // 章体系の最終形: 01 Vision / 02 Services / 03 Company / 04 Contact
   const ctaIdx = document.querySelector('.cta-index-l');
   if (ctaIdx) ctaIdx.textContent = '04 / Invitation';
