@@ -1,12 +1,74 @@
 <!doctype html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>noa.Inc | 管理画面</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>noa Admin</title>
 </head>
 <body>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    function toSlug(input) {
+      return String(input || "")
+        .normalize("NFKC")
+        .trim()
+        .toLowerCase()
+        .replace(/['’"`]/g, "")
+        .replace(/[^a-z0-9ぁ-んァ-ヶー一-龠々]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .replace(/-+/g, "-");
+    }
+
+    function makeBaseSlug(item, index) {
+      const fromSlug = toSlug(item.slug);
+      if (fromSlug) return fromSlug;
+
+      const fromTitle = toSlug(item.title);
+      if (fromTitle) return fromTitle;
+
+      const fromDate = String(item.date || "").replace(/\./g, "-").trim();
+      if (fromDate) return `update-${fromDate}`;
+
+      return `update-${index + 1}`;
+    }
+
+    function ensureUniqueSlugs(items) {
+      const used = new Set();
+
+      return items.map((item, index) => {
+        const base = makeBaseSlug(item, index);
+        let slug = base;
+        let n = 2;
+
+        while (used.has(slug)) {
+          slug = `${base}-${n}`;
+          n += 1;
+        }
+
+        used.add(slug);
+        return { ...item, slug };
+      });
+    }
+
+    CMS.registerEventListener({
+      name: "preSave",
+      handler: ({ entry }) => {
+        const data = entry.get("data");
+        const items = data.get("items");
+
+        if (!items || typeof items.toJS !== "function") {
+          return data;
+        }
+
+        const normalizedItems = ensureUniqueSlugs(items.toJS());
+
+        return data.set(
+          "items",
+          window.Immutable.fromJS(normalizedItems)
+        );
+      },
+    });
+  </script>
 </body>
 </html>

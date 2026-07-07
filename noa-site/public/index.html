@@ -3,14 +3,72 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>noa.Inc | BE YOURSELF. BELONG. START HERE.</title>
-<meta name="description" content="一人ひとりの「Ark」をデザインする。フィジタル時代の人材紹介・Web構築エージェンシー。"/>
-<meta property="og:title" content="noa.Inc | BE YOURSELF. BELONG. START HERE."/>
-<meta property="og:type" content="website"/>
+
+<title>noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援</title>
+<meta name="description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<link rel="canonical" href="https://noa-place.co.jp/"/>
+
+<meta property="og:title" content="noa Inc. | 人材紹介・Web構築・マーケティング支援"/>
+<meta property="og:description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta property="og:type" content="website"/>
+<meta property="og:url" content="https://noa-place.co.jp/"/>
+<meta property="og:site_name" content="noa Inc."/>
+<meta property="og:locale" content="ja_JP"/>
+<meta property="og:image" content="https://noa-place.co.jp/ogp.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="noa Inc. | 人材紹介・Web構築・マーケティング支援"/>
+<meta name="twitter:description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta name="twitter:image" content="https://noa-place.co.jp/ogp.jpg"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<!-- Favicons & App Icons -->
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#050505">
+
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- SEO: Structured Data -->
+<script type="application/ld+json" id="ld-org">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "株式会社noa",
+  "alternateName": "noa Inc.",
+  "url": "https://noa-place.co.jp/",
+  "logo": "https://noa-place.co.jp/logo-noa.png",
+  "description": "人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニー",  "foundingDate": "2023-09-14",
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "銀座1-12-4 N&E BLD 7階",
+      "addressLocality": "中央区",
+      "addressRegion": "東京都",
+      "postalCode": "104-0061",
+      "addressCountry": "JP"
+    },
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "南堀江1-1-18 3F",
+      "addressLocality": "大阪市西区",
+      "addressRegion": "大阪府",
+      "postalCode": "550-0015",
+      "addressCountry": "JP"
+    }
+  ]
+}
+</script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -55,6 +113,9 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 @media(min-width:768px){#hdr{padding:1.25rem 3rem}}
 #hdr.sc{background:rgba(5,5,5,.85);border-color:rgba(255,255,255,.05);backdrop-filter:blur(16px)}
 .logo-btn{font-size:1.25rem;font-weight:900;letter-spacing:-.05em;color:white;background:none;border:none;cursor:pointer}
+.logo-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center}
+.logo-img{height:28px;width:auto;display:block}
+@media(min-width:768px){.logo-img{height:32px}}
 .nav-d{display:none;align-items:center;gap:.5rem}
 @media(min-width:768px){.nav-d{display:flex}}
 .nav-pill{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;background:none;border:none;color:#94a3b8;padding:.6rem 1.25rem;border-radius:9999px;transition:all .3s}
@@ -64,6 +125,24 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .nav-contact:hover{background:white;color:#050505;border-color:transparent}
 .hbg{display:flex;background:none;border:none;color:white;padding:.5rem}
 @media(min-width:768px){.hbg{display:none}}
+
+/* LOGO */
+.logo-img{
+  height: 28px;         /* お好みで 24〜32 */
+  width: auto;
+  display:block;
+}
+
+.logo-link{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  background:none;
+  border:none;
+  padding:0;
+}
+
+#hdr .logo-img{ filter: none; } /* 黒背景ならそのまま */
 
 /* MOBILE MENU */
 #mmenu{position:fixed;inset:0;z-index:99;background:#74D6E8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;clip-path:circle(0% at 100% 0);transition:clip-path .8s cubic-bezier(0.76,0,0.24,1);pointer-events:none}
@@ -76,86 +155,1225 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .mm-contact:hover{background:white;color:#050505}
 
 /* PAGES */
-.page{display:none;opacity:0;transform:translateY(30px) scale(.98);transition:opacity .8s cubic-bezier(0.76,0,0.24,1),transform .8s cubic-bezier(0.76,0,0.24,1)}
-.page.active{display:block}
-.page.in{opacity:1;transform:none}
+.page{
+  display:none;
+  opacity:0;
+  filter:blur(10px);
+  transition:
+    opacity .6s ease,
+    filter .7s cubic-bezier(0.22,1,0.36,1);
+}
+
+.page.active{
+  display:block;
+}
+
+.page.in{
+  opacity:1;
+  filter:blur(0);
+}
 
 /* ANIMATIONS */
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes lineDown{from{top:-100%}to{top:100%}}
 @keyframes pulseS{0%,100%{opacity:1}50%{opacity:.3}}
-.anim-up{opacity:0;transform:translateY(50px) scale(.98);transition:opacity 1.2s cubic-bezier(0.76,0,0.24,1),transform 1.2s cubic-bezier(0.76,0,0.24,1)}
-.anim-up.in{opacity:1;transform:none}
+.anim-up{
+  opacity:0;
+  transform:translateY(18px);
+  filter:blur(8px);
+  transition:
+    opacity .75s ease,
+    transform .9s cubic-bezier(0.22,1,0.36,1),
+    filter .9s cubic-bezier(0.22,1,0.36,1);
+}
+
+.anim-up.in{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+.anim-up.d1{transition-delay:.08s}
+.anim-up.d2{transition-delay:.16s}
+.anim-up.d3{transition-delay:.24s}
 .anim-up.d1{transition-delay:.15s}.anim-up.d2{transition-delay:.3s}.anim-up.d3{transition-delay:.45s}
-.reveal-line{overflow:hidden}
-.reveal-line .inner{display:block;transform:translateY(120%) rotate(5deg) scale(.95);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1)}
-.reveal-line.in .inner{transform:none}
+.reveal-line{
+  overflow:hidden;
+}
+
+.reveal-line .inner{
+  display:block;
+  transform:translateY(105%);
+  opacity:.001;
+  transition:
+    transform .9s cubic-bezier(0.22,1,0.36,1),
+    opacity .55s ease;
+  will-change:transform, opacity;
+}
+
+.reveal-line.in .inner{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* ===== SERVICE PAGE REVEAL ===== */
+.sdtl-reveal{
+  opacity:0;
+  transform:translate3d(0,20px,0);
+  transition:
+    opacity .8s cubic-bezier(0.25,0.46,0.45,0.94),
+    transform 1s cubic-bezier(0.16,1,0.3,1);
+  will-change:transform, opacity;
+}
+.sdtl-reveal.in{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+.sdtl-reveal.d1{transition-delay:.12s}
+.sdtl-reveal.d2{transition-delay:.24s}
+
+/* ===== SERVICE PAGE v2 — polished ===== */
+
+/* Japanese typography — never break mid-word, break only at commas / periods / spaces.
+   Falls back to break-word only when a single word would otherwise overflow. */
+.sv-hero-title, .sv-hero-sub,
+.sv-sec-title,
+.sv-value-card-title, .sv-value-card-desc,
+.sv-problem-item,
+.sv-flow-verb, .sv-flow-desc, .sv-flow-center-text,
+.sv-case-title, .sv-case-desc,
+.sv-faq-q, .sv-faq-a-text,
+.sv-cta-headline, .sv-cta-sub,
+.sv-crosslink-title, .sv-crosslink-desc,
+.sv-other-label, .sv-other-sub{
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  line-break:strict;
+}
 
 /* HERO */
-#hero{position:relative;height:100svh;min-height:600px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:#050505}
-.hero-text-block{position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:5rem 1rem 0}
-@media(min-width:768px){.hero-text-block{padding:5rem 3rem 0}}
-.hero-lines{display:flex;flex-direction:column;font-weight:900;text-transform:uppercase;letter-spacing:-.05em;line-height:.85;font-size:clamp(3.2rem,18vw,14rem)}
-.hero-line{display:flex}
-.hero-line.i1{padding-left:5%}.hero-line.i2{padding-left:0}.hero-line.i3{padding-left:15%}
-@media(min-width:768px){.hero-line.i1{padding-left:12%}.hero-line.i2{padding-left:8%}.hero-line.i3{padding-left:28%}}
-.hl-w{color:white}.hl-o{color:transparent;-webkit-text-stroke:max(1px,.2vw) white}.hl-c{color:#74D6E8}
-.hero-sub{position:absolute;bottom:2rem;right:1.5rem;display:flex;flex-direction:column;align-items:flex-end;z-index:10}
-@media(min-width:768px){.hero-sub{bottom:3rem;right:4rem}}
-.hero-sub-text{font-size:8px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#64748b;margin-bottom:1rem;text-align:right;line-height:1.8}
-@media(min-width:768px){.hero-sub-text{font-size:10px}}
-.hero-line-anim{width:1px;height:4rem;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
-@media(min-width:768px){.hero-line-anim{height:8rem}}
-.hero-line-anim::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;background:#74D6E8;animation:lineDown 2s linear infinite}
+.sv-hero{
+  position:relative;
+  min-height:80svh;
+  width:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:0 clamp(1.25rem,4vw,4.5rem) clamp(3rem,6vw,5.5rem);
+  z-index:20;
+}
+@media(min-width:768px){
+  .sv-hero{ min-height:88svh; }
+}
 
+.sv-hero-img-wrap{
+  position:absolute; inset:0; z-index:0;
+}
+.sv-hero-img-wrap::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(5,5,5,.55) 0%,
+    rgba(5,5,5,.1) 35%,
+    rgba(5,5,5,.35) 65%,
+    #050505 100%
+  );
+  z-index:1;
+}
+.sv-hero-img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.02);
+  filter:brightness(.5) contrast(1.08) saturate(.85);
+}
+
+.sv-hero-content{
+  position:relative; z-index:10;
+  max-width:1760px; margin:0 auto; width:100%;
+}
+
+.sv-hero-tags{
+  display:flex; flex-wrap:wrap; gap:.5rem;
+  margin-bottom:clamp(1.25rem,2.5vw,2rem);
+}
+.sv-hero-tag{
+  display:inline-flex; align-items:center;
+  padding:.4rem .9rem;
+  border-radius:9999px;
+  font-size:.65rem; font-weight:600;
+  letter-spacing:.14em;
+  color:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+}
+@media(min-width:768px){
+  .sv-hero-tag{ font-size:.68rem; padding:.42rem 1.05rem; }
+}
+
+.sv-hero-title{
+  font-size:clamp(1.65rem,4.8vw,3.4rem);
+  font-weight:800;
+  color:white;
+  line-height:1.34;
+  letter-spacing:-.035em;
+  margin-bottom:clamp(1.1rem,2.2vw,1.6rem);
+  max-width:22ch;
+}
+.sv-hero-title .br-pc{ display:none; }
+@media(min-width:768px){
+  .sv-hero-title{
+    font-size:clamp(2.2rem,4vw,3.6rem);
+    line-height:1.32;
+    max-width:26ch;
+  }
+  .sv-hero-title .br-pc{ display:inline; }
+}
+
+.sv-hero-sub{
+  font-size:clamp(.85rem,1.15vw,1.05rem);
+  color:rgba(255,255,255,.55);
+  font-weight:400;
+  line-height:1.95;
+  max-width:40ch;
+  letter-spacing:.012em;
+}
+
+/* BODY */
+.sv-body{
+  padding:clamp(3.5rem,7vw,6rem) clamp(1.25rem,4vw,2rem) clamp(1.5rem,3vw,2.5rem);
+  max-width:1060px;
+  margin:0 auto;
+  background:#050505;
+}
+
+/* SECTION */
+.sv-section{
+  margin-bottom:clamp(4rem,7vw,6.5rem);
+}
+
+.sv-sec-header{
+  display:flex; flex-direction:column; gap:.35rem;
+  margin-bottom:clamp(1.75rem,3vw,2.5rem);
+  padding-bottom:clamp(1rem,1.8vw,1.35rem);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sv-kicker{
+  font-size:.6rem; font-weight:600;
+  letter-spacing:.32em; text-transform:uppercase;
+  color:rgba(116,214,232,.75);
+}
+@media(min-width:768px){
+  .sv-kicker{ font-size:.62rem; }
+}
+.sv-sec-title{
+  font-size:clamp(1.25rem,2.2vw,1.6rem);
+  font-weight:800;
+  color:white;
+  letter-spacing:-.02em;
+  line-height:1.35;
+}
+
+/* ---- SHARED CARD TOKENS ---- */
+.sv-value-card, .sv-case-card, .sv-crosslink-card, .sv-other-card{
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.022);
+  transition:border-color .4s cubic-bezier(.4,0,.2,1), background .4s cubic-bezier(.4,0,.2,1);
+}
+.sv-value-card:hover, .sv-case-card:hover, .sv-other-card:hover{
+  border-color:rgba(116,214,232,.16);
+  background:rgba(255,255,255,.038);
+}
+
+/* VALUE CARDS */
+.sv-value-cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.875rem;
+}
+@media(min-width:768px){
+  .sv-value-cards{ grid-template-columns:repeat(3,1fr); gap:1rem; }
+}
+.sv-value-card{
+  padding:clamp(1.5rem,2.5vw,2rem) clamp(1.25rem,2vw,1.75rem);
+}
+.sv-value-card-icon{
+  width:2rem; height:2rem;
+  margin-bottom:1rem;
+  color:#74D6E8;
+  opacity:.7;
+}
+.sv-value-card-title{
+  font-size:.95rem; font-weight:700;
+  color:rgba(255,255,255,.95);
+  margin-bottom:.5rem;
+  line-height:1.45;
+  letter-spacing:-.01em;
+}
+.sv-value-card-desc{
+  font-size:.82rem; color:rgba(141,157,176,.9);
+  line-height:1.75;
+}
+
+/* PROBLEM LIST */
+.sv-problem-list{
+  display:flex; flex-direction:column;
+  gap:0;
+}
+.sv-problem-item{
+  display:flex; align-items:center;
+  gap:.85rem;
+  padding:clamp(.85rem,1.3vw,1.05rem) 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:clamp(.88rem,1vw,.95rem);
+  color:rgba(255,255,255,.78);
+  line-height:1.6;
+  letter-spacing:.005em;
+}
+.sv-problem-item:last-child{ border-bottom:none; }
+.sv-problem-check{
+  width:1.1rem; height:1.1rem;
+  flex-shrink:0;
+  color:#74D6E8;
+  opacity:.5;
+}
+
+/* FLOW — convergent structure (polished) */
+.sv-flow-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;
+  margin-top:clamp(.75rem,1.5vw,1.25rem);
+}
+/* cross-axis lines — shorter, subtler */
+.sv-flow-grid::before,
+.sv-flow-grid::after{
+  content:'';
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+}
+.sv-flow-grid::before{
+  top:50%; left:18%; right:18%;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.035) 30%, rgba(255,255,255,.035) 70%, transparent);
+}
+.sv-flow-grid::after{
+  left:50%; top:18%; bottom:18%;
+  width:1px;
+  background:linear-gradient(180deg, transparent, rgba(255,255,255,.035) 30%, rgba(255,255,255,.035) 70%, transparent);
+}
+.sv-flow-cell{
+  display:flex;
+  flex-direction:column;
+  gap:clamp(.55rem,.7vw,.65rem);
+  padding:clamp(2.8rem,4.5vw,4.5rem) clamp(1.75rem,3.2vw,3.25rem);
+}
+.sv-flow-cell-body{
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+/* Left column → align right (toward center) */
+.sv-flow-cell:nth-child(odd){ align-items:flex-end; text-align:right; }
+/* Right column → align left (toward center) */
+.sv-flow-cell:nth-child(even){ align-items:flex-start; text-align:left; }
+/* Top row → push content down */
+.sv-flow-cell:nth-child(1),
+.sv-flow-cell:nth-child(2){ justify-content:flex-end; }
+/* Bottom row → push content up */
+.sv-flow-cell:nth-child(3),
+.sv-flow-cell:nth-child(4){ justify-content:flex-start; }
+.sv-flow-num{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(2.4rem,3.8vw,3.6rem);
+  color:rgba(255,255,255,.04);
+  line-height:1;
+  letter-spacing:.01em;
+  font-variant-numeric:tabular-nums;
+}
+.sv-flow-verb{
+  font-size:clamp(1.15rem,1.7vw,1.45rem);
+  font-weight:700;
+  color:rgba(255,255,255,.95);
+  letter-spacing:-.03em;
+  line-height:1.25;
+}
+.sv-flow-desc{
+  font-size:clamp(.72rem,.82vw,.78rem);
+  color:rgba(141,157,176,.55);
+  line-height:1.8;
+  letter-spacing:.005em;
+  max-width:26ch;
+}
+/* Center — understated, not the star */
+.sv-flow-center{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  width:clamp(5.5rem,7.5vw,6.5rem);
+  height:clamp(5.5rem,7.5vw,6.5rem);
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.05);
+  background:rgba(5,5,5,.98);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:.85rem;
+}
+.sv-flow-center-text{
+  font-size:clamp(.58rem,.7vw,.65rem);
+  font-weight:500;
+  color:rgba(255,255,255,.28);
+  letter-spacing:.08em;
+  line-height:1.55;
+}
+/* SP — vertical stack */
+@media(max-width:767px){
+  .sv-flow-grid{
+    grid-template-columns:1fr;
+  }
+  .sv-flow-grid::before,
+  .sv-flow-grid::after{ display:none; }
+  .sv-flow-cell{
+    flex-direction:row !important;
+    align-items:baseline !important;
+    text-align:left !important;
+    justify-content:flex-start !important;
+    gap:clamp(.85rem,2.5vw,1.1rem);
+    padding:clamp(1.25rem,2.8vw,1.5rem) 0;
+    border-bottom:1px solid rgba(255,255,255,.04);
+  }
+  .sv-flow-cell:nth-child(4){ border-bottom:none; }
+  .sv-flow-num{
+    font-size:1.5rem;
+    min-width:2.2rem;
+    flex-shrink:0;
+    color:rgba(255,255,255,.08);
+  }
+  .sv-flow-desc{ max-width:none; }
+  .sv-flow-center{
+    position:relative;
+    top:auto; left:auto;
+    transform:none;
+    width:auto; height:auto;
+    border-radius:0;
+    border:none;
+    background:none;
+    padding:clamp(1.35rem,3vw,1.85rem) 0 0;
+    margin:0;
+    border-top:1px solid rgba(255,255,255,.04);
+  }
+  .sv-flow-center-text{
+    font-size:.68rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.22);
+  }
+}
+
+/* SCOPE TAGS */
+.sv-scope-tags{
+  display:flex; flex-wrap:wrap;
+  gap:.5rem;
+}
+.sv-scope-tag{
+  display:inline-flex; align-items:center;
+  padding:.5rem 1rem;
+  border-radius:9999px;
+  font-size:.78rem; font-weight:500;
+  color:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  transition:border-color .35s, color .35s;
+  letter-spacing:.01em;
+}
+.sv-scope-tag:hover{
+  border-color:rgba(116,214,232,.2);
+  color:rgba(255,255,255,.92);
+}
+
+/* CASE CARDS */
+.sv-case-cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.875rem;
+}
+@media(min-width:768px){
+  .sv-case-cards{ grid-template-columns:repeat(3,1fr); gap:1rem; }
+}
+.sv-case-card{
+  padding:clamp(1.5rem,2.5vw,2rem) clamp(1.25rem,2vw,1.75rem);
+  position:relative;
+  overflow:hidden;
+}
+.sv-case-card::before{
+  content:'';
+  position:absolute;
+  top:clamp(1.25rem,2vw,1.65rem);
+  left:0;
+  width:2px;
+  height:1.6rem;
+  background:rgba(116,214,232,.35);
+  border-radius:1px;
+}
+.sv-case-card{
+  padding-left:clamp(1.5rem,2.2vw,2rem);
+}
+.sv-case-num{
+  font-size:.6rem; font-weight:700;
+  color:rgba(116,214,232,.55);
+  letter-spacing:.18em; text-transform:uppercase;
+  margin-bottom:.7rem;
+}
+.sv-case-title{
+  font-size:.92rem; font-weight:700;
+  color:rgba(255,255,255,.95); line-height:1.45;
+  margin-bottom:.45rem;
+  letter-spacing:-.01em;
+}
+.sv-case-desc{
+  font-size:.8rem; color:rgba(141,157,176,.85);
+  line-height:1.75;
+}
+
+/* FAQ */
+.sv-faq-list{
+  display:flex; flex-direction:column;
+  gap:0;
+}
+.sv-faq-item{
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.sv-faq-q{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem;
+  width:100%; padding:clamp(1.1rem,1.6vw,1.35rem) 0;
+  background:none; border:none;
+  color:rgba(255,255,255,.92); font-size:clamp(.88rem,1vw,.95rem); font-weight:600;
+  text-align:left; line-height:1.55;
+  cursor:pointer;
+  font-family:inherit;
+  transition:color .3s;
+  letter-spacing:-.005em;
+}
+.sv-faq-q:hover{ color:#74D6E8; }
+.sv-faq-q-icon{
+  width:1.15rem; height:1.15rem; flex-shrink:0;
+  color:rgba(255,255,255,.3);
+  transition:transform .4s cubic-bezier(.4,0,.2,1), color .3s;
+}
+.sv-faq-item.open .sv-faq-q-icon{
+  transform:rotate(45deg);
+  color:rgba(116,214,232,.8);
+}
+.sv-faq-a{
+  max-height:0; overflow:hidden;
+  transition:max-height .45s cubic-bezier(.4,0,.2,1), padding .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+  padding:0;
+  opacity:0;
+}
+.sv-faq-item.open .sv-faq-a{
+  max-height:240px;
+  padding-bottom:clamp(1rem,1.5vw,1.35rem);
+  opacity:1;
+}
+.sv-faq-a-text{
+  font-size:.84rem; color:rgba(141,157,176,.9);
+  line-height:1.85;
+}
+
+/* CROSSLINK */
+.sv-crosslink-card{
+  border-radius:16px;
+  overflow:hidden;
+}
+.sv-crosslink-inner{
+  display:flex; flex-direction:column;
+  gap:1.75rem; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.25rem,2.5vw,2.5rem);
+}
+@media(min-width:768px){
+  .sv-crosslink-inner{
+    flex-direction:row; align-items:center;
+    justify-content:space-between;
+  }
+}
+.sv-crosslink-copy{ flex:1; }
+.sv-crosslink-title{
+  font-size:clamp(1.1rem,1.8vw,1.4rem);
+  font-weight:700; color:white;
+  line-height:1.5; margin-top:.65rem;
+  letter-spacing:-.01em;
+}
+.sv-crosslink-brand{
+  color:#74D6E8;
+}
+.sv-crosslink-desc{
+  font-size:.84rem; color:rgba(141,157,176,.85);
+  line-height:1.8; margin-top:.75rem;
+  max-width:34ch;
+}
+.sv-crosslink-points{
+  display:flex; flex-wrap:wrap; gap:.4rem;
+  margin-top:.75rem;
+}
+.sv-crosslink-point{
+  display:inline-flex; align-items:center;
+  padding:.3rem .7rem;
+  border-radius:9999px;
+  font-size:.65rem; font-weight:600;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.65);
+  background:rgba(116,214,232,.06);
+  border:1px solid rgba(116,214,232,.12);
+}
+.sv-crosslink-btn{
+  display:inline-flex; align-items:center; gap:.65rem;
+  padding:.78rem 1.6rem;
+  border-radius:9999px;
+  font-size:.72rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:#050505; background:white;
+  border:none;
+  transition:background .35s, transform .35s;
+  white-space:nowrap;
+  font-family:inherit;
+  cursor:pointer;
+}
+.sv-crosslink-btn:hover{ background:#74D6E8; transform:translateY(-1px); }
+.sv-crosslink-btn svg{ width:13px; height:13px; }
+
+/* OTHER SERVICES */
+.sv-other-services{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.75rem;
+}
+@media(min-width:600px){
+  .sv-other-services{ grid-template-columns:repeat(2,1fr); }
+}
+.sv-other-card{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:clamp(1.1rem,1.6vw,1.35rem) clamp(1.25rem,2vw,1.65rem);
+  cursor:pointer;
+  gap:1rem;
+}
+.sv-other-label{
+  font-size:.9rem; font-weight:600;
+  color:rgba(255,255,255,.88);
+  letter-spacing:-.005em;
+}
+.sv-other-sub{
+  font-size:.72rem; color:rgba(141,157,176,.6);
+  margin-top:.2rem;
+  letter-spacing:.01em;
+}
+.sv-other-arrow{
+  width:1.1rem; height:1.1rem;
+  color:rgba(255,255,255,.25);
+  transition:color .35s, transform .35s;
+  flex-shrink:0;
+}
+.sv-other-card:hover .sv-other-arrow{
+  color:rgba(116,214,232,.7);
+  transform:translateX(3px);
+}
+
+/* CTA */
+.sv-cta{
+  padding:clamp(4rem,7vw,6.5rem) clamp(1.25rem,4vw,2rem) clamp(5rem,8vw,8rem);
+  background:#050505;
+  text-align:center;
+  position:relative;
+}
+.sv-cta::before{
+  content:'';
+  position:absolute;
+  top:0; left:50%;
+  transform:translateX(-50%);
+  width:min(60%,480px); height:1px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+}
+.sv-cta-inner{
+  max-width:640px; margin:0 auto;
+}
+.sv-cta-headline{
+  font-size:clamp(1.05rem,2.5vw,1.6rem);
+  font-weight:700;
+  color:white;
+  line-height:1.65;
+  letter-spacing:-.018em;
+  margin-bottom:1.1rem;
+}
+.sv-cta-headline .br-pc{ display:none; }
+@media(min-width:768px){
+  .sv-cta-headline{
+    max-width:28ch;
+    margin-left:auto; margin-right:auto;
+  }
+  .sv-cta-headline .br-pc{ display:inline; }
+}
+.sv-cta-sub{
+  font-size:.84rem;
+  color:rgba(141,157,176,.8);
+  line-height:1.9;
+  margin-bottom:clamp(2.25rem,3.8vw,3rem);
+}
+@media(min-width:768px){
+  .sv-cta-sub{
+    max-width:32ch;
+    margin-left:auto; margin-right:auto;
+  }
+}
+.sv-cta-btn{
+  display:inline-flex; align-items:center; gap:.65rem;
+  padding:.95rem 2.8rem;
+  border-radius:9999px;
+  font-size:.75rem; font-weight:700;
+  letter-spacing:.2em;
+  color:#050505; background:white;
+  border:none;
+  transition:background .35s, transform .35s, box-shadow .35s;
+  font-family:inherit;
+  cursor:pointer;
+  box-shadow:0 0 0 transparent;
+}
+@media(min-width:768px){
+  .sv-cta-btn{ padding:1.05rem 3.2rem; font-size:.78rem; }
+}
+.sv-cta-btn:hover{
+  background:#74D6E8;
+  transform:translateY(-1px);
+  box-shadow:0 8px 32px rgba(116,214,232,.12);
+}
+.sv-cta-btn svg{
+  width:.95rem; height:.95rem;
+  transition:transform .35s;
+}
+.sv-cta-btn:hover svg{ transform:translateX(.3rem); }
+
+/* HERO */
+#hero{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  background:#050505;
+  padding-top:7.5rem;
+  padding-bottom:4rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+
+.hero-text-block{
+  position:relative;
+  z-index:10;
+  width:100%;
+  max-width:1600px;
+  margin:0 auto;
+  padding:0 1rem;
+}
+
+@media(min-width:768px){
+  #hero{
+    padding-top:8.5rem;
+    padding-bottom:5rem;
+  }
+  .hero-text-block{
+    padding:0 2.5rem;
+  }
+}
+
+@media(min-width:1280px){
+  #hero{
+    padding-top:9rem;
+  }
+  .hero-text-block{
+    padding:0 3.5rem;
+  }
+}
+
+.hero-lines{
+  display:flex;
+  flex-direction:column;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-.065em;
+  line-height:.86;
+  font-size:clamp(3.2rem,10.8vw,10.5rem);
+}
+
+.hero-line{display:flex}
+.hero-line.i1{padding-left:4%}
+.hero-line.i2{padding-left:0%}
+.hero-line.i3{padding-left:11%}
+
+@media(max-width:639px){
+  .hero-lines{
+    font-size:clamp(3.1rem,17vw,5.4rem);
+    line-height:.9;
+    letter-spacing:-.05em;
+  }
+  .hero-line.i1{padding-left:2%}
+  .hero-line.i2{padding-left:0}
+  .hero-line.i3{padding-left:7%}
+
+  .hero-sub{
+    right:1rem;
+    bottom:1.4rem;
+  }
+
+  .hero-sub-text{
+    font-size:7px;
+    letter-spacing:.24em;
+  }
+
+  .hero-line-anim{
+    height:54px;
+  }
+}
+
+@media(min-width:640px) and (max-width:1023px){
+  .hero-lines{
+    font-size:clamp(4.8rem,12vw,7.8rem);
+    line-height:.88;
+  }
+  .hero-line.i1{padding-left:5%}
+  .hero-line.i2{padding-left:1%}
+  .hero-line.i3{padding-left:10%}
+}
+
+@media(min-width:1024px){
+  .hero-lines{
+    font-size:clamp(7rem,10.2vw,10.5rem);
+    line-height:.84;
+  }
+}
+.hero-line:first-child{
+  margin-bottom:.15em;
+}
+
+@media(min-width:768px){
+  .hero-line:first-child{
+    margin-bottom:.08em;
+  }
+}
+
+.hero-sub{
+  position:absolute;
+  right:1.5rem;
+  bottom:2rem;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:1rem;
+  z-index:10;
+}
+
+@media(min-width:768px){
+  .hero-sub{
+    right:3rem;
+    bottom:3rem;
+  }
+}
+
+.hero-sub-text{
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:#94a3b8;
+  text-align:right;
+  line-height:1.9;
+}
+
+@media(min-width:768px){
+  .hero-sub-text{
+    font-size:10px;
+  }
+}
+
+.hero-line-anim{
+  width:1px;
+  height:72px;
+  background:rgba(255,255,255,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+@media(min-width:768px){
+  .hero-line-anim{
+    height:110px;
+  }
+}
+
+.hero-line-anim::after{
+  content:'';
+  position:absolute;
+  top:-45%;
+  left:0;
+  width:100%;
+  height:45%;
+  background:#74D6E8;
+  box-shadow:0 0 16px rgba(116,214,232,.55);
+  animation:lineDown 2s linear infinite;
+}
+.hero-sub-text{
+  color:#a8b6cb;
+}
+.hero-seo-copy{position:relative;z-index:10;max-width:880px;margin:1.25rem auto 0;padding:0 1rem;color:#94a3b8;font-size:clamp(.9rem,1.15vw,1rem);line-height:1.9;letter-spacing:.02em;text-align:left;}
+@media(min-width:768px){.hero-seo-copy{padding:0 3rem;margin:1.75rem auto 0;}}
+.hl-w{color:white;}
+.hl-o{
+  color:transparent;
+  -webkit-text-stroke:max(1px,.12vw) white;
+}
+.hl-c{color:#74D6E8;}
+  
+/* visually hidden: SEO/アクセシビリティ用 */
+.sr-only{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0,0,0,0) !important;white-space:nowrap !important;border:0 !important;}
+  
 /* MARQUEE */
 #mqs{width:100%;overflow:hidden;padding:2rem 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);background:#050505;position:relative;z-index:30}
 @media(min-width:768px){#mqs{padding:3rem 0}}
-.mq-track{display:flex;white-space:nowrap;animation:marqueeScroll 60s linear infinite;width:max-content}
+.mq-track{display:flex;white-space:nowrap;animation:marqueeScroll 90s linear infinite;width:max-content}
 .mq-item{font-size:clamp(1.5rem,5vw,5vw);font-weight:900;text-transform:uppercase;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:2.5rem;padding-right:2.5rem}
 @media(min-width:768px){.mq-item{gap:4rem;padding-right:4rem}}
 .mq-dot{width:.5rem;height:.5rem;border-radius:50%;background:rgba(116,214,232,.3);display:inline-block;flex-shrink:0}
 @media(min-width:768px){.mq-dot{width:.75rem;height:.75rem}}
 
-/* PHILOSOPHY */
-#phil{padding:6rem 1.5rem;background:#FAFAFA;color:#050505;position:relative;z-index:20;overflow:hidden}
-@media(min-width:768px){#phil{padding:12rem 1.5rem}}
-.phil-inner{max-width:80rem;margin:0 auto;display:grid;grid-template-columns:1fr;gap:3rem}
-@media(min-width:1024px){.phil-inner{grid-template-columns:5fr 7fr;gap:2rem}}
-.phil-tag{font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;display:block;margin-bottom:2rem;padding-bottom:.75rem;border-bottom:1px solid rgba(5,5,5,.1)}
-.phil-big{font-size:clamp(3.5rem,8vw,8rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;line-height:.85;color:#050505}
+/* PHILOSOPHY — editorial poster */
+#phil{
+  padding:4.5rem 1.5rem 5.5rem;
+  color:#050505;
+  position:relative;
+  z-index:20;
+  overflow:hidden;
+  background:#FAFAFA;
+  background:
+    radial-gradient(ellipse 72% 54% at 50% 50%,rgba(116,214,232,.05),transparent 70%),
+    linear-gradient(180deg,#FBFBFB 0%,#F3F5F7 100%);
+}
+@media(min-width:768px){
+  #phil{padding:8rem 1.5rem 9rem}
+}
+@media(min-width:1024px){
+  #phil{padding:9rem 2rem 10.5rem}
+}
+/* — decorative depth layers — */
+.phil-decor{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+/* giant watermark ring bridging left/right */
+.phil-watermark{
+  position:absolute;top:50%;left:50%;
+  width:min(80vw,900px);height:min(80vw,900px);
+  transform:translate(-50%,-50%) scale(.86);
+  border-radius:50%;
+  border:1px solid rgba(116,214,232,.075);
+  opacity:0;
+  transition:opacity 1.8s ease .4s,transform 2.2s cubic-bezier(.22,1,.36,1) .4s;
+}
+#phil.phil-vis .phil-watermark{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.phil-watermark::before{
+  content:'';position:absolute;inset:14%;border-radius:50%;
+  border:1px solid rgba(116,214,232,.045);
+}
+.phil-watermark::after{
+  content:'';position:absolute;inset:32%;border-radius:50%;
+  background:radial-gradient(circle,rgba(116,214,232,.035),transparent 70%);
+}
+/* horizontal bridge rules — span both columns */
+.phil-bridge{
+  position:absolute;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(5,5,5,.07) 18%,rgba(5,5,5,.07) 82%,transparent);
+  opacity:0;transform:scaleX(.45);transform-origin:center;
+  transition:opacity 1.4s ease .5s,transform 1.6s cubic-bezier(.22,1,.36,1) .5s;
+}
+#phil.phil-vis .phil-bridge{opacity:1;transform:scaleX(1)}
+.phil-bridge--top{top:14%}
+.phil-bridge--bot{bottom:14%}
+/* editorial frame ticks (desktop only) */
+.phil-tick{
+  position:absolute;width:12px;height:12px;
+  border:1px solid rgba(5,5,5,.18);
+  opacity:0;transition:opacity 1.2s ease .7s;
+}
+#phil.phil-vis .phil-tick{opacity:1}
+.phil-tick--tl{top:4rem;left:2rem;border-right:none;border-bottom:none}
+.phil-tick--tr{top:4rem;right:2rem;border-left:none;border-bottom:none}
+.phil-tick--bl{bottom:4rem;left:2rem;border-right:none;border-top:none}
+.phil-tick--br{bottom:4rem;right:2rem;border-left:none;border-top:none}
+@media(max-width:767px){.phil-tick{display:none}}
+/* — chapter header / bookend row (mirrors .cta-index at CTA) — */
+.phil-index{
+  margin:0 0 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  position:relative;z-index:3;
+  padding-bottom:.9rem;
+  border-bottom:1px solid rgba(5,5,5,.08);
+  font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(5,5,5,.46);
+}
+.phil-index-l{color:#74D6E8}
+.phil-index-c{display:none}
+.phil-index-r{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.08em;text-transform:none;font-size:12px;color:rgba(5,5,5,.5)}
+@media(min-width:768px){
+  .phil-index{margin-bottom:4rem}
+  .phil-index-c{display:block;color:rgba(5,5,5,.3);letter-spacing:.3em}
+}
+@media(min-width:1024px){.phil-index{margin-bottom:5rem}}
+/* — grid — */
+.phil-inner{
+  max-width:80rem;margin:0 auto;
+  display:grid;grid-template-columns:1fr;gap:3.5rem;
+  position:relative;z-index:2;
+}
+@media(min-width:1024px){
+  .phil-inner{grid-template-columns:6fr 6fr;gap:3rem;align-items:start;padding-top:1rem}
+}
+/* ============ LEFT: brand pillar ============ */
+.phil-left{position:relative;display:flex;flex-direction:column}
+.phil-left.anim-up{opacity:1;transform:none;filter:none}
+.phil-big{
+  font-size:clamp(3.5rem,10vw,9rem);
+  font-weight:900;letter-spacing:-.055em;text-transform:uppercase;
+  line-height:.88;color:#050505;margin:0;
+}
 .phil-big .c{color:#74D6E8}
-.phil-right{display:flex;flex-direction:column;justify-content:flex-end}
-@media(min-width:1024px){.phil-right{padding-left:4rem}}
-.phil-head{font-size:clamp(1.25rem,2.5vw,2rem);font-weight:700;line-height:1.6;letter-spacing:-.02em;margin-bottom:1rem;color:#050505}
-.phil-sub{font-size:clamp(2rem,4.5vw,4.5rem);font-weight:900;letter-spacing:-.05em;color:#74D6E8;line-height:1.1;margin-bottom:2rem}
-@media(min-width:768px){.phil-sub{margin-bottom:3rem}}
-.phil-desc{font-size:clamp(.875rem,1.5vw,1.25rem);color:#64748b;font-weight:500;line-height:1.8;letter-spacing:.03em;margin-bottom:2.5rem;max-width:40rem}
-@media(min-width:768px){.phil-desc{margin-bottom:3rem}}
-.phil-link{display:inline-flex;align-items:center;gap:1rem;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#050505;background:none;border:none;transition:color .3s}
-.phil-link:hover{color:#74D6E8}
-.phil-link span{border-bottom:1px solid #050505;padding-bottom:2px;transition:border-color .3s}
-.phil-link:hover span{border-color:#74D6E8}
+/* per-row clip reveal */
+.phil-big-row{display:block;overflow:hidden}
+.phil-big-in{
+  display:block;
+  transform:translateY(108%);
+  transition:transform 1s cubic-bezier(.22,1,.36,1);
+}
+.phil-left.in .phil-big-in{transform:translateY(0)}
+.phil-left.in .phil-big-row:nth-child(1) .phil-big-in{transition-delay:.05s}
+.phil-left.in .phil-big-row:nth-child(2) .phil-big-in{transition-delay:.19s}
+.phil-left.in .phil-big-row:nth-child(3) .phil-big-in{transition-delay:.33s}
+/* editorial signature beneath heading */
+.phil-sig{
+  margin-top:2.25rem;
+  display:flex;align-items:baseline;gap:.9rem;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;
+  font-size:clamp(1rem,1.5vw,1.2rem);
+  color:rgba(5,5,5,.5);
+  letter-spacing:.02em;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .9s ease .88s,transform 1s cubic-bezier(.22,1,.36,1) .88s;
+}
+.phil-left.in .phil-sig{opacity:1;transform:none}
+.phil-sig-line{flex:0 0 2.25rem;height:1px;background:rgba(116,214,232,.45)}
+/* ============ RIGHT: thought echo ============ */
+.phil-right{position:relative;display:flex;flex-direction:column}
+.phil-right.anim-up{opacity:1;transform:none;filter:none}
+@media(min-width:1024px){.phil-right{padding-top:1.25rem;padding-left:2rem}}
+.phil-right .phil-head,
+.phil-right .phil-sub,
+.phil-right .phil-body,
+.phil-right .phil-link{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .85s ease,transform 1.05s cubic-bezier(.22,1,.36,1);
+}
+.phil-right.in .phil-head{opacity:1;transform:none;transition-delay:.5s}
+.phil-right.in .phil-sub{opacity:1;transform:none;transition-delay:.62s}
+.phil-right.in .phil-body{opacity:1;transform:none;transition-delay:.88s}
+.phil-right.in .phil-link{opacity:1;transform:none;transition-delay:1.04s}
+/* intro head (subdued context) */
+.phil-head{
+  font-size:clamp(.95rem,1.3vw,1.1rem);
+  font-weight:600;line-height:1.9;letter-spacing:.06em;
+  margin:0 0 2rem;color:rgba(5,5,5,.5);
+}
+/* hero quote — poster voice */
+.phil-sub{
+  position:relative;
+  font-size:clamp(1.9rem,3.8vw,3.4rem);
+  font-weight:800;letter-spacing:-.035em;line-height:1.25;
+  color:#0a0a0c;
+  margin:0 0 2.5rem;padding:0;border:none;
+  quotes:none;
+}
+.phil-sub::before{
+  content:'\201C';
+  position:absolute;top:-1.8rem;left:-.25rem;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:clamp(3.8rem,6.5vw,6rem);
+  color:rgba(116,214,232,.26);
+  line-height:1;
+  pointer-events:none;
+}
+@media(min-width:768px){
+  .phil-sub{margin:.5rem 0 3rem;padding-top:.75rem}
+  .phil-sub::before{top:-2.2rem;left:-.55rem}
+}
+/* per-line reveal (inherits .phil-line-in) */
+.phil-line{display:block;overflow:hidden}
+.phil-line-in{
+  display:block;
+  transform:translateY(108%);
+  transition:transform .95s cubic-bezier(.22,1,.36,1);
+}
+.phil-right.in .phil-line-in{transform:translateY(0)}
+.phil-right.in .phil-sub .phil-line:nth-child(1) .phil-line-in{transition-delay:.76s}
+.phil-right.in .phil-sub .phil-line:nth-child(2) .phil-line-in{transition-delay:.9s}
+/* body pair with separator */
+.phil-body{display:flex;flex-direction:column;gap:0;margin:0 0 2.75rem;max-width:32rem}
+@media(min-width:768px){.phil-body{margin:0 0 3.25rem}}
+.phil-desc{
+  font-size:clamp(.92rem,1.1vw,1.02rem);
+  color:#475569;font-weight:500;line-height:1.95;letter-spacing:.04em;margin:0;
+}
+.phil-desc:first-child{color:#334155;font-weight:600}
+.phil-sep{
+  display:block;width:2rem;height:1px;margin:1.15rem 0;
+  background:rgba(116,214,232,.32);
+}
+@media(min-width:768px){.phil-sep{margin:1.35rem 0}}
+/* ============ CTA — editorial stacked link ============ */
+.phil-link{
+  position:relative;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:1.2rem;
+  background:transparent;border:none;padding:0;cursor:pointer;
+  color:#050505;text-align:left;
+  transition:color .45s ease;
+}
+@media(min-width:768px){.phil-link{gap:1.4rem}}
+.phil-link-stack{display:flex;flex-direction:column;gap:.4rem;line-height:1}
+.phil-link-en{
+  position:relative;
+  font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:#050505;padding-bottom:.5rem;
+}
+@media(min-width:768px){.phil-link-en{font-size:13px;padding-bottom:.55rem}}
+.phil-link-en::after{
+  content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:currentColor;opacity:.18;
+  transition:opacity .4s ease;
+}
+.phil-link-en::before{
+  content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:#74D6E8;
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.phil-link:hover .phil-link-en::before,
+.phil-link:focus-visible .phil-link-en::before{transform:scaleX(1)}
+.phil-link:hover .phil-link-en::after{opacity:0}
+.phil-link-jp{
+  font-family:'Cormorant Garamond','Noto Serif JP',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:11px;letter-spacing:.06em;
+  color:rgba(5,5,5,.38);
+}
+@media(min-width:768px){.phil-link-jp{font-size:12px;letter-spacing:.08em}}
+.phil-link-arrow{
+  flex:0 0 auto;
+  width:40px;height:40px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid rgba(5,5,5,.18);
+  color:#050505;
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+  position:relative;overflow:hidden;
+}
+@media(min-width:768px){.phil-link-arrow{width:44px;height:44px}}
+.phil-link-arrow::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:#050505;
+  transform:scale(0);transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.phil-link-arrow svg{position:relative;z-index:1;transition:all .5s cubic-bezier(.22,1,.36,1)}
+.phil-link:hover .phil-link-arrow{border-color:#050505;color:#fff}
+.phil-link:hover .phil-link-arrow::before{transform:scale(1)}
+.phil-link:hover .phil-link-arrow svg{transform:translateX(2px)}
+/* — reduced motion — */
+@media(prefers-reduced-motion:reduce){
+  .phil-right .phil-head,.phil-right .phil-sub,
+  .phil-right .phil-body,.phil-right .phil-link,
+  .phil-sig{transition:opacity .4s ease;transform:none}
+  .phil-line-in,.phil-big-in{transition:opacity .4s ease;transform:none !important}
+  .phil-left.in .phil-big-in,.phil-right.in .phil-line-in{opacity:1}
+  .phil-watermark,.phil-bridge,.phil-tick{transition-duration:.4s}
+  #phil.phil-vis .phil-watermark{transform:translate(-50%,-50%) !important}
+  #phil.phil-vis .phil-bridge{transform:none !important}
+}
 
 /* SERVICES */
-#svcs{padding:6rem 0;background:#050505;position:relative;z-index:10;border-top:1px solid rgba(255,255,255,.05)}
-@media(min-width:768px){#svcs{padding:12rem 0}}
+#svcs{
+  padding:5rem 0;
+  background:#050505;
+  position:relative;
+  z-index:10;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+@media(min-width:768px){
+  #svcs{padding:9rem 0}
+}
 .svcs-inner{max-width:1500px;margin:0 auto;padding:0 1rem;position:relative;z-index:10}
 @media(min-width:768px){.svcs-inner{padding:0 1.5rem}}
-.svcs-hdr{margin-bottom:4rem;padding:0 .5rem}
-@media(min-width:768px){.svcs-hdr{margin-bottom:8rem;display:flex;justify-content:space-between;align-items:flex-end;padding:0 2rem}}
-.svcs-h{font-size:clamp(2.5rem,8vw,8rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;line-height:1}
+.svcs-hdr{
+  margin-bottom:3rem;
+  padding:0 .5rem;
+}
+@media(min-width:768px){
+  .svcs-hdr{
+    margin-bottom:5.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    padding:0 2rem;
+  }
+}
+
+.svcs-h{
+  font-size:clamp(2.4rem,6.5vw,6.5rem);
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  line-height:1;
+}
 .svcs-desc{font-size:clamp(.75rem,1.2vw,1rem);color:#475569;font-weight:500;max-width:24rem;letter-spacing:.1em;line-height:1.8;margin-top:1rem}
 @media(min-width:768px){.svcs-desc{margin-top:0}}
 .svcs-list{border-top:1px solid rgba(255,255,255,.1)}
-.svc-row{border-bottom:1px solid rgba(255,255,255,.1);padding:3rem .5rem;display:flex;flex-direction:column;gap:1.5rem;cursor:pointer;transition:background .5s}
-@media(min-width:768px){.svc-row{padding:6rem 3rem;flex-direction:row;align-items:center;justify-content:space-between;gap:2rem}}
+.svc-row{
+  border-bottom:1px solid rgba(255,255,255,.1);
+  padding:2.25rem .5rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.25rem;
+  cursor:pointer;
+  transition:background .5s;
+}
+@media(min-width:768px){
+  .svc-row{
+    padding:4rem 3rem;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:2rem;
+  }
+}
+
+.svc-title{
+  font-size:clamp(1.75rem,4.8vw,4.8rem);
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  transition:color .5s;
+  line-height:.95;
+}
 .svc-row:hover{background:rgba(255,255,255,.05)}
 .svc-row-l{display:flex;flex-direction:column;gap:1rem}
 @media(min-width:768px){.svc-row-l{flex-direction:row;align-items:center;gap:4rem}}
 .svc-num{font-size:clamp(1.25rem,2.5vw,2rem);font-family:'Cormorant Garamond',serif;font-style:italic;color:#74D6E8;opacity:.5;transition:opacity .5s}
 .svc-row:hover .svc-num{opacity:1}
-.svc-title{font-size:clamp(2rem,6vw,6vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;transition:color .5s;line-height:1}
 .svc-row:hover .svc-title{color:#74D6E8}
 .svc-row-r{display:flex;align-items:center;justify-content:space-between;gap:2rem}
 @media(min-width:768px){.svc-row-r{gap:5rem}}
@@ -173,8 +1391,16 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .svc-row:hover .arr2{transform:translate(0,0)}
 
 /* NEWS */
-#news{padding:6rem 1.5rem;background:#020202;position:relative;z-index:20;border-top:1px solid rgba(255,255,255,.05)}
-@media(min-width:768px){#news{padding:10rem 1.5rem}}
+#news{
+  padding:5rem 1.5rem;
+  background:#020202;
+  position:relative;
+  z-index:20;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+@media(min-width:768px){
+  #news{padding:8rem 1.5rem}
+}
 .news-inner{max-width:72rem;margin:0 auto}
 .news-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:1.5rem}
 @media(min-width:768px){.news-hdr{margin-bottom:5rem;padding-bottom:2rem}}
@@ -190,138 +1416,841 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 @media(min-width:768px){.news-title{font-size:1.25rem}}
 .news-item:hover .news-title{color:white}
 
-/* COMPANY */
-#company{padding:6rem 1.5rem;background:white;color:#050505;position:relative;z-index:20;overflow:hidden}
-@media(min-width:768px){#company{padding:12rem 1.5rem}}
-.co-inner{max-width:80rem;margin:0 auto;display:grid;grid-template-columns:1fr;gap:4rem}
-@media(min-width:1024px){.co-inner{grid-template-columns:1fr 1fr;gap:6rem}}
-.co-tag{font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;display:block;margin-bottom:1.5rem}
-.co-h{font-size:clamp(3rem,7vw,7vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:#050505;line-height:1;margin-bottom:2.5rem}
-.co-divider{width:100%;height:1px;background:rgba(5,5,5,.1);margin-bottom:2.5rem}
-.co-body{font-size:clamp(1rem,1.5vw,1.25rem);color:#475569;font-weight:500;line-height:1.8;letter-spacing:.03em;margin-bottom:3rem}
-.co-dl{border-top:1px solid rgba(5,5,5,.1);padding-top:2rem}
-@media(min-width:768px){.co-dl{padding-top:3rem}}
-.co-row{display:flex;flex-direction:column;gap:.5rem;border-bottom:1px solid rgba(5,5,5,.1);padding-bottom:1.5rem;margin-bottom:1.5rem}
-@media(min-width:768px){.co-row{flex-direction:row;gap:3rem;padding-bottom:2.5rem;margin-bottom:2.5rem}}
-.co-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.co-dt{font-size:10px;letter-spacing:.15em;color:#94a3b8;font-weight:700;flex-shrink:0}
-@media(min-width:768px){.co-dt{font-size:11px;width:10rem}}
-.co-dd{font-size:.9375rem;color:#050505;line-height:1.8;font-weight:500;white-space:pre-wrap}
-@media(min-width:768px){.co-dd{font-size:1.125rem}}
+/* UPDATE DETAIL TITLE */
+.upd-page-h{
+  display:block;
+  font-size:clamp(2rem,4.2vw,4.5rem);
+  font-weight:900;
+  letter-spacing:-.045em;
+  color:white;
+  line-height:1.02;
+  text-align:center;
+  max-width:16ch;
+  margin:0 auto;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+  text-wrap:balance;
+}
 
-/* CTA */
-#cta{padding:8rem 1.5rem;background:#050505;position:relative;z-index:20;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;min-height:60vh}
-@media(min-width:768px){#cta{padding:15rem 1.5rem;min-height:80vh}}
-.cta-inner{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;max-width:80rem;margin:0 auto}
-.cta-h1{font-size:clamp(2.5rem,7vw,7vw);font-weight:900;color:white;margin-bottom:1.5rem;line-height:1.05;letter-spacing:-.05em;text-transform:uppercase}
-.cta-h2{font-size:clamp(2.5rem,7vw,7vw);font-weight:900;color:transparent;-webkit-text-stroke:max(1px,.2vw) white;letter-spacing:-.05em;text-transform:uppercase;font-style:italic;margin-bottom:2rem}
-.cta-p{font-size:9px;color:#475569;font-weight:700;letter-spacing:.3em;text-transform:uppercase;margin-bottom:3rem;max-width:28rem;line-height:1.8}
-@media(min-width:768px){.cta-p{font-size:11px;margin-bottom:4rem}}
+@media(max-width:767px){
+  .upd-page-h{
+    font-size:clamp(1.9rem,8vw,3rem);
+    max-width:10ch;
+    line-height:1.06;
+  }
+}
+/* UPDATE BODY (Markdown typography) */
+#upd-body{margin-top:1.25rem}
+#upd-body h1,#upd-body h2,#upd-body h3{
+  color:#e2e8f0;
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  margin:1.75rem 0 .75rem;
+}
+#upd-body h1{font-size:clamp(1.75rem,3vw,2.25rem)}
+#upd-body h2{font-size:clamp(1.4rem,2.4vw,1.8rem)}
+#upd-body h3{font-size:clamp(1.1rem,2vw,1.35rem)}
+#upd-body p{margin:.9rem 0}
+#upd-body ul,#upd-body ol{margin:.9rem 0 .9rem 1.25rem}
+#upd-body li{margin:.35rem 0}
+#upd-body a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(116,214,232,.4)}
+#upd-body a:hover{border-bottom-color:var(--cyan)}
+#upd-body blockquote{
+  margin:1.25rem 0;
+  padding:1rem 1.25rem;
+  border-left:2px solid var(--cyan);
+  background:rgba(255,255,255,.03);
+  border-radius:14px;
+  color:#cbd5e1;
+}
+#upd-body code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:.95em;
+  background:rgba(255,255,255,.06);
+  padding:.15rem .35rem;
+  border-radius:8px;
+}
+#upd-body pre{
+  margin:1.25rem 0;
+  padding:1rem 1.25rem;
+  background:rgba(255,255,255,.06);
+  border-radius:18px;
+  overflow:auto;
+}
+#upd-body pre code{background:transparent;padding:0}
+#upd-body hr{border:none;border-top:1px solid rgba(255,255,255,.12);margin:2rem 0}
+#page-update .vmv-page-h{
+  font-size: clamp(2.4rem, 6vw, 5.8rem);
+  line-height: .98;
+  letter-spacing: -.04em;
+  max-width: 12ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+#upd-title{
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* COMPANY */
+#company{
+  padding:5rem 1.5rem;
+  background:#ffffff;
+  color:#050505;
+  position:relative;
+  z-index:20;
+  overflow:hidden;
+}
+
+@media(min-width:768px){
+  #company{
+    padding:9rem 1.5rem;
+  }
+}
+
+.co-inner{
+  max-width:80rem;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:4rem;
+  align-items:start;
+}
+
+@media(min-width:1024px){
+  .co-inner{
+    grid-template-columns:1fr 2fr;
+    gap:clamp(4rem,6vw,7rem);
+  }
+}
+
+.co-tag{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:#74D6E8;
+  display:block;
+  margin-bottom:1.2rem;
+}
+
+.co-h{
+  font-size:clamp(2.8rem,6vw,6.2rem);
+  font-weight:900;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+  color:#050505;
+  line-height:.92;
+  margin-bottom:1.2rem;
+}
+
+.co-divider{
+  width:100%;
+  height:1px;
+  background:rgba(5,5,5,.06);
+  margin-bottom:1.6rem;
+}
+
+.co-body{
+  font-size:clamp(.95rem,1.3vw,1.15rem);
+  color:#64748b;
+  font-weight:400;
+  line-height:1.85;
+  letter-spacing:.02em;
+  margin-bottom:0;
+  max-width:32rem;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+.co-dl{
+  border-top:1px solid rgba(5,5,5,.06);
+  padding-top:1rem;
+}
+
+@media(min-width:768px){
+  .co-dl{
+    padding-top:1.25rem;
+  }
+}
+
+.co-row{
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+  border-bottom:1px solid rgba(5,5,5,.05);
+  padding:1.4rem 0;
+  margin-bottom:0;
+  transition:background .3s ease,border-color .3s ease;
+}
+
+@media(min-width:768px){
+  .co-row{
+    flex-direction:row;
+    align-items:baseline;
+    gap:2.5rem;
+    padding:1.65rem 0;
+  }
+}
+
+.co-row:hover{
+  background:rgba(116,214,232,.025);
+  border-color:rgba(116,214,232,.1);
+}
+
+.co-row:last-child{
+  border-bottom:none;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
+.co-dt{
+  font-size:10px;
+  letter-spacing:.22em;
+  color:rgba(5,5,5,.34);
+  font-weight:400;
+  flex-shrink:0;
+  text-transform:uppercase;
+}
+
+@media(min-width:768px){
+  .co-dt{
+    font-size:10px;
+    width:10.5rem;
+    padding-top:.15rem;
+  }
+}
+
+.co-dd{
+  font-size:.9375rem;
+  color:#1a1a1a;
+  line-height:1.85;
+  font-weight:400;
+  white-space:pre-wrap;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+@media(min-width:768px){
+  .co-dd{
+    font-size:1.0625rem;
+    flex:1;
+    min-width:0;
+  }
+}
+
+/* Company — structured business list */
+.co-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.co-list li{
+  position:relative;
+  padding-left:1.05rem;
+  line-height:1.75;
+}
+.co-list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.85em;
+  width:.5rem;
+  height:1px;
+  background:rgba(5,5,5,.28);
+}
+
+/* Company — offices block */
+.co-offices{
+  display:flex;
+  flex-direction:column;
+  gap:1.25rem;
+}
+@media(min-width:1024px){
+  .co-offices{
+    flex-direction:row;
+    gap:2rem;
+  }
+}
+.co-office{
+  display:flex;
+  flex-direction:column;
+  gap:.12rem;
+  flex:1 1 auto;
+  min-width:0;
+}
+.co-office-name{
+  font-size:10px;
+  letter-spacing:.28em;
+  font-weight:600;
+  color:#050505;
+  text-transform:uppercase;
+  margin-bottom:.35rem;
+  padding-bottom:.35rem;
+  border-bottom:1px solid rgba(5,5,5,.08);
+}
+.co-office-zip{
+  font-size:.8125rem;
+  color:#6b7280;
+  letter-spacing:.02em;
+  line-height:1.6;
+}
+.co-office-addr{
+  font-size:.9375rem;
+  color:#1a1a1a;
+  line-height:1.7;
+  word-break:normal;
+  overflow-wrap:anywhere;
+}
+@media(min-width:768px){
+  .co-office-addr{
+    font-size:1rem;
+  }
+}
+
+/* CTA — closing editorial poster */
+#cta{
+  padding:6.5rem 1.5rem 7rem;
+  color:white;
+  position:relative;z-index:20;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;
+  min-height:82vh;
+  background:#030304;
+  background:
+    radial-gradient(ellipse 55% 40% at 50% 55%,rgba(116,214,232,.04),transparent 70%),
+    radial-gradient(ellipse 120% 55% at 50% 0%,rgba(255,255,255,.022),transparent 70%),
+    linear-gradient(180deg,#050507 0%,#020203 100%);
+}
+@media(min-width:768px){
+  #cta{padding:10rem 2rem 10.5rem;min-height:88vh}
+}
+/* decor layers */
+.cta-decor{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+/* oversized serif italic watermark */
+.cta-watermark{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-46%) scale(.96);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(16rem,40vw,34rem);
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.03);
+  letter-spacing:-.04em;line-height:.82;
+  white-space:nowrap;user-select:none;
+  opacity:0;
+  transition:opacity 2.4s ease .4s,transform 2.8s cubic-bezier(.22,1,.36,1) .4s;
+}
+#cta.cta-vis .cta-watermark{opacity:1;transform:translate(-50%,-46%) scale(1)}
+/* horizontal bridge rules */
+.cta-rule{
+  position:absolute;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 20%,rgba(255,255,255,.08) 80%,transparent);
+  opacity:0;transform:scaleX(.5);transform-origin:center;
+  transition:opacity 1.3s ease .5s,transform 1.6s cubic-bezier(.22,1,.36,1) .5s;
+}
+#cta.cta-vis .cta-rule{opacity:1;transform:scaleX(1)}
+.cta-rule--top{top:10%}
+.cta-rule--bot{bottom:10%}
+/* corner ticks (desktop only) */
+.cta-tick{
+  position:absolute;width:12px;height:12px;
+  border:1px solid rgba(255,255,255,.16);
+  opacity:0;transition:opacity 1.2s ease .7s;
+}
+#cta.cta-vis .cta-tick{opacity:1}
+.cta-tick--tl{top:3rem;left:2rem;border-right:none;border-bottom:none}
+.cta-tick--tr{top:3rem;right:2rem;border-left:none;border-bottom:none}
+.cta-tick--bl{bottom:3rem;left:2rem;border-right:none;border-top:none}
+.cta-tick--br{bottom:3rem;right:2rem;border-left:none;border-top:none}
+@media(max-width:767px){.cta-tick{display:none}}
+/* chapter footer / bookend row (mirrors .phil-index at Our Vision) */
+.cta-index{
+  position:absolute;top:2.5rem;left:1.5rem;right:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  font-size:10px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.46);
+  padding-bottom:.9rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:3;
+}
+@media(min-width:768px){.cta-index{top:3rem}}
+@media(min-width:1024px){.cta-index{left:2rem;right:2rem}}
+.cta-index-l{color:#74D6E8}
+.cta-index-c{display:none}
+.cta-index-r{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.08em;text-transform:none;font-size:12px;color:rgba(255,255,255,.5)}
+@media(min-width:768px){.cta-index-c{display:block;color:rgba(255,255,255,.3);letter-spacing:.3em}}
+/* inner composition */
+.cta-inner{
+  position:relative;z-index:10;max-width:68rem;margin:0 auto;padding:1.5rem 0;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.cta-inner.anim-up{opacity:1;transform:none;filter:none}
+/* eyebrow tagline */
+.cta-eyebrow{
+  display:flex;align-items:center;gap:.85rem;
+  margin-bottom:1.5rem;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:clamp(1rem,1.4vw,1.2rem);
+  color:rgba(116,214,232,.72);
+  letter-spacing:.03em;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1);
+}
+@media(min-width:768px){.cta-eyebrow{margin-bottom:2rem}}
+.cta-eyebrow-line{width:2.25rem;height:1px;background:rgba(116,214,232,.5)}
+.cta-inner.in .cta-eyebrow{opacity:1;transform:none;transition-delay:.2s}
+/* poster heading */
+.cta-head{display:flex;flex-direction:column;align-items:center;gap:.15rem;width:100%}
+.cta-row{display:block;overflow:hidden;line-height:1}
+.cta-row-in{
+  display:block;
+  transform:translateY(108%);
+  transition:transform 1s cubic-bezier(.22,1,.36,1);
+}
+.cta-inner.in .cta-row-in{transform:translateY(0)}
+.cta-inner.in .cta-row:nth-child(1) .cta-row-in{transition-delay:.3s}
+.cta-inner.in .cta-row:nth-child(2) .cta-row-in{transition-delay:.44s}
+.cta-inner.in .cta-row:nth-child(3) .cta-row-in{transition-delay:.58s}
+.cta-row-in--flex{display:flex;justify-content:center;align-items:flex-start;gap:.5rem}
+@media(min-width:768px){.cta-row-in--flex{gap:.75rem}}
+.cta-h1{
+  font-size:clamp(2.4rem,6vw,5.8rem);
+  font-weight:900;color:white;margin:0;
+  line-height:1;letter-spacing:-.05em;text-transform:uppercase;
+  display:inline-block;
+}
+.cta-h2{
+  font-size:clamp(2.4rem,6vw,5.8rem);
+  font-weight:900;color:transparent;margin:0;
+  -webkit-text-stroke:max(1px,.18vw) rgba(255,255,255,.92);
+  letter-spacing:-.05em;text-transform:uppercase;
+  font-style:italic;line-height:1;
+  display:inline-block;
+}
+/* mid separator line (between heading and CTA) */
+.cta-mid{
+  display:flex;align-items:center;gap:.85rem;
+  margin-top:2.25rem;margin-bottom:2rem;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:clamp(.9rem,1.2vw,1.05rem);
+  color:rgba(255,255,255,.42);
+  letter-spacing:.03em;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1);
+}
+@media(min-width:768px){.cta-mid{margin-top:2.75rem;margin-bottom:2.5rem}}
+.cta-mid-line{width:2rem;height:1px;background:rgba(116,214,232,.4)}
+.cta-inner.in .cta-mid{opacity:1;transform:none;transition-delay:.82s}
+/* invitation CTA — section-specific finale button */
+.cta-invite{
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:space-between;
+  gap:1.3rem;
+  min-width:17.5rem;
+  padding:.95rem .95rem .95rem 1.75rem;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:9999px;
+  background:transparent;color:white;cursor:pointer;
+  font:inherit;text-align:left;
+  opacity:0;transform:translateY(18px);
+  transition:border-color .55s cubic-bezier(.22,1,.36,1),color .55s ease;
+}
+@media(min-width:768px){.cta-invite{min-width:22rem;padding:1.05rem 1.1rem 1.05rem 2.2rem;gap:2rem}}
+.cta-inner.in .cta-invite{
+  opacity:1;transform:none;
+  transition:
+    opacity .85s ease .98s,
+    transform 1s cubic-bezier(.22,1,.36,1) .98s,
+    border-color .55s cubic-bezier(.22,1,.36,1),
+    color .55s ease;
+}
+.cta-invite::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:#74D6E8;
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+  z-index:0;
+}
+.cta-invite:hover{border-color:#74D6E8;color:#050505}
+.cta-invite:hover::before{transform:scaleX(1)}
+.cta-invite-label{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;line-height:1}
+.cta-invite-en{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+@media(min-width:768px){.cta-invite-en{font-size:12px;letter-spacing:.22em}}
+.cta-invite-jp{
+  font-family:'Cormorant Garamond','Noto Serif JP',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:11px;letter-spacing:.06em;
+  color:rgba(255,255,255,.46);
+  transition:color .55s ease;
+}
+.cta-invite:hover .cta-invite-jp{color:rgba(5,5,5,.6)}
+.cta-invite-arrow{
+  position:relative;z-index:1;flex:0 0 auto;
+  width:38px;height:38px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.26);
+  color:white;
+  transition:all .55s cubic-bezier(.22,1,.36,1);
+}
+@media(min-width:768px){.cta-invite-arrow{width:44px;height:44px}}
+.cta-invite:hover .cta-invite-arrow{border-color:#050505;background:#050505;color:white}
+.cta-invite-arrow svg{transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.cta-invite:hover .cta-invite-arrow svg{transform:translateX(3px)}
+/* closing JP finale beneath CTA */
+.cta-fin{
+  margin-top:2rem;
+  display:flex;flex-direction:column;align-items:center;gap:.75rem;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1);
+}
+@media(min-width:768px){.cta-fin{margin-top:2.5rem}}
+.cta-fin-line{width:1.5rem;height:1px;background:rgba(116,214,232,.36)}
+.cta-inner.in .cta-fin{opacity:1;transform:none;transition-delay:1.22s}
+.cta-p{
+  margin:0;max-width:30rem;
+  font-size:11px;font-weight:400;letter-spacing:.08em;line-height:1.95;
+  color:rgba(255,255,255,.5);text-align:center;text-transform:none;
+}
+@media(min-width:768px){.cta-p{font-size:12px;letter-spacing:.1em}}
+/* legacy btn-main kept (used elsewhere) */
 .btn-main{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2.5rem;border-radius:9999px;font-weight:900;font-size:9px;letter-spacing:.3em;text-transform:uppercase;background:white;color:#050505;border:none;transition:background .5s;box-shadow:0 25px 50px -12px rgba(0,0,0,.5)}
 @media(min-width:768px){.btn-main{padding:1.5rem 4rem;font-size:11px;gap:1rem}}
 .btn-main:hover{background:#74D6E8}
 .btn-main svg{width:1rem;height:1rem;transition:transform .5s}
 @media(min-width:768px){.btn-main svg{width:1.25rem;height:1.25rem}}
 .btn-main:hover svg{transform:translateX(.5rem)}
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .cta-eyebrow,.cta-mid,.cta-fin,.cta-invite{transition:opacity .4s ease;transform:none}
+  .cta-row-in{transition:opacity .4s ease;transform:none !important}
+  .cta-inner.in .cta-row-in{opacity:1}
+  .cta-watermark,.cta-rule,.cta-tick{transition-duration:.4s}
+  #cta.cta-vis .cta-rule{transform:none !important}
+  #cta.cta-vis .cta-watermark{transform:translate(-50%,-46%) !important}
+}
 
+.back-btn{
+  position:absolute;
+  left:0;
+  top:0;
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  padding:0;
+  background:transparent;
+  border:none;
+  color:rgba(255,255,255,.42);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  line-height:1;
+  transition:color .28s ease, transform .28s ease, opacity .28s ease;
+  z-index:3;
+}
+
+.back-btn svg{
+  width:14px;
+  height:14px;
+  stroke:currentColor;
+  opacity:.72;
+  transition:transform .28s ease, opacity .28s ease;
+}
+
+.back-btn:hover{
+  color:#74D6E8;
+  transform:translateX(-2px);
+}
+
+.back-btn:hover svg{
+  transform:translateX(-2px);
+  opacity:1;
+}
+
+.vmv-hero{
+  padding:9rem 1.5rem 5rem;
+  position:relative;
+  z-index:1;
+}
+
+.vmv-hero-inner{
+  position:relative;
+  max-width:72rem;
+  margin:0 auto;
+  min-height:24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+@media(min-width:768px){
+  .vmv-hero{
+    padding:13rem 1.5rem 6rem;
+  }
+
+  .vmv-hero-inner{
+    max-width:76rem;
+  }
+
+  .back-btn{
+    font-size:10px;
+  }
+}
+  
 /* VMV PAGE */
-.vmv-bg-word{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:30vw;font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;opacity:.02;pointer-events:none;white-space:nowrap;z-index:0}
-.vmv-hero{padding:8rem 1.5rem 4rem;text-align:center;position:relative;z-index:1}
-@media(min-width:768px){.vmv-hero{padding:12rem 1.5rem 5rem}}
-.back-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#475569;background:none;border:none;transition:color .3s;margin-bottom:3rem}
-@media(min-width:768px){.back-btn{margin-bottom:5rem}}
-.back-btn:hover{color:white}
-.vmv-page-h{font-size:clamp(3rem,9vw,9vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;line-height:1}
-.vmv-blocks{max-width:64rem;margin:0 auto;padding:0 1.5rem 6rem;position:relative;z-index:1}
-@media(min-width:768px){.vmv-blocks{padding:0 1.5rem 12rem}}
-.vmv-block{display:flex;flex-direction:column;gap:1.5rem;padding:3rem 0;border-top:1px solid rgba(255,255,255,.1)}
-@media(min-width:768px){.vmv-block{flex-direction:row;gap:5rem;padding:5rem 0}}
-.vmv-block:last-child{border-bottom:none}
-.vmv-block-l{flex-shrink:0}
-@media(min-width:768px){.vmv-block-l{width:33%}}
-.vmv-tag{font-size:9px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;border:1px solid rgba(116,214,232,.3);padding:.5rem 1.25rem;border-radius:9999px;display:inline-block}
-.vmv-en{font-size:clamp(1.75rem,3.5vw,3.5rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;margin-bottom:1.5rem;line-height:1.1}
-.vmv-en .c{color:#74D6E8}
-.vmv-jp{font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;color:#e2e8f0;line-height:1.7;letter-spacing:.05em;margin-bottom:1.5rem;border-left:2px solid #74D6E8;padding-left:1.5rem}
-.vmv-desc{font-size:clamp(.8125rem,1.2vw,1rem);color:#475569;font-weight:300;line-height:1.9;letter-spacing:.03em}
-.vals-sec{margin-top:4rem;padding-top:4rem;border-top:1px solid rgba(255,255,255,.1)}
-@media(min-width:768px){.vals-sec{margin-top:8rem;padding-top:6rem}}
-.vals-h{font-size:clamp(2.5rem,8vw,8rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;margin-bottom:.5rem}
-.vals-sub{font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;margin-bottom:3rem;display:block}
-.vals-grid{display:grid;grid-template-columns:1fr;gap:3rem}
-@media(min-width:640px){.vals-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:768px){.vals-grid{grid-template-columns:repeat(3,1fr);gap:5rem}}
-.val-num{font-size:clamp(3rem,6vw,5rem);font-weight:900;color:#74D6E8;opacity:.2;margin-bottom:1.5rem;line-height:1;transition:opacity .5s}
-.val-item:hover .val-num{opacity:1}
-.val-en{font-size:clamp(1.25rem,2vw,1.75rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;margin-bottom:.75rem;line-height:1.2}
-.val-jp{font-size:9px;font-weight:700;letter-spacing:.15em;color:#475569;margin-bottom:1.5rem}
-.val-divider{width:100%;height:1px;background:rgba(255,255,255,.1);margin-bottom:1.5rem;transition:background .5s}
-.val-item:hover .val-divider{background:#74D6E8}
-.val-desc{font-size:.8125rem;color:#334155;font-weight:300;line-height:1.8}
+.vmv-bg-word{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:28vw;
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  opacity:.03;
+  pointer-events:none;
+  white-space:nowrap;
+  z-index:0;
+}
 
-/* SERVICE DETAIL */
-.sdtl-hero{position:relative;height:100svh;width:100%;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2rem;z-index:20}
-@media(min-width:768px){.sdtl-hero{padding-bottom:6rem}}
-.sdtl-img-wrap{position:absolute;inset:0;z-index:0}
-.sdtl-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#050505,transparent 50%,rgba(5,5,5,.4));z-index:1}
-.sdtl-img-wrap::before{content:'';position:absolute;inset:0;background:rgba(5,5,5,.5);z-index:1;mix-blend-mode:multiply}
-.sdtl-img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
-.sdtl-back{position:absolute;top:5rem;left:1rem;z-index:30;display:inline-flex;align-items:center;gap:.5rem;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:white;background:rgba(5,5,5,.5);border:none;padding:.5rem 1.25rem;border-radius:9999px;backdrop-filter:blur(12px);transition:color .3s}
-@media(min-width:768px){.sdtl-back{top:8rem;left:3rem}}
-.sdtl-back:hover{color:#74D6E8}
-.sdtl-content{position:relative;z-index:20;max-width:1600px;margin:0 auto;padding:0 1rem;width:100%}
-@media(min-width:768px){.sdtl-content{padding:0 3rem}}
-.sdtl-top{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
-@media(min-width:768px){.sdtl-top{flex-direction:row;align-items:center;justify-content:space-between;gap:3rem;margin-bottom:5rem}}
-.sdtl-num-title{display:flex;flex-direction:column;gap:.5rem}
-@media(min-width:768px){.sdtl-num-title{flex-direction:row;align-items:center;gap:3rem}}
-.sdtl-num{font-size:clamp(2rem,5vw,4rem);font-family:'Cormorant Garamond',serif;font-style:italic;color:#74D6E8;font-weight:300}
-.sdtl-title{font-size:clamp(2.5rem,7vw,7vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;line-height:.9}
-.sdtl-icon{display:none;width:6rem;height:6rem;border-radius:50%;background:white;align-items:center;justify-content:center;flex-shrink:0}
-@media(min-width:1024px){.sdtl-icon{display:flex}}
-.sdtl-bot{display:flex;flex-direction:column;gap:1rem;border-top:1px solid rgba(255,255,255,.2);padding-top:1.5rem}
-@media(min-width:768px){.sdtl-bot{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:3rem;padding-top:2.5rem}}
-.sdtl-jp-tag{font-size:9px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#050505;background:#74D6E8;padding:.375rem 1.25rem;border-radius:9999px;display:inline-block;white-space:nowrap}
-.sdtl-concept{font-size:clamp(1rem,2vw,1.875rem);font-weight:500;letter-spacing:.03em;color:rgba(255,255,255,.9);max-width:60rem;line-height:1.6}
-@media(min-width:768px){.sdtl-concept{text-align:right}}
-.sdtl-body{padding:5rem 1rem;max-width:1600px;margin:0 auto;background:#050505;position:relative;z-index:10}
-@media(min-width:768px){.sdtl-body{padding:10rem 3rem}}
-.sdtl-overview{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:4rem}
-@media(min-width:768px){.sdtl-overview{flex-direction:row;gap:4rem;margin-bottom:10rem}}
-.sdtl-ov-label{font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;border-top:1px solid rgba(255,255,255,.2);padding-top:1.5rem;flex-shrink:0}
-@media(min-width:768px){.sdtl-ov-label{width:25%}}
-.sdtl-ov-body{border-top:1px solid rgba(255,255,255,.2);padding-top:1.5rem;flex:1}
-.sdtl-hero-text{font-size:clamp(2rem,5vw,4.5rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;margin-bottom:1.5rem;line-height:1}
-.sdtl-desc-txt{font-size:clamp(1rem,2vw,1.5rem);color:#475569;font-weight:500;line-height:1.7;letter-spacing:.02em}
-.sdtl-feats{border-top:1px solid rgba(255,255,255,.2)}
-.sdtl-feat{display:flex;flex-direction:column;gap:1rem;padding:2.5rem 0;border-bottom:1px solid rgba(255,255,255,.2);transition:background .5s}
-@media(min-width:768px){.sdtl-feat{flex-direction:row;align-items:flex-start;padding:5rem 0;gap:0}}
-.sdtl-feat:hover{background:rgba(255,255,255,.03)}
-.sdtl-feat-num{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:#74D6E8;flex-shrink:0}
-@media(min-width:768px){.sdtl-feat-num{width:12rem}}
-.sdtl-feat-body{display:flex;flex-direction:column;gap:1rem}
-@media(min-width:768px){.sdtl-feat-body{flex:1;flex-direction:row;gap:4rem}}
-.sdtl-feat-title{font-size:clamp(1.5rem,3vw,3rem);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;line-height:1}
-@media(min-width:768px){.sdtl-feat-title{width:50%}}
-.sdtl-feat-desc{font-size:clamp(.9375rem,1.5vw,1.25rem);color:#475569;font-weight:500;line-height:1.7}
-@media(min-width:768px){.sdtl-feat-desc{width:50%}}
-.sdtl-cta{padding:8rem 1.5rem;background:#050505;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;text-align:center}
-.sdtl-cta-h{font-size:clamp(2rem,6vw,6vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;margin-bottom:1.5rem;line-height:1.1}
-.sdtl-cta-h .outline{color:transparent;-webkit-text-stroke:max(1px,.1vw) white;font-style:italic}
-.sdtl-cta-p{font-size:9px;color:#475569;font-weight:700;letter-spacing:.3em;text-transform:uppercase;margin-bottom:3rem;max-width:24rem;line-height:1.8}
-@media(min-width:768px){.sdtl-cta-p{font-size:11px;margin-bottom:4rem}}
+.vmv-hero{
+  padding:8.5rem 1.5rem 3.75rem;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+@media(min-width:768px){
+  .vmv-hero{
+    padding:12rem 1.5rem 4.5rem;
+  }
+}
+
+.vmv-page-h{
+  font-size:clamp(3rem,8vw,8rem);
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  line-height:.95;
+}
+
+.vmv-blocks{
+  max-width:72rem;
+  margin:0 auto;
+  padding:0 1.5rem 7rem;
+  position:relative;
+  z-index:1;
+}
+@media(min-width:768px){
+  .vmv-blocks{
+    padding:0 1.5rem 12rem;
+  }
+}
+
+.vmv-block{
+  display:flex;
+  flex-direction:column;
+  gap:1.75rem;
+  padding:3.5rem 0;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+@media(min-width:768px){
+  .vmv-block{
+    flex-direction:row;
+    gap:5rem;
+    padding:5.5rem 0;
+  }
+}
+
+.vmv-block-l{
+  flex-shrink:0;
+}
+@media(min-width:768px){
+  .vmv-block-l{
+    width:28%;
+  }
+}
+
+.vmv-tag{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.38em;
+  text-transform:uppercase;
+  color:#74D6E8;
+  border:1px solid rgba(116,214,232,.24);
+  padding:.55rem 1.1rem;
+  border-radius:9999px;
+  display:inline-block;
+}
+
+.vmv-en{
+  font-size:clamp(2rem,3.8vw,4.2rem);
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  margin-bottom:.9rem;
+  line-height:1;
+}
+
+.vmv-en .c{
+  color:#74D6E8;
+}
+
+.vmv-jp{
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  font-weight:500;
+  color:#e2e8f0;
+  line-height:1.7;
+  letter-spacing:.04em;
+  margin-bottom:.95rem;
+  border-left:2px solid #74D6E8;
+  padding-left:1.25rem;
+}
+
+.vmv-desc{
+  font-size:clamp(.9rem,1.1vw,1rem);
+  color:#64748b;
+  font-weight:300;
+  line-height:1.95;
+  letter-spacing:.02em;
+  max-width:42rem;
+}
+
+.vals-sec{
+  margin-top:5rem;
+  padding-top:5rem;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+@media(min-width:768px){
+  .vals-sec{
+    margin-top:8rem;
+    padding-top:7rem;
+  }
+}
+
+.vals-h{
+  font-size:clamp(2.5rem,7vw,7rem);
+  font-weight:900;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  color:white;
+  margin-bottom:.5rem;
+  line-height:.95;
+}
+
+.vals-sub{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.38em;
+  text-transform:uppercase;
+  color:#74D6E8;
+  margin-bottom:3rem;
+  display:block;
+}
+
+.vals-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:3rem;
+}
+@media(min-width:768px){
+  .vals-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:4rem;
+  }
+}
+
+.val-num{
+  font-size:clamp(3.5rem,7vw,6rem);
+  font-weight:900;
+  color:#74D6E8;
+  opacity:.14;
+  margin-bottom:1rem;
+  line-height:1;
+  transition:opacity .4s ease, transform .4s ease;
+}
+
+.val-item:hover .val-num{
+  opacity:.28;
+  transform:translateY(-2px);
+}
+
+.val-en{
+  font-size:clamp(1.2rem,2vw,1.7rem);
+  font-weight:900;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  color:white;
+  margin-bottom:.65rem;
+  line-height:1.15;
+}
+
+.val-jp{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.16em;
+  color:#64748b;
+  margin-bottom:1.25rem;
+}
+
+.val-divider{
+  width:100%;
+  height:1px;
+  background:rgba(255,255,255,.08);
+  margin-bottom:1.25rem;
+  transition:background .4s ease;
+}
+
+.val-item:hover .val-divider{
+  background:rgba(116,214,232,.5);
+}
+
+.val-desc{
+  font-size:.88rem;
+  color:#475569;
+  font-weight:300;
+  line-height:1.9;
+}
 
 /* CONTACT */
-.contact-wrap{padding:8rem 1rem 4rem;max-width:1600px;margin:0 auto;position:relative;z-index:10}
-@media(min-width:768px){.contact-wrap{padding:12rem 3rem 5rem}}
+.contact-wrap{
+  padding:7rem 1rem 4rem;
+  max-width:1600px;
+  margin:0 auto;
+  position:relative;
+  z-index:10;
+}
+@media(min-width:768px){
+  .contact-wrap{
+    padding:10rem 3rem 5rem;
+  }
+}
+
+.ct-left-desc{
+  font-size:clamp(.98rem,1.3vw,1.15rem);
+  color:#475569;
+  font-weight:500;
+  line-height:1.9;
+  max-width:26rem;
+}
 .ct-tag{font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;display:block;margin-bottom:1.5rem}
 .ct-title-wrap{overflow:hidden}
 .ct-title{font-size:clamp(4rem,9vw,9vw);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:white;line-height:.9;margin-bottom:1.5rem;display:block;transform:translateY(120%) rotate(5deg) scale(.95);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1)}
 .ct-title.in{transform:none}
 .ct-grid{display:grid;grid-template-columns:1fr;gap:3rem;margin-top:3rem}
 @media(min-width:1024px){.ct-grid{grid-template-columns:5fr 7fr;gap:6rem;margin-top:0}}
-.ct-left-desc{font-size:clamp(1rem,1.5vw,1.25rem);color:#475569;font-weight:500;line-height:1.8;max-width:24rem}
-.ct-left-desc-en{font-size:clamp(.8125rem,1.2vw,1rem);color:#334155;font-weight:300;letter-spacing:.05em;line-height:1.8;display:block;margin-top:1.5rem}
+
+  .ct-left-desc-en{font-size:clamp(.8125rem,1.2vw,1rem);color:#334155;font-weight:300;letter-spacing:.05em;line-height:1.8;display:block;margin-top:1.5rem}
 .ct-form{display:flex;flex-direction:column;gap:2.5rem}
 @media(min-width:768px){.ct-form{gap:4rem}}
 .ct-field{display:flex;flex-direction:column;gap:.75rem}
@@ -345,6 +2274,15 @@ option{background:#050505;color:white}
 
 /* FOOTER */
 footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hidden;padding:6rem 1.5rem 3rem;position:relative;z-index:20}
+  .ft-logo{
+  height:32px;
+  width:auto;
+  display:block;
+}
+
+@media(min-width:768px){
+  .ft-logo{ height:36px; }
+}
 @media(min-width:768px){footer{padding:10rem 1.5rem 4rem}}
 .ft-inner{max-width:80rem;margin:0 auto;display:flex;flex-direction:column;align-items:center}
 .ft-top{width:100%;display:flex;flex-direction:column;gap:4rem;margin-bottom:6rem;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:5rem;align-items:center}
@@ -367,6 +2305,36 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 
 /* ARROW SVG INLINE */
 .arrow-svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== BACK BUTTON (shared) ===== */
+.sdtl-back{
+  position:absolute;
+  top:6.25rem; left:clamp(1rem,3vw,3.5rem); z-index:120;
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-size:.56rem; font-weight:600;
+  letter-spacing:.25em; text-transform:uppercase;
+  color:rgba(255,255,255,.8);
+  background:rgba(5,5,5,.32);
+  border:1px solid rgba(255,255,255,.1);
+  padding:.6rem 1.05rem;
+  border-radius:9999px;
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  transition:color .3s, border-color .3s, background .3s, transform .3s;
+  cursor:pointer;
+}
+.sdtl-back:hover{
+  color:#74D6E8; border-color:rgba(116,214,232,.28);
+  background:rgba(5,5,5,.45); transform:translateX(-2px);
+}
+.sdtl-back svg{
+  width:12px; height:12px; stroke:currentColor; opacity:.75;
+  transition:transform .3s, opacity .3s;
+}
+.sdtl-back:hover svg{ transform:translateX(-2px); opacity:1; }
+@media(min-width:768px){ .sdtl-back{ top:7.25rem; } }
+@media(min-width:1280px){ .sdtl-back{ top:7.5rem; } }
+@media(max-width:767px){ .sdtl-back{ top:5.4rem; padding:.55rem .9rem; font-size:.52rem; } }
+
 </style>
 </head>
 <body>
@@ -385,7 +2353,7 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
       <div class="loader-bar-label">Loading Experience</div>
       <div class="loader-bar-track"><div id="loader-bar-fill"></div></div>
     </div>
-    <div class="loader-brand">NOA.INC</div>
+    <div class="loader-brand">NOA INC.</div>
   </div>
 </div>
 
@@ -395,7 +2363,9 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 
 <!-- HEADER -->
 <div id="hdr">
-  <button class="logo-btn" onclick="showPage('home')">noa.Inc</button>
+  <button class="logo-btn" onclick="showPage('home')" aria-label="noa Inc.">
+    <img src="/logo-noa.png" alt="noa Inc." class="logo-img" width="160" height="32">
+  </button>
   <nav class="nav-d">
     <button class="nav-pill" id="np-home" onclick="showPage('home')">Home</button>
     <button class="nav-pill" id="np-vmv" onclick="showPage('vmv')">Philosophy</button>
@@ -424,35 +2394,72 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 <div id="page-home" class="page">
   <section id="hero">
     <div class="hero-text-block">
-      <div class="hero-lines">
-        <div class="hero-line reveal-line"><span class="inner hl-w">BE</span></div>
-        <div class="hero-line i1 reveal-line" style="transition-delay:.1s"><span class="inner hl-w">YOURSELF.</span></div>
-        <div class="hero-line i2 reveal-line" style="transition-delay:.2s"><span class="inner hl-o">BELONG.</span></div>
-        <div class="hero-line i3 reveal-line" style="transition-delay:.3s"><span class="inner hl-c">START</span></div>
-        <div class="hero-line i3 reveal-line" style="transition-delay:.4s"><span class="inner hl-w">HERE.</span></div>
-      </div>
+    <h1 class="hero-lines">
+      <span class="sr-only">株式会社noa | 人材紹介・Web構築・マーケティング支援</span>
+      <div class="hero-line reveal-line"><span class="inner hl-w">BE</span></div>
+      <div class="hero-line i1 reveal-line" style="transition-delay:.1s"><span class="inner hl-w">YOURSELF.</span></div>
+      <div class="hero-line i2 reveal-line" style="transition-delay:.2s"><span class="inner hl-o">BELONG.</span></div>
+      <div class="hero-line i3 reveal-line" style="transition-delay:.3s"><span class="inner hl-c">START</span></div>
+      <div class="hero-line i3 reveal-line" style="transition-delay:.4s"><span class="inner hl-w">HERE.</span></div>
+    </h1>
     </div>
     <div class="hero-sub">
       <p class="hero-sub-text">Phygital Design<br>Company</p>
       <div class="hero-line-anim"></div>
     </div>
+    <p class="sr-only">
+      株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作、システム構築、マーケティング支援を通じて、人と組織の成長を支援します。
+    </p>
   </section>
 
   <div id="mqs"><div class="mq-track" id="mq-track"></div></div>
 
   <section id="phil">
+    <div class="phil-decor" aria-hidden="true">
+      <div class="phil-watermark"></div>
+      <div class="phil-bridge phil-bridge--top"></div>
+      <div class="phil-bridge phil-bridge--bot"></div>
+      <div class="phil-tick phil-tick--tl"></div>
+      <div class="phil-tick phil-tick--tr"></div>
+      <div class="phil-tick phil-tick--bl"></div>
+      <div class="phil-tick phil-tick--br"></div>
+    </div>
+    <div class="phil-index">
+      <span class="phil-index-l">01 / Our Vision</span>
+      <span class="phil-index-c">Chapter One — Philosophy</span>
+      <span class="phil-index-r">noa Inc.</span>
+    </div>
     <div class="phil-inner">
-      <div class="anim-up">
-        <span class="phil-tag">Our Vision</span>
-        <h2 class="phil-big"><span class="c">NO</span> ONE<br>IS<br><span class="c">A</span>LONE.</h2>
+      <div class="phil-left anim-up">
+        <h2 class="phil-big">
+          <span class="phil-big-row"><span class="phil-big-in"><span class="c">NO</span> ONE</span></span>
+          <span class="phil-big-row"><span class="phil-big-in">IS</span></span>
+          <span class="phil-big-row"><span class="phil-big-in"><span class="c">A</span>LONE.</span></span>
+        </h2>
+        <div class="phil-sig">
+          <span class="phil-sig-line" aria-hidden="true"></span>
+          <span>noa — philosophy, est. 2023</span>
+        </div>
       </div>
       <div class="phil-right anim-up d2">
         <div class="phil-head">テクノロジーが世界を覆う今こそ、<br>問われるのは「人」の本質。</div>
-        <div class="phil-sub">真の価値は、<br>繋がりに宿る。</div>
-        <p class="phil-desc">表面的なデータや条件の奥にある、確かな熱量を見つけ出す。個人の「自分らしさ」が最も強く共鳴する場所へ、新たな航路を描き出します。</p>
-        <button class="phil-link" onclick="showPage('vmv')">
-          <span>Discover Our Philosophy</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <blockquote class="phil-sub">
+          <span class="phil-line"><span class="phil-line-in">真の価値は、</span></span>
+          <span class="phil-line"><span class="phil-line-in">人のあいだに宿る。</span></span>
+        </blockquote>
+        <div class="phil-body">
+          <p class="phil-desc">データの先にある「意思」と「可能性」を見つめる。</p>
+          <span class="phil-sep" aria-hidden="true"></span>
+          <p class="phil-desc">自分らしさが活きる場所へ、<br>確かな出会いをデザインする。</p>
+        </div>
+        <button class="phil-link" onclick="showPage('vmv')" aria-label="Discover our philosophy">
+          <span class="phil-link-stack">
+            <span class="phil-link-en">Discover Our Philosophy</span>
+            <span class="phil-link-jp">私たちの哲学を読む</span>
+          </span>
+          <span class="phil-link-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
         </button>
       </div>
     </div>
@@ -465,7 +2472,7 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
           <span style="font-size:10px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:#74D6E8;display:block;margin-bottom:1rem">Expertise</span>
           <h2 class="svcs-h">SERVICES</h2>
         </div>
-        <p class="svcs-desc">デジタルとフィジカルの境界を溶かし、ビジネスを非連続に成長させる3つのソリューション。</p>
+        <p class="svcs-desc">人・事業・顧客接点を横断し、成長の構造そのものを設計する3つのソリューション。</p>
       </div>
       <div class="svcs-list" id="svcs-list"></div>
     </div>
@@ -486,7 +2493,7 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
         <span class="co-tag">Corporate Info</span>
         <h2 class="co-h">COMPANY<br>PROFILE.</h2>
         <div class="co-divider"></div>
-        <p class="co-body">テクノロジーの冷徹さと、人間の熱量を掛け合わせる。<br>デジタルとフィジカルの境界線を再定義するプロフェッショナルファーム。</p>
+        <p class="co-body">テクノロジーに、人の温度を。<br>フィジタルで、人と組織の『Ark』をデザインする。</p>
       </div>
       <div class="anim-up d2">
         <dl class="co-dl" id="co-dl"></dl>
@@ -495,23 +2502,57 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
   </section>
 
   <section id="cta">
+    <div class="cta-decor" aria-hidden="true">
+      <span class="cta-watermark">noa</span>
+      <div class="cta-rule cta-rule--top"></div>
+      <div class="cta-rule cta-rule--bot"></div>
+      <div class="cta-tick cta-tick--tl"></div>
+      <div class="cta-tick cta-tick--tr"></div>
+      <div class="cta-tick cta-tick--bl"></div>
+      <div class="cta-tick cta-tick--br"></div>
+    </div>
+    <div class="cta-index">
+      <span class="cta-index-l">02 / Invitation</span>
+      <span class="cta-index-c">Final Chapter — Contact</span>
+      <span class="cta-index-r">noa Inc.</span>
+    </div>
     <div class="cta-inner anim-up">
-      <div class="cta-h1">LET'S CHART THE</div>
-      <div class="cta-h2">COURSE TOGETHER.</div>
-      <p class="cta-p">Ready to start your project?<br>Reach out to us anytime.</p>
-      <button class="btn-main" onclick="showPage('contact')">
-        <span>CONTACT US</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <span class="cta-eyebrow">
+        <span class="cta-eyebrow-line" aria-hidden="true"></span>
+        <span>an invitation to begin.</span>
+      </span>
+      <div class="cta-head">
+        <span class="cta-row"><span class="cta-row-in"><span class="cta-h1">LET'S CHART</span></span></span>
+        <span class="cta-row"><span class="cta-row-in cta-row-in--flex"><span class="cta-h1">THE</span><span class="cta-h2">COURSE</span></span></span>
+        <span class="cta-row"><span class="cta-row-in"><span class="cta-h2">TOGETHER.</span></span></span>
+      </div>
+      <span class="cta-mid">
+        <span class="cta-mid-line" aria-hidden="true"></span>
+        <span>ready when you are.</span>
+        <span class="cta-mid-line" aria-hidden="true"></span>
+      </span>
+      <button class="cta-invite" onclick="showPage('contact')" aria-label="Start the conversation">
+        <span class="cta-invite-label">
+          <span class="cta-invite-en">Start The Conversation</span>
+          <span class="cta-invite-jp">お問い合わせ</span>
+        </span>
+        <span class="cta-invite-arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </button>
+      <div class="cta-fin">
+        <span class="cta-fin-line" aria-hidden="true"></span>
+        <p class="cta-p">プロジェクトのご相談は、<br>いつでもお気軽にお問い合わせください。</p>
+      </div>
     </div>
   </section>
 
   <footer>
     <div class="ft-inner">
       <div class="ft-top">
-        <div class="ft-brand" onclick="showPage('home')">
-          <div class="ft-brand-name">noa.Inc</div>
-          <p class="ft-brand-desc">テクノロジーの冷徹さと、人間の熱量を掛け合わせる。<br>デジタルとフィジカルの境界線を再定義するプロフェッショナルファーム。</p>
+        <div class="ft-brand" onclick="showPage('home')" role="button" tabindex="0" aria-label="Back to home">
+          <img src="/logo-noa.png" alt="noa Inc." class="ft-logo" width="180" height="36">
+          <p class="ft-brand-desc">テクノロジーに、人の温度を。<br>フィジタルで、人と組織の『Ark』をデザインする。</p>
         </div>
         <div class="ft-links">
           <div class="ft-link-group">
@@ -522,19 +2563,417 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
           </div>
           <div class="ft-link-group">
             <span class="ft-link-head">Legal / Connect</span>
-            <span style="font-size:9px;font-weight:700;letter-spacing:.25em;color:#1e293b;text-transform:uppercase">Privacy Policy</span>
-            <span style="font-size:9px;font-weight:700;letter-spacing:.25em;color:#1e293b;text-transform:uppercase">Terms of Use</span>
+            <button class="ft-link-item" onclick="showPage('privacy')">Privacy Policy</button>
+            <button class="ft-link-item" onclick="showPage('terms')">Terms of Use</button>
             <button class="ft-link-item" onclick="showPage('contact')">Contact Us</button>
           </div>
         </div>
       </div>
-      <div class="ft-wordmark">NOA.INC</div>
+      <div class="ft-wordmark">NOA INC.</div>
       <div class="ft-bottom">
-        <span>© <span id="yr"></span> NOA.INC. ALL RIGHTS RESERVED.</span>
+        <span>© <span id="yr"></span> NOA INC. ALL RIGHTS RESERVED.</span>
         <span><span class="ft-pulse"></span>PHYGITAL DESIGN COMPANY</span>
       </div>
     </div>
   </footer>
+</div>
+
+<!-- ===== PRIVACY POLICY (FINAL) ===== -->
+<div id="page-privacy" class="page">
+  <div style="background:#050505;min-height:100vh;position:relative;overflow:hidden;">
+    <div class="vmv-bg-word">PRIVACY</div>
+
+    <div style="position:relative;z-index:1;">
+      <div class="vmv-hero">
+        <div class="vmv-hero-inner">
+          <button class="back-btn" onclick="showPage('home')">
+            <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Home</span>
+          </button>
+      
+          <div class="reveal-line" style="display:flex;justify-content:center;">
+            <span class="inner vmv-page-h">PRIVACY POLICY.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vmv-blocks">
+        <!-- Intro -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">Policy</span></div>
+          <div>
+            <p class="vmv-jp">プライバシーポリシー</p>
+            <p class="vmv-desc">
+              株式会社noa（以下「当社」）は、当社が運営するWebサイトおよび当社が提供する各種サービス（人材紹介、Web構築・運用、マーケティング支援、その他付随する業務を含みます。以下総称して「本サービス」）において取得する個人情報等の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。
+            </p>
+            <p class="vmv-desc">
+              最終改定日：2025年3月1日
+            </p>
+          </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">1</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">INFORMATION WE COLLECT</span></div>
+            <p class="vmv-jp">取得する情報</p>
+            <p class="vmv-desc">
+              当社は、本サービスの提供・運営にあたり、以下の情報を取得することがあります。<br><br>
+
+              （1）ご本人から直接取得する情報<br>
+              ・氏名、会社名、部署名、役職、住所、電話番号、メールアドレス等の連絡先<br>
+              ・お問い合わせ内容、相談内容、その他フォームに入力いただく情報<br><br>
+
+              （2）サービス提供の過程で取得する情報（人材紹介等）<br>
+              ・候補者のプロフィール情報（学歴、職歴、スキル、希望条件等）<br>
+              ・面談・選考に関する記録、やりとり（メール/チャット/通話メモ等）<br>
+              ※職業紹介に係る個人情報の取扱いは、法令および当社の運用方針に従い、必要最小限の範囲で取り扱います。<br><br>
+
+              （3）自動的に取得される情報<br>
+              ・Cookie、アクセスログ、IPアドレス、端末情報、ブラウザ情報、閲覧履歴、参照元等（解析/セキュリティ目的）
+            </p>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">2</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">PURPOSE OF USE</span></div>
+            <p class="vmv-jp">利用目的</p>
+            <p class="vmv-desc">
+              当社は、取得した情報を以下の目的で利用します。<br><br>
+
+              ・お問い合わせへの対応、連絡、本人確認<br>
+              ・本サービスの提供、運営、管理、品質向上、機能改善<br>
+              ・人材紹介サービスにおける求人企業とのマッチング、選考手続、連絡、支援（同意がある場合）<br>
+              ・Web構築・運用/マーケティング支援における提案、設計、実装、運用、サポート対応<br>
+              ・不正行為の防止、セキュリティ確保、障害対応<br>
+              ・法令・ガイドライン等への対応、紛争対応
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">3</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">COOKIES & ANALYTICS</span></div>
+            <p class="vmv-jp">Cookie等の利用</p>
+            <p class="vmv-desc">
+              当社は、サイトの利便性向上・利用状況の分析・セキュリティ確保等の目的でCookie等の技術を利用する場合があります。<br>
+              利用者はブラウザ設定によりCookieを無効化できますが、機能の一部が利用できない場合があります。
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">4</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">THIRD-PARTY SHARING</span></div>
+            <p class="vmv-jp">第三者提供</p>
+            <p class="vmv-desc">
+              当社は、法令に基づく場合または以下の場合を除き、本人の同意なく個人情報を第三者に提供しません。<br><br>
+
+              ・人材紹介サービスにおいて、求人企業への推薦等を行うために必要な範囲で提供する場合（事前に同意を得た場合）<br>
+              ・人の生命・身体・財産保護のために必要で本人同意が困難な場合<br>
+              ・国の機関等への協力が必要な場合
+            </p>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">5</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">OUTSOURCING</span></div>
+            <p class="vmv-jp">委託</p>
+            <p class="vmv-desc">
+              当社は、利用目的の達成に必要な範囲で、業務の一部を外部に委託することがあります（例：インフラ運用、フォーム送信/通知、解析、メール配信等）。<br>
+              この場合、当社は委託先の選定を適切に行い、必要かつ適切な監督を実施します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">6</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">SECURITY</span></div>
+            <p class="vmv-jp">安全管理措置</p>
+            <p class="vmv-desc">
+              当社は、個人情報の漏えい・滅失・毀損等を防止するため、アクセス制御、権限管理、ログ管理、暗号化等の合理的な安全管理措置を講じます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">7</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">RETENTION</span></div>
+            <p class="vmv-jp">保管期間</p>
+            <p class="vmv-desc">
+              当社は、利用目的の達成に必要な期間、または法令で定められた期間に限り、個人情報を保管します。不要となった場合は、適切な方法で消去または匿名化します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">8</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">YOUR RIGHTS</span></div>
+            <p class="vmv-jp">開示・訂正・削除等の請求</p>
+            <p class="vmv-desc">
+              ご本人は、当社に対し、個人情報の開示、訂正、追加、削除、利用停止等を求めることができます。<br>
+              当社は、本人確認のうえ、法令に従い適切に対応します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">9</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">CONTACT</span></div>
+            <p class="vmv-jp">お問い合わせ窓口</p>
+            <p class="vmv-desc">
+              本ポリシーに関するお問い合わせは、当サイトのContactフォームよりご連絡ください。
+            </p>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">10</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">CHANGES</span></div>
+            <p class="vmv-jp">本ポリシーの変更</p>
+            <p class="vmv-desc">
+              当社は、必要に応じて本ポリシーを変更することがあります。重要な変更がある場合は、当サイト上で適切な方法により告知します。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TERMS OF USE (FINAL) ===== -->
+<div id="page-terms" class="page">
+  <div style="background:#050505;min-height:100vh;position:relative;overflow:hidden;">
+    <div class="vmv-bg-word">TERMS</div>
+
+    <div style="position:relative;z-index:1;">
+      <div class="vmv-hero">
+        <div class="vmv-hero-inner">
+          <button class="back-btn" onclick="showPage('home')">
+            <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Home</span>
+          </button>
+      
+          <div class="reveal-line" style="display:flex;justify-content:center;">
+            <span class="inner vmv-page-h">TERMS OF USE.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vmv-blocks">
+        <!-- Intro -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">Terms</span></div>
+          <div>
+            <p class="vmv-jp">利用規約</p>
+            <p class="vmv-desc">
+              この利用規約（以下「本規約」）は、株式会社noa（以下「当社」）が提供するWebサイトおよび各種サービス（人材紹介、Web構築・運用、マーケティング支援、その他付随する業務。以下「本サービス」）の利用条件を定めるものです。利用者は本規約に同意のうえ、本サービスを利用するものとします。
+            </p>
+            <p class="vmv-desc">
+              最終改定日：2025年3月1日
+            </p>
+          </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">1</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">SCOPE</span></div>
+            <p class="vmv-jp">適用</p>
+            <p class="vmv-desc">
+              本規約は、本サービスの利用に関する当社と利用者との一切の関係に適用されます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">2</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">SERVICE DESCRIPTION</span></div>
+            <p class="vmv-jp">サービス内容</p>
+            <p class="vmv-desc">
+              当社は、本サービスとして、(i) 人材紹介に関する支援、(ii) Webサイト/システムの構築・運用支援、(iii) マーケティング支援等を提供します。
+              具体的内容は、当社Webサイトの表示、個別提案、見積書、契約書等により定まります。
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">3</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">PROHIBITED ACTS</span></div>
+            <p class="vmv-jp">禁止事項</p>
+            <p class="vmv-desc">
+              利用者は、以下の行為を行ってはなりません。<br><br>
+              ・法令または公序良俗に違反する行為<br>
+              ・当社または第三者の権利（著作権、商標権、プライバシー等）を侵害する行為<br>
+              ・虚偽の情報を送信する行為、なりすまし行為<br>
+              ・本サービスの運営を妨害する行為、不正アクセス、過度な負荷をかける行為<br>
+              ・反社会的勢力への利益供与、またはこれに準ずる行為<br>
+              ・その他、当社が不適切と判断する行為
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">4</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">INTELLECTUAL PROPERTY</span></div>
+            <p class="vmv-jp">知的財産権</p>
+            <p class="vmv-desc">
+              本サービスおよび当社Webサイトに含まれる文章、画像、デザイン、プログラム等に関する知的財産権は、当社または正当な権利者に帰属します。
+              利用者は、当社の許諾なく複製・転載・改変・公衆送信等を行ってはなりません。
+            </p>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">5</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">DISCLAIMERS</span></div>
+            <p class="vmv-jp">免責事項</p>
+            <p class="vmv-desc">
+              当社は、本サービスの完全性、正確性、有用性、特定目的適合性等について、明示または黙示を問わず保証しません。<br>
+              また、当社は、利用者が本サービスを利用したこと、または利用できなかったことにより生じた損害について、当社の故意または重過失がある場合を除き責任を負いません。<br><br>
+              ※人材紹介に関しては、採用/入社/内定等の結果を保証するものではありません。<br>
+              ※Web/マーケティング支援に関しては、売上・成果等の結果を保証するものではありません（個別契約で別途定める場合を除く）。
+            </p>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">6</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">SUSPENSION</span></div>
+            <p class="vmv-jp">提供の停止・中断</p>
+            <p class="vmv-desc">
+              当社は、システム保守、障害、通信回線の不具合、天災等の不可抗力その他やむを得ない事由により、利用者への事前通知なく本サービスの全部または一部を停止または中断できるものとします。
+            </p>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">7</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">LINKS</span></div>
+            <p class="vmv-jp">外部サイトへのリンク</p>
+            <p class="vmv-desc">
+              当社Webサイトから外部サイトへリンクする場合がありますが、当社は外部サイトの内容・運営について責任を負いません。
+            </p>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">8</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">CHANGES</span></div>
+            <p class="vmv-jp">規約の変更</p>
+            <p class="vmv-desc">
+              当社は、必要に応じて本規約を変更することがあります。変更後の本規約は当サイト上に掲示した時点から効力を生じます。重要な変更がある場合は、当サイト上で適切な方法により告知します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l"><span class="vmv-tag">9</span></div>
+          <div>
+            <div class="reveal-line"><span class="inner vmv-en">GOVERNING LAW</span></div>
+            <p class="vmv-jp">準拠法・管轄</p>
+            <p class="vmv-desc">
+              本規約は日本法に準拠し、本サービスに関して紛争が生じた場合、当社本店所在地を管轄する裁判所を第一審の専属的合意管轄裁判所とします。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UPDATE DETAIL ===== -->
+<div id="page-update" class="page">
+  <div style="background:#050505;min-height:100vh;position:relative;overflow:hidden;">
+    <div class="vmv-bg-word">UPDATE</div>
+
+    <div style="position:relative;z-index:1;">
+      <div class="vmv-hero">
+        <div class="vmv-hero-inner">
+          <button class="back-btn" onclick="goBackFromUpdate()">
+            <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Home</span>
+          </button>
+      
+          <div class="reveal-line" style="display:flex;justify-content:center;">
+            <span class="inner upd-page-h" id="upd-title">UPDATE.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vmv-blocks">
+        <div class="vmv-block anim-up">
+          <div class="vmv-block-l">
+            <span class="vmv-tag" id="upd-cat">Update</span>
+          </div>
+          <div>
+            <p class="vmv-jp" id="upd-date">2025.01.01</p>
+            <div id="upd-image-wrap" style="display:none;margin:2rem 0 2.25rem;">
+              <img id="upd-image" src="" alt="" style="width:100%;max-width:100%;border-radius:22px;display:block;object-fit:cover;">
+            </div>
+
+            <!-- 本文（Markdown→HTML） -->
+            <div class="vmv-desc" id="upd-body" style="white-space:normal;"></div>
+
+            <div id="upd-link-wrap" style="margin-top:2rem;display:none;">
+              <button class="phil-link" id="upd-link" onclick="window.open(this.dataset.url,'_blank')">
+                <span>Open Link</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" class="arrow-svg">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== PHILOSOPHY ===== -->
@@ -543,12 +2982,16 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
     <div class="vmv-bg-word">PHILOSOPHY</div>
     <div style="position:relative;z-index:1;">
       <div class="vmv-hero">
-        <button class="back-btn" onclick="showPage('home')">
-          <svg width="16" height="16" viewBox="0 0 24 24" class="arrow-svg"><polyline points="15 18 9 12 15 6"/></svg>
-          Back to Home
-        </button>
-        <div class="reveal-line" style="display:flex;justify-content:center;">
-          <span class="inner vmv-page-h">CORE IDENTITY.</span>
+        <div class="vmv-hero-inner">
+          <button class="back-btn" onclick="showPage('home')">
+            <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Home</span>
+          </button>
+          <div class="reveal-line" style="display:flex;justify-content:center;">
+            <span class="inner vmv-page-h">CORE IDENTITY.</span>
+          </div>
         </div>
       </div>
       <div class="vmv-blocks">
@@ -557,7 +3000,7 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
           <div>
             <div class="reveal-line"><span class="inner vmv-en">BE YOURSELF. BELONG. START HERE.</span></div>
             <p class="vmv-jp">自分の本質を知り、新たな航路へ。</p>
-            <p class="vmv-desc">テクノロジーが進化するほど、人は本質的な繋がりを求める。<br><br>noa.Incはデジタルの効率性にフィジカルな温もりを統合し、すべての人が自らの『Ark（方舟）』を見つけるための羅針盤となります。</p>
+            <p class="vmv-desc">テクノロジーが進化するほど、人は本質的な繋がりを求める。<br><br>noa Inc.はデジタルの効率性にフィジカルな温もりを統合し、すべての人が自らの『Ark（方舟）』を見つけるための羅針盤となります。</p>
           </div>
         </div>
         <div class="vmv-block anim-up">
@@ -611,48 +3054,120 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 <!-- ===== SERVICE DETAIL ===== -->
 <div id="page-service" class="page">
   <div style="background:#050505;min-height:100vh;">
-    <div class="sdtl-hero">
-      <div class="sdtl-img-wrap"><img id="sdtl-img" src="" alt="" class="sdtl-img"></div>
-      <button class="sdtl-back" onclick="showPage('home');setTimeout(()=>navTo('svcs'),150)">
-        <svg width="14" height="14" viewBox="0 0 24 24" class="arrow-svg"><polyline points="15 18 9 12 15 6"/></svg>
-        All Services
+
+    <!-- 1. HERO -->
+    <div class="sv-hero">
+      <div class="sv-hero-img-wrap"><img id="sv-hero-img" src="" alt="" class="sv-hero-img"></div>
+      <button class="sdtl-back" onclick="backToServices()">
+        <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>Services</span>
       </button>
-      <div class="sdtl-content">
-        <div class="sdtl-top">
-          <div class="sdtl-num-title">
-            <span id="sdtl-num" class="sdtl-num"></span>
-            <h1 id="sdtl-title" class="sdtl-title"></h1>
-          </div>
-          <div class="sdtl-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </div>
-        </div>
-        <div class="sdtl-bot">
-          <span id="sdtl-jp-tag" class="sdtl-jp-tag"></span>
-          <p id="sdtl-concept" class="sdtl-concept"></p>
-        </div>
+      <div class="sv-hero-content">
+        <div class="sv-hero-tags" id="sv-hero-tags"></div>
+        <h1 id="sv-hero-title" class="sv-hero-title"></h1>
+        <p id="sv-hero-sub" class="sv-hero-sub"></p>
       </div>
     </div>
-    <div class="sdtl-body">
-      <div class="sdtl-overview">
-        <div class="sdtl-ov-label">Overview</div>
-        <div class="sdtl-ov-body">
-          <h2 id="sdtl-hero-text" class="sdtl-hero-text"></h2>
-          <p id="sdtl-desc" class="sdtl-desc-txt"></p>
+
+    <div class="sv-body">
+
+      <!-- 2. できること / 支援の全体像 -->
+      <section class="sv-section sv-values sdtl-reveal">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">What we do</span>
+          <h2 class="sv-sec-title">できること</h2>
         </div>
-      </div>
-      <div id="sdtl-feats" class="sdtl-feats"></div>
+        <div id="sv-value-cards" class="sv-value-cards"></div>
+      </section>
+
+      <!-- 3. こんな課題に -->
+      <section class="sv-section sv-problems sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Problems</span>
+          <h2 class="sv-sec-title">こんな課題に</h2>
+        </div>
+        <div id="sv-problem-list" class="sv-problem-list"></div>
+      </section>
+
+      <!-- 4. 進め方 -->
+      <section class="sv-section sv-flow sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Process</span>
+          <h2 class="sv-sec-title">進め方</h2>
+        </div>
+        <div id="sv-flow-steps" class="sv-flow-grid"></div>
+      </section>
+
+      <!-- 5. 支援範囲 -->
+      <section class="sv-section sv-scope sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Scope</span>
+          <h2 class="sv-sec-title">支援範囲</h2>
+        </div>
+        <div id="sv-scope-tags" class="sv-scope-tags"></div>
+      </section>
+
+      <!-- 6. 事例イメージ -->
+      <section class="sv-section sv-cases sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Cases</span>
+          <h2 class="sv-sec-title">事例イメージ</h2>
+        </div>
+        <div id="sv-case-cards" class="sv-case-cards"></div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="sv-section sv-faq sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">FAQ</span>
+          <h2 class="sv-sec-title">よくあるご質問</h2>
+        </div>
+        <div id="sv-faq-list" class="sv-faq-list"></div>
+      </section>
+
+      <!-- CROSSLINK (HR only) -->
+      <section id="sv-crosslink" class="sv-section sv-crosslink sdtl-reveal d2" style="display:none;">
+        <div class="sv-crosslink-card">
+          <div class="sv-crosslink-inner">
+            <div class="sv-crosslink-copy">
+              <span class="sv-kicker">For Individuals</span>
+              <h3 class="sv-crosslink-title">個人向けの転職支援は<br><span class="sv-crosslink-brand">SIMPLE CAREER</span>へ。</h3>
+              <p id="sv-crosslink-desc" class="sv-crosslink-desc"></p>
+              <div id="sv-crosslink-points" class="sv-crosslink-points"></div>
+            </div>
+            <div class="sv-crosslink-actions">
+              <button id="sv-crosslink-btn" class="sv-crosslink-btn" type="button" onclick="openSimpleCareer()">
+                <span>Visit SIMPLE CAREER</span>
+                <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OTHER SERVICES -->
+      <section class="sv-section sv-others sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Other Services</span>
+          <h2 class="sv-sec-title">他のサービスを見る</h2>
+        </div>
+        <div id="sv-other-services" class="sv-other-services"></div>
+      </section>
+
     </div>
-    <div class="sdtl-cta">
-      <div>
-        <h2 class="sdtl-cta-h">INTERESTED IN<br><span id="sdtl-cta-title" class="outline"></span></h2>
-        <p class="sdtl-cta-p">Let's build something great together.</p>
-        <button class="btn-main" onclick="showPage('contact')">
-          <span>CONTACT US</span>
+
+    <!-- 8. CTA -->
+    <div class="sv-cta">
+      <div class="sv-cta-inner">
+        <h2 id="sv-cta-headline" class="sv-cta-headline"></h2>
+        <p id="sv-cta-sub" class="sv-cta-sub"></p>
+        <button class="sv-cta-btn" onclick="showPage('contact')">
+          <span id="sv-cta-btn-text">相談する</span>
           <svg width="20" height="20" viewBox="0 0 24 24" class="arrow-svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -660,9 +3175,11 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 <div id="page-contact" class="page">
   <div style="background:#050505;min-height:100vh;position:relative;overflow:hidden;">
     <div class="contact-wrap">
-      <button class="back-btn" style="margin-bottom:3rem" onclick="showPage('home')">
-        <svg width="16" height="16" viewBox="0 0 24 24" class="arrow-svg"><polyline points="15 18 9 12 15 6"/></svg>
-        Back to Home
+      <button class="back-btn" onclick="showPage('home')" style="position:relative;left:auto;top:auto;margin-bottom:3.5rem;">
+        <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span>Home</span>
       </button>
       <div class="ct-grid">
         <div>
@@ -724,24 +3241,437 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.1);overflow:hid
 
 <script>
 // DATA
-const SVC={
-  hr:{title:"HUMAN RESOURCES",jp:"ヒューマンリソース事業",heroText:"DESIGNING THE RIGHT ARK.",concept:"データとインサイトの融合。人間の隠れたポテンシャルを解放する。",desc:"スキルや条件だけの表面的なマッチングは過去のもの。私たちは、膨大なデータ分析（AI）と、人間の深い感情を読み取るコンサルタントの洞察を掛け合わせ、個人の「本質」と企業の「ビジョン」が深く共鳴する航路をデザインします。",img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600",features:[{num:"01",title:"AI Precision",desc:"数万件のデータを解析し、スキルとカルチャーの適合度を高精度に予測します。"},{num:"02",title:"Human Insight",desc:"専任コンサルタントが、データには表れない「想い」や「熱量」を言語化します。"},{num:"03",title:"Phygital Onboarding",desc:"入社後もデジタルとフィジカルの両面から、持続的な活躍をサポートします。"}]},
-  web:{title:"WEB INTEGRATION",jp:"AI × WEB構築",heroText:"BUILDING DIGITAL ARKS.",concept:"機能美と先進技術の融合。ビジネスを非連続に成長させるデジタル体験。",desc:"単なるWebサイトの制作には留まりません。最新AIをシステムに組み込み、ユーザー行動を予測・適応するプラットフォームを構築。圧倒的な開発スピードと、細部まで研ぎ澄まされたUI/UXデザインで、デジタル領域における絶対的な優位性を創出します。",img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",features:[{num:"01",title:"AI-Driven UX",desc:"ユーザーの行動をリアルタイムに学習し、最適なコンテンツを動的に生成します。"},{num:"02",title:"Automated Workflow",desc:"開発効率を飛躍的に高めるAIコーディングとテスト自動化を導入しています。"},{num:"03",title:"Fluid Design",desc:"トレンドに消費されない、本質的で長寿命な「機能的美学」を持続させます。"}]},
-  marketing:{title:"MARKETING",jp:"AI × マーケティング",heroText:"CHARTING THE COURSE.",concept:"データサイエンスと人間の感性の交差点。確実な熱狂を生む成長戦略。",desc:"膨大な市場データから隠れたインサイトを抽出し、クリエイティブな戦略へと昇華。予測モデルに基づいた精緻なターゲティングと、人の心を深く動かすストーリーテリングを掛け合わせることで、ブランドの揺るぎない地位を確立します。",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600",features:[{num:"01",title:"Predictive Analytics",desc:"過去のデータから未来のトレンドとユーザー行動を高精度に予測します。"},{num:"02",title:"Generative Creative",desc:"生成AIを活用し、パーソナライズされたクリエイティブを高速に量産・テストします。"},{num:"03",title:"Emotional Connection",desc:"データだけでは測れない、ブランドと顧客の深い感情的な結びつきをデザインします。"}]}
+const SVC = {
+  hr:{
+    title:"HUMAN RESOURCES",
+    jp:"HR事業",
+    heroTitle:"採用を、<br class=\"br-pc\">紹介だけで終わらせない。",
+    heroSub:"人材紹介、採用設計、運用構築まで。事業に合わせて採用の仕組みを整えます。",
+    tags:["人材紹介","採用戦略設計","採用オペレーション構築"],
+    img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600",
+
+    valueCards:[
+      {
+        icon:"users",
+        title:"必要な人材と出会う",
+        desc:"事業フェーズに合った人材を見極め、紹介します。"
+      },
+      {
+        icon:"map",
+        title:"採用の進め方を整える",
+        desc:"要件整理から選考設計まで、採用活動の土台をつくります。"
+      },
+      {
+        icon:"settings",
+        title:"運用の抜け漏れを減らす",
+        desc:"日程調整・進捗管理・候補者対応を仕組み化します。"
+      }
+    ],
+
+    problems:[
+      "採用担当が兼務で回っている",
+      "エージェント活用だけでは採用が安定しない",
+      "歩留まりのどこが弱いか見えていない",
+      "オペレーションが属人化している",
+      "採用の設計から相談したい"
+    ],
+
+    flowCenter:"採用が回り出す",
+    flow:[
+      { title:"見抜く", desc:"母集団から承諾まで遡り、止まっている工程を特定する" },
+      { title:"絞る", desc:"勝てるチャネルと訴求だけにリソースを集中させる" },
+      { title:"整える", desc:"日程・選考・候補者対応を、属人化しない手順に落とす" },
+      { title:"磨く", desc:"歩留まりの変化を読み解き、訴求とフローを更新し続ける" }
+    ],
+
+    scope:[
+      "採用要件整理",
+      "母集団形成支援",
+      "エージェント活用支援",
+      "候補者対応設計",
+      "面接 / 選考フロー整理",
+      "採用オペレーション整備"
+    ],
+
+    cases:[
+      {
+        title:"採用立ち上げ期の企業支援",
+        desc:"採用専任がいない段階から、要件整理・チャネル選定・選考設計まで伴走。"
+      },
+      {
+        title:"属人化した採用活動の整理",
+        desc:"担当者ごとにバラついていた運用を標準化し、再現性ある体制へ移行。"
+      },
+      {
+        title:"紹介＋運用改善の伴走支援",
+        desc:"人材紹介と並行して、歩留まり改善・オペレーション整備を実施。"
+      }
+    ],
+
+    crossLink:{
+      title:"SIMPLE CAREER",
+      url:"https://simplecareer.jp/",
+      desc:"個人向けの転職支援サービスも展開しています。キャリア整理から求人紹介、選考支援まで伴走します。",
+      points:[
+        "求職者向け転職支援",
+        "キャリア整理 / 面談支援",
+        "求人紹介 / 選考サポート"
+      ],
+      button:"Visit SIMPLE CAREER"
+    },
+
+    faq:[
+      {
+        q:"人材紹介だけの相談もできますか？",
+        a:"はい、紹介のみのご相談も承っています。まずは採用要件をお聞かせください。"
+      },
+      {
+        q:"採用設計だけの相談もできますか？",
+        a:"可能です。設計のみ、運用のみなど、必要な範囲に応じて対応します。"
+      },
+      {
+        q:"社内に採用専任がいなくても相談できますか？",
+        a:"はい。専任がいない段階からの立ち上げ支援も多くお受けしています。"
+      }
+    ],
+
+    cta:{
+      headline:"採用のどこから整えるべきか、<br class=\"br-pc\">一緒に整理します。",
+      sub:"まずは現状や課題感をお聞かせください。",
+      button:"相談する"
+    },
+
+    otherServices:[
+      { id:"web", label:"Web構築", sub:"サイト制作・導線設計・改善運用" },
+      { id:"marketing", label:"マーケティング", sub:"集客設計・導線改善・分析運用" }
+    ]
+  },
+
+  web:{
+    title:"WEB",
+    jp:"Web構築",
+    heroTitle:"つくるだけで終わらない、<br class=\"br-pc\">事業に効くWeb構築。",
+    heroSub:"Webサイト制作、導線設計、改善運用まで。ブランドらしさと成果の両立を支援します。",
+    tags:["コーポレートサイト / LP制作","導線設計 / UI改善","保守運用 / 改善支援"],
+    img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
+
+    valueCards:[
+      {
+        icon:"layout",
+        title:"情報を伝わる形に整理する",
+        desc:"事業の強みが伝わる構成と訴求を設計します。"
+      },
+      {
+        icon:"arrow-right",
+        title:"迷わない導線を設計する",
+        desc:"CTA・回遊・フォームまで、成果につながる導線を整えます。"
+      },
+      {
+        icon:"refresh",
+        title:"改善し続けられる状態をつくる",
+        desc:"公開後も更新・改善しやすい運用基盤を構築します。"
+      }
+    ],
+
+    problems:[
+      "サイトはあるが問い合わせにつながらない",
+      "情報が整理しきれていない",
+      "デザインがブランドの印象とズレている",
+      "LPや採用ページを分けて整えたい",
+      "更新や改善が属人化している",
+      "制作後の運用まで相談したい"
+    ],
+
+    flowCenter:"伝わって、動き出す",
+    flow:[
+      { title:"定める", desc:"事業の強みと読み手を整理し、サイトの軸を決める" },
+      { title:"導く", desc:"見出しからCTAまで、迷わず辿り着ける構成を引く" },
+      { title:"仕上げる", desc:"装飾を削ぎ、企業の質感が伝わる形で実装する" },
+      { title:"育てる", desc:"改善できる構造を残し、公開後も数字をもとに伸ばす" }
+    ],
+
+    scope:[
+      "コーポレートサイト制作",
+      "LP制作",
+      "採用ページ制作",
+      "ワイヤー設計",
+      "CTA設計",
+      "UI改善",
+      "フォーム改善",
+      "更新 / 保守支援"
+    ],
+
+    cases:[
+      {
+        title:"コーポレートサイト刷新",
+        desc:"情報設計からデザイン・実装まで一貫対応。問い合わせ導線を再構築。"
+      },
+      {
+        title:"採用ページ新設",
+        desc:"カルチャーと働く魅力を伝えるページを新設し、応募導線を整備。"
+      },
+      {
+        title:"LP改善による導線再設計",
+        desc:"既存LPの構成・訴求・CTAを見直し、CV率を改善。"
+      }
+    ],
+
+    faq:[
+      {
+        q:"要件が固まっていなくても相談できますか？",
+        a:"はい。何をつくるべきかの整理からお手伝いします。"
+      },
+      {
+        q:"デザインだけ、実装だけでも対応可能ですか？",
+        a:"可能です。必要な工程に応じて柔軟に対応します。"
+      },
+      {
+        q:"公開後の改善も依頼できますか？",
+        a:"はい。保守運用・改善提案まで継続的にサポートしています。"
+      }
+    ],
+
+    cta:{
+      headline:"作るべきか、直すべきか。<br class=\"br-pc\">その整理からご相談ください。",
+      sub:"まずは現状と目的を整理するところから始めます。",
+      button:"相談する"
+    },
+
+    otherServices:[
+      { id:"hr", label:"HR事業", sub:"人材紹介・採用設計・運用構築" },
+      { id:"marketing", label:"マーケティング", sub:"集客設計・導線改善・分析運用" }
+    ]
+  },
+
+  marketing:{
+    title:"MARKETING",
+    jp:"マーケティング",
+    heroTitle:"施策を増やす前に、<br class=\"br-pc\">伸びる構造を整える。",
+    heroSub:"集客、導線、改善運用を分断せず、事業に合ったマーケティングの土台を整えます。",
+    tags:["集客設計","導線改善","分析 / 改善運用"],
+    img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600",
+
+    valueCards:[
+      {
+        icon:"target",
+        title:"集客の入口を設計する",
+        desc:"チャネル選定と訴求を整理し、流入の質を高めます。"
+      },
+      {
+        icon:"git-merge",
+        title:"受け皿と導線を整える",
+        desc:"LP・サイト・フォームを改善し、転換率を上げます。"
+      },
+      {
+        icon:"bar-chart",
+        title:"数字をもとに改善し続ける",
+        desc:"優先順位を明確にし、施策の精度を高めます。"
+      }
+    ],
+
+    problems:[
+      "集客施策が場当たり的になっている",
+      "流入はあるが問い合わせにつながらない",
+      "LPやサイトの改善優先順位がわからない",
+      "数字は見ているが次の打ち手が見えない",
+      "社内に専任担当がいない",
+      "全体を見ながら整理してほしい"
+    ],
+
+    flowCenter:"成果が積み上がる",
+    flow:[
+      { title:"捉える", desc:"流入から問い合わせまで遡り、離脱箇所を特定する" },
+      { title:"選ぶ", desc:"全部やらず、最も影響の大きい一手に絞る" },
+      { title:"整える", desc:"訴求と導線とフォームを、成果に変わる形に組み直す" },
+      { title:"回す", desc:"数値の動きを毎月読み解き、効いた施策だけを残す" }
+    ],
+
+    scope:[
+      "訴求整理",
+      "チャネル設計",
+      "LP改善",
+      "CTA改善",
+      "フォーム改善",
+      "数値確認",
+      "改善優先順位整理"
+    ],
+
+    cases:[
+      {
+        title:"流入はあるがCVしないLPの見直し",
+        desc:"訴求・構成・CTAを再設計し、問い合わせ率を改善。"
+      },
+      {
+        title:"Webサイト全体の導線改善",
+        desc:"回遊率と離脱ポイントを分析し、ページ構成を最適化。"
+      },
+      {
+        title:"施策の優先順位整理と伴走支援",
+        desc:"何から手をつけるべきかを整理し、改善サイクルを構築。"
+      }
+    ],
+
+    faq:[
+      {
+        q:"広告運用だけの相談も可能ですか？",
+        a:"可能です。ただし、導線や受け皿の改善と合わせた方が成果が出やすいため、全体を見たうえでご提案します。"
+      },
+      {
+        q:"社内にマーケ担当がいなくても大丈夫ですか？",
+        a:"はい。専任がいない状態からの立ち上げ支援も対応しています。"
+      },
+      {
+        q:"何から手をつけるべきかわからない段階でも相談できますか？",
+        a:"まさにそこからの整理が得意です。現状を見ながら優先順位を一緒に整理します。"
+      }
+    ],
+
+    cta:{
+      headline:"施策の前に、どこを整えるべきか<br class=\"br-pc\">一緒に整理します。",
+      sub:"まずは現状を見ながら優先順位を整理します。",
+      button:"相談する"
+    },
+
+    otherServices:[
+      { id:"hr", label:"HR事業", sub:"人材紹介・採用設計・運用構築" },
+      { id:"web", label:"Web構築", sub:"サイト制作・導線設計・改善運用" }
+    ]
+  }
 };
-const NEWS=[
-  {date:"2025.04.01",cat:"Company",title:"noa.Incを設立いたしました。"},
-  {date:"2025.04.15",cat:"Service",title:"AIを活用した次世代マッチングサービスの事前登録を開始しました。"},
-  {date:"2025.05.10",cat:"Event",title:"「Phygital HR Conference 2025」に弊社代表が登壇いたします。"}
-];
-const CO=[
-  {label:"会社名",value:"株式会社ノア (noa.Inc)"},
+const CO = [
+  {label:"会社名",value:"株式会社noa"},
   {label:"設立日",value:"2023年9月14日"},
   {label:"資本金",value:"5,000,000円"},
   {label:"代表者",value:"代表取締役　内田 光樹"},
-  {label:"所在地",value:"【東京本社】\n〒104-0061 東京都中央区銀座1-12-4 N&E BLD 7階\n\n【大阪本社】\n〒550-0015 大阪市西区南堀江1-1-18 3F"},
+  {label:"所在地",type:"offices",value:[
+    {name:"東京本社",zip:"〒104-0061",addr:"東京都中央区銀座1-12-4 N&E BLD 7階"},
+    {name:"大阪本社",zip:"〒550-0015",addr:"大阪市西区南堀江1-1-18 3F"}
+  ]},
+  {label:"事業内容",type:"list",value:[
+    "有料職業紹介事業",
+    "採用戦略設計／採用オペレーション構築支援",
+    "Webサイト制作／システム構築／UI・UX設計",
+    "マーケティング戦略設計／集客導線改善支援",
+    "AI活用／業務自動化／データ活用支援"
+  ]},
   {label:"有料職業紹介許可番号",value:"27-ユ-304399"}
 ];
+
+const SITE_URL = 'https://noa-place.co.jp';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/ogp.jpg`;
+
+const META_DEFAULT = {
+  title: 'noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援',
+  description: '株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。',
+  path: '/',
+  type: 'website'
+};
+
+const PAGE_META = {
+  home: {
+    title: 'noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援',
+    description: '株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。',
+    path: '/'
+  },
+  vmv: {
+    title: 'Philosophy | noa Inc.',
+    description: '株式会社noaの企業理念、Vision、Mission、Valuesをご紹介します。',
+    path: '/?page=philosophy'
+  },
+  privacy: {
+    title: 'Privacy Policy | noa Inc.',
+    description: '株式会社noaのプライバシーポリシーです。',
+    path: '/?page=privacy'
+  },
+  terms: {
+    title: 'Terms of Use | noa Inc.',
+    description: '株式会社noaの利用規約です。',
+    path: '/?page=terms'
+  },
+  contact: {
+    title: 'Contact | noa Inc.',
+    description: '株式会社noaへのお問い合わせページです。人材紹介、採用戦略設計、Webサイト制作・システム構築、マーケティング支援のご相談を受け付けています。',
+    path: '/?page=contact'
+  },
+  service: {
+    title: 'Services | noa Inc.',
+    description: '株式会社noaの提供サービス一覧です。人材紹介、採用戦略設計、AI活用を含むWebサイト制作・システム構築、マーケティング支援をご紹介します。',
+    path: '/?page=services'
+  },
+  update: {
+    title: 'Updates | noa Inc.',
+    description: '株式会社noaからのお知らせ・更新情報一覧です。',
+    path: '/?page=updates'
+  }
+};
+
+function setMetaTag(selector, attr, value){
+  const el = document.querySelector(selector);
+  if(el && value != null) el.setAttribute(attr, value);
+}
+
+function setPageMeta(meta = {}){
+  const title = meta.title || META_DEFAULT.title;
+  const description = meta.description || META_DEFAULT.description;
+  const path = meta.path || META_DEFAULT.path;
+  const type = meta.type || META_DEFAULT.type || 'website';
+  const url = path.startsWith('http') ? path : `${SITE_URL}${path}`;
+  const image = meta.image || DEFAULT_OG_IMAGE;
+
+  document.title = title;
+
+  setMetaTag('meta[name="description"]', 'content', description);
+  setMetaTag('link[rel="canonical"]', 'href', url);
+
+  setMetaTag('meta[property="og:title"]', 'content', title);
+  setMetaTag('meta[property="og:description"]', 'content', description);
+  setMetaTag('meta[property="og:url"]', 'content', url);
+  setMetaTag('meta[property="og:type"]', 'content', type);
+  setMetaTag('meta[property="og:image"]', 'content', image);
+
+  setMetaTag('meta[name="twitter:title"]', 'content', title);
+  setMetaTag('meta[name="twitter:description"]', 'content', description);
+  setMetaTag('meta[name="twitter:image"]', 'content', image);
+}
+
+function applyMetaForPage(page){
+  const meta = PAGE_META[page] || META_DEFAULT;
+  setPageMeta(meta);
+}
+
+function applyUpdateMeta(n){
+  const slug = String(n?.slug || '').trim();
+  const title = n?.title ? `${n.title} | noa Inc.` : 'Update | noa Inc.';
+  const description =
+    String(n?.body || '')
+      .replace(/[#*_>`-]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 110) || '株式会社noaからのお知らせ・更新情報です。';
+
+  setPageMeta({
+    title,
+    description,
+    path: slug ? `/?u=${encodeURIComponent(slug)}` : '/?page=updates',
+    type: 'article'
+  });
+}
+function applyServiceMeta(id, s){
+  const title = `${s.jp || s.title} | noa Inc.`;
+  const description = String(s.heroSub || s.heroTitle || '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 110);
+
+  setPageMeta({
+    title,
+    description: description || PAGE_META.service.description,
+    path: `/?page=services&service=${encodeURIComponent(id)}`,
+    type: 'website',
+    image: s.img || DEFAULT_OG_IMAGE
+  });
+}
 
 // YEAR
 document.getElementById('yr').textContent=new Date().getFullYear();
@@ -768,8 +3698,14 @@ setTimeout(tick,200);
 
 function initHero(){
   document.querySelectorAll('#page-home .reveal-line').forEach((el,i)=>{
-    setTimeout(()=>el.classList.add('in'),i*100);
+    el.classList.remove('in');
+    setTimeout(()=>el.classList.add('in'), i*100);
   });
+
+  const ct=document.getElementById('ct-title');
+  if(ct) ct.classList.remove('in');
+
+  isBooting = false;
   setTimeout(()=>initObserver(),300);
 }
 
@@ -786,7 +3722,6 @@ if(mt){
 const svcsEl=document.getElementById('svcs-list');
 if(svcsEl){
   Object.entries(SVC).forEach(([id,s],i)=>{
-    const arrowSVG=`<svg class="arrow-svg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
     svcsEl.innerHTML+=`<div class="svc-row anim-up" onclick="showSvc('${id}')">
       <div class="svc-row-l">
         <span class="svc-num">0${i+1}</span>
@@ -803,54 +3738,455 @@ if(svcsEl){
   });
 }
 
-// RENDER NEWS
-const newsEl=document.getElementById('news-list');
-if(newsEl) NEWS.forEach(n=>{newsEl.innerHTML+=`<a href="#" class="news-item"><div class="news-meta"><span class="news-date">${n.date}</span><span class="news-cat">${n.cat}</span></div><h4 class="news-title">${n.title}</h4></a>`;});
+// ===== UPDATES (from CMS JSON) =====
+let UPDATES_CACHE = [];
+function bootFromUrl(){
+  const qs = new URLSearchParams(location.search);
+  const page = (qs.get('page') || '').trim();
+  const u = decodeURIComponent(qs.get('u') || '').trim();
+  const serviceId = (qs.get('service') || '').trim();
 
-// RENDER COMPANY
-const coEl=document.getElementById('co-dl');
-if(coEl) CO.forEach(d=>{coEl.innerHTML+=`<div class="co-row"><dt class="co-dt">${d.label}</dt><dd class="co-dd">${d.value}</dd></div>`;});
+  if (u) return;
 
-// ROUTING
-let curPage='home';
-function showPage(p){
-  document.querySelectorAll('.page').forEach(el=>{el.classList.remove('active','in');});
-  const t=document.getElementById('page-'+p);
-  if(!t)return;
+  if (page === 'philosophy') {
+    showPage('vmv', { push: false });
+    return;
+  }
+  if (page === 'privacy') {
+    showPage('privacy', { push: false });
+    return;
+  }
+  if (page === 'terms') {
+    showPage('terms', { push: false });
+    return;
+  }
+  if (page === 'contact') {
+    showPage('contact', { push: false });
+    return;
+  }
+  if (page === 'services' && serviceId && SVC[serviceId]) {
+    showSvc(serviceId, { push: false });
+    return;
+  }
+  if (page === 'services') {
+    showPage('home', { push: false });
+    setTimeout(() => {
+      document.getElementById('svcs')?.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+    return;
+  }
+
+  showPage('home', { push: false });
+}
+async function loadUpdates(){
+  try{
+    // content/updates.json を読む（CMSがここを更新する）
+    const res = await fetch('/content/updates.json', { cache: 'no-store' });
+    const data = await res.json();
+    const items = Array.isArray(data.items) ? data.items : [];
+
+    // 公開のみ & 新しい順
+    UPDATES_CACHE = items
+      .filter(x => x && x.published !== false)
+      .sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')));
+
+    renderUpdatesList();
+
+    const u = decodeURIComponent(new URLSearchParams(location.search).get('u') || '').trim();
+    if (u) {
+      const hit = UPDATES_CACHE.findIndex(x => String(x.slug || '').trim() === u);
+      if (hit >= 0) {
+        openUpdate(hit, { push: false });
+        return;
+      }
+    }
+      }catch(e){
+        console.warn('Failed to load updates.json', e);
+      }
+    }
+
+function renderUpdatesList(){
+  const newsEl = document.getElementById('news-list');
+  if(!newsEl) return;
+
+  newsEl.innerHTML = '';
+
+  UPDATES_CACHE.forEach((n, idx) => {
+    const date  = n.date || '';
+    const cat   = n.category || 'Update';
+    const title = n.title || '';
+    const slug = String(n.slug || '').trim();
+    const href = slug ? `/?u=${encodeURIComponent(slug)}` : '#';
+    
+    newsEl.innerHTML += `
+      <a href="${href}" class="news-item" data-idx="${idx}">
+        <div class="news-meta">
+          <span class="news-date">${date}</span>
+          <span class="news-cat">${cat}</span>
+        </div>
+        <h4 class="news-title">${title}</h4>
+      </a>
+    `;
+  });
+
+  // クリックで本文ページへ
+  newsEl.querySelectorAll('.news-item').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const idx = parseInt(a.dataset.idx || '0', 10);
+      openUpdate(idx);
+    });
+  });
+}
+
+function openUpdate(idx, opt = { push: true }) {
+  const n = UPDATES_CACHE[idx];
+  if (!n) return;
+
+  document.getElementById('upd-title').textContent = (n.title || 'UPDATE.');
+  document.getElementById('upd-cat').textContent   = (n.category || 'Update');
+  document.getElementById('upd-date').textContent  = (n.date || '');
+
+  const imageWrap = document.getElementById('upd-image-wrap');
+  const imageEl   = document.getElementById('upd-image');
+  const imageUrl  = String(n.image || '').trim();
+
+  if (imageUrl) {
+    imageWrap.style.display = 'block';
+    imageEl.src = imageUrl;
+    imageEl.alt = n.title || 'Update image';
+  } else {
+    imageWrap.style.display = 'none';
+    imageEl.src = '';
+    imageEl.alt = '';
+  }
+
+  const md = String(n.body || '').trim();
+  const html = md ? marked.parse(md) : '<span style="color:#475569;">本文がまだありません。</span>';
+  document.getElementById('upd-body').innerHTML = html;
+
+  const wrap = document.getElementById('upd-link-wrap');
+  const btn  = document.getElementById('upd-link');
+  const url  = String(n.url || '').trim();
+
+  if (url) {
+    wrap.style.display = 'block';
+    btn.dataset.url = url;
+  } else {
+    wrap.style.display = 'none';
+    btn.dataset.url = '';
+  }
+
+  const slug = String(n.slug || '').trim();
+  if (slug) {
+    const next = new URL(location.href);
+    next.searchParams.delete('page');
+    next.searchParams.set('u', slug);
+
+    if (opt.push) {
+      history.pushState({ page: 'update', u: slug }, '', next.toString());
+    } else {
+      history.replaceState({ page: 'update', u: slug }, '', next.toString());
+    }
+  }
+
+  applyUpdateMeta(n);
+
+  document.querySelectorAll('.page').forEach(el=>{
+    el.classList.remove('active','in');
+  });
+
+  const t = document.getElementById('page-update');
+  if(!t) return;
+
   t.classList.add('active');
-  curPage=p;
-  window.scrollTo({top:0,behavior:'instant'});
+  curPage = 'update';
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
   closeMenu();
-  updateNav(p);
+  updateNav('update');
+
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     t.classList.add('in');
-    t.querySelectorAll('.reveal-line').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*100+100));
-    const ct=document.getElementById('ct-title');
-    if(ct)setTimeout(()=>ct.classList.add('in'),200);
+    t.querySelectorAll('.reveal-line').forEach((el,i)=>
+      setTimeout(()=>el.classList.add('in'), i*100+100)
+    );
     setTimeout(()=>initObserver(),200);
   }));
 }
-function showSvc(id){
-  const s=SVC[id];if(!s)return;
-  const idx=Object.keys(SVC).indexOf(id)+1;
-  document.getElementById('sdtl-img').src=s.img;
-  document.getElementById('sdtl-img').alt=s.title;
-  document.getElementById('sdtl-num').textContent=`0${idx}`;
-  document.getElementById('sdtl-title').textContent=s.title;
-  document.getElementById('sdtl-jp-tag').textContent=s.jp;
-  document.getElementById('sdtl-concept').textContent=s.concept;
-  document.getElementById('sdtl-hero-text').textContent=s.heroText;
-  document.getElementById('sdtl-desc').textContent=s.desc;
-  document.getElementById('sdtl-cta-title').textContent=s.title+'?';
-  document.getElementById('sdtl-feats').innerHTML=s.features.map(f=>`
-    <div class="sdtl-feat">
-      <div class="sdtl-feat-num">${f.num}</div>
-      <div class="sdtl-feat-body">
-        <h3 class="sdtl-feat-title">${f.title}</h3>
-        <p class="sdtl-feat-desc">${f.desc}</p>
+  
+// RENDER COMPANY
+const coEl=document.getElementById('co-dl');
+if(coEl) CO.forEach(d=>{
+  let body;
+  if(d.type==='offices'){
+    body = `<div class="co-offices">${d.value.map(o=>`<div class="co-office"><span class="co-office-name">${o.name}</span><span class="co-office-zip">${o.zip}</span><span class="co-office-addr">${o.addr}</span></div>`).join('')}</div>`;
+  } else if(d.type==='list'){
+    body = `<ul class="co-list">${d.value.map(v=>`<li>${v}</li>`).join('')}</ul>`;
+  } else {
+    body = d.value;
+  }
+  coEl.innerHTML += `<div class="co-row"><dt class="co-dt">${d.label}</dt><dd class="co-dd">${body}</dd></div>`;
+});
+
+let isBooting = true;
+// ROUTING
+let curPage='home';
+
+function pageUrl(p, extra = {}){
+  const url = new URL(location.href);
+  url.searchParams.delete('u');
+  url.searchParams.delete('page');
+  url.searchParams.delete('service');
+
+  if (p === 'home') return url.toString();
+
+  if (p === 'vmv') {
+    url.searchParams.set('page', 'philosophy');
+    return url.toString();
+  }
+  if (p === 'privacy') {
+    url.searchParams.set('page', 'privacy');
+    return url.toString();
+  }
+  if (p === 'terms') {
+    url.searchParams.set('page', 'terms');
+    return url.toString();
+  }
+  if (p === 'contact') {
+    url.searchParams.set('page', 'contact');
+    return url.toString();
+  }
+  if (p === 'service') {
+    url.searchParams.set('page', 'services');
+    if (extra.serviceId) url.searchParams.set('service', extra.serviceId);
+    return url.toString();
+  }
+
+  return url.toString();
+}
+
+function showPage(p, opts = { push: true, state: {}, urlExtra: {} }){
+  document.querySelectorAll('.page').forEach(el=>{
+    el.classList.remove('active','in');
+  });
+
+  const t = document.getElementById('page-' + p);
+  if(!t) return;
+
+  t.classList.remove('service-transition');
+  if (p === 'service') {
+    t.classList.add('service-transition');
+  }
+
+  t.classList.add('active');
+  curPage = p;
+
+  if (p !== 'update') {
+    applyMetaForPage(p);
+  }
+
+  const nextUrl = pageUrl(p, opts.urlExtra || {});
+  const nextState = { page: p, ...(opts.state || {}) };
+
+  if (opts.push) {
+    history.pushState(nextState, '', nextUrl);
+  } else {
+    history.replaceState(nextState, '', nextUrl);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  closeMenu();
+  updateNav(p);
+
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    t.classList.add('in');
+
+    if (!isBooting) {
+      t.querySelectorAll('.reveal-line').forEach((el,i)=>
+        setTimeout(()=>el.classList.add('in'), i*100+100)
+      );
+    }
+
+    const ct=document.getElementById('ct-title');
+    if(ct && !isBooting) {
+      setTimeout(()=>ct.classList.add('in'),200);
+    }
+
+    setTimeout(()=>initObserver(),200);
+  }));
+}
+function goBackFromUpdate(){
+  if (history.length > 1) {
+    history.back();
+  } else {
+    showPage('home', { push: false });
+  }
+}
+
+function backToServices(){
+  if (history.length > 1) {
+    history.back();
+  } else {
+    showPage('home', { push: false });
+    setTimeout(() => {
+      document.getElementById('svcs')?.scrollIntoView({ behavior: 'smooth' });
+    }, 120);
+  }
+}
+
+function escapeHtml(str=''){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+// SVG icon helper for service page
+const SV_ICONS = {
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>',
+  settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  layout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
+  'arrow-right': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  'git-merge': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>',
+  'bar-chart': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>'
+};
+
+function renderServicePage(id, s){
+  // Hero
+  document.getElementById('sv-hero-img').src = s.img;
+  document.getElementById('sv-hero-img').alt = s.jp;
+  document.getElementById('sv-hero-title').innerHTML = s.heroTitle;
+  document.getElementById('sv-hero-sub').textContent = s.heroSub;
+
+  // Tags
+  document.getElementById('sv-hero-tags').innerHTML = (s.tags || []).map(t =>
+    `<span class="sv-hero-tag">${escapeHtml(t)}</span>`
+  ).join('');
+
+  // Value cards
+  document.getElementById('sv-value-cards').innerHTML = (s.valueCards || []).map(c => `
+    <div class="sv-value-card">
+      <div class="sv-value-card-icon">${SV_ICONS[c.icon] || ''}</div>
+      <div class="sv-value-card-title">${escapeHtml(c.title)}</div>
+      <div class="sv-value-card-desc">${escapeHtml(c.desc)}</div>
+    </div>
+  `).join('');
+
+  // Problem checklist
+  document.getElementById('sv-problem-list').innerHTML = (s.problems || []).map(p => `
+    <div class="sv-problem-item">
+      <svg class="sv-problem-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>${escapeHtml(p)}</span>
+    </div>
+  `).join('');
+
+  // Flow
+  document.getElementById('sv-flow-steps').innerHTML = (s.flow || []).map((f, i) => `
+    <div class="sv-flow-cell">
+      <div class="sv-flow-num">0${i+1}</div>
+      <div class="sv-flow-cell-body">
+        <div class="sv-flow-verb">${escapeHtml(f.title)}</div>
+        <div class="sv-flow-desc">${escapeHtml(f.desc)}</div>
       </div>
-    </div>`).join('');
-  showPage('service');
+    </div>
+  `).join('') + `<div class="sv-flow-center"><span class="sv-flow-center-text">${escapeHtml(s.flowCenter || '')}</span></div>`;
+
+  // Scope
+  document.getElementById('sv-scope-tags').innerHTML = (s.scope || []).map(t =>
+    `<span class="sv-scope-tag">${escapeHtml(t)}</span>`
+  ).join('');
+
+  // Cases
+  document.getElementById('sv-case-cards').innerHTML = (s.cases || []).map((c, i) => `
+    <div class="sv-case-card">
+      <div class="sv-case-num">Case 0${i+1}</div>
+      <div class="sv-case-title">${escapeHtml(c.title)}</div>
+      <div class="sv-case-desc">${escapeHtml(c.desc)}</div>
+    </div>
+  `).join('');
+
+  // FAQ
+  document.getElementById('sv-faq-list').innerHTML = (s.faq || []).map((f, i) => `
+    <div class="sv-faq-item" data-faq="${i}">
+      <button class="sv-faq-q" onclick="toggleFaq(this)">
+        <span>${escapeHtml(f.q)}</span>
+        <svg class="sv-faq-q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sv-faq-a"><div class="sv-faq-a-text">${escapeHtml(f.a)}</div></div>
+    </div>
+  `).join('');
+
+  // Crosslink
+  renderServiceCrossLink(id, s);
+
+  // Other services
+  document.getElementById('sv-other-services').innerHTML = (s.otherServices || []).map(o => `
+    <div class="sv-other-card" onclick="showSvc('${o.id}')">
+      <div>
+        <div class="sv-other-label">${escapeHtml(o.label)}</div>
+        ${o.sub ? `<div class="sv-other-sub">${escapeHtml(o.sub)}</div>` : ''}
+      </div>
+      <svg class="sv-other-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  `).join('');
+
+  // CTA
+  document.getElementById('sv-cta-headline').innerHTML = s.cta?.headline || '';
+  document.getElementById('sv-cta-sub').textContent = s.cta?.sub || '';
+  document.getElementById('sv-cta-btn-text').textContent = s.cta?.button || '相談する';
+}
+
+function toggleFaq(btn){
+  const item = btn.closest('.sv-faq-item');
+  item.classList.toggle('open');
+}
+
+function renderServiceCrossLink(serviceId, s){
+  const sec = document.getElementById('sv-crosslink');
+  const desc = document.getElementById('sv-crosslink-desc');
+  const points = document.getElementById('sv-crosslink-points');
+  const btn = document.getElementById('sv-crosslink-btn');
+
+  if(!sec || !desc || !points || !btn) return;
+
+  if(serviceId !== 'hr' || !s.crossLink){
+    sec.style.display = 'none';
+    return;
+  }
+
+  sec.style.display = 'block';
+  desc.textContent = s.crossLink.desc || '';
+  points.innerHTML = (s.crossLink.points || []).map(point =>
+    `<span class="sv-crosslink-point">${escapeHtml(point)}</span>`
+  ).join('');
+  btn.dataset.url = s.crossLink.url || 'https://simplecareer.jp/';
+  btn.querySelector('span').textContent = s.crossLink.button || 'Visit SIMPLE CAREER';
+}
+
+function openSimpleCareer(){
+  const btn = document.getElementById('sv-crosslink-btn');
+  const url = btn?.dataset?.url || 'https://simplecareer.jp/';
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function showSvc(id, opts = { push: true }){
+  const s = SVC[id];
+  if(!s) return;
+
+  renderServicePage(id, s);
+
+  showPage('service', {
+    push: opts.push,
+    state: { serviceId: id },
+    urlExtra: { serviceId: id }
+  });
+  applyServiceMeta(id, s);
 }
 function navTo(id){
   if(curPage!=='home'){showPage('home');setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},300);}
@@ -862,7 +4198,6 @@ function updateNav(p){
   if(p==='home')document.getElementById('np-home')?.classList.add('on');
   if(p==='vmv')document.getElementById('np-vmv')?.classList.add('on');
 }
-document.getElementById('page-home').classList.add('active');
 requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById('page-home').classList.add('in')));
 
 // MENU
@@ -907,9 +4242,55 @@ function initObserver(){
       }
     });
   },{threshold:.1});
-  document.querySelectorAll('.page.active .anim-up').forEach(el=>obs.observe(el));
+  document.querySelectorAll('.page.active .anim-up, .page.active .sdtl-reveal').forEach(el=>obs.observe(el));
+  // phil decorative layer trigger
+  const philEl=document.querySelector('#phil');
+  if(philEl){
+    const philObs=new IntersectionObserver(([e])=>{if(e.isIntersecting){philEl.classList.add('phil-vis');philObs.disconnect();}},{threshold:.15});
+    philObs.observe(philEl);
+  }
+  // cta decorative layer trigger
+  const ctaEl=document.querySelector('#cta');
+  if(ctaEl){
+    const ctaObs=new IntersectionObserver(([e])=>{if(e.isIntersecting){ctaEl.classList.add('cta-vis');ctaObs.disconnect();}},{threshold:.15});
+    ctaObs.observe(ctaEl);
+  }
 }
+// ✅ ブラウザの戻る/進むに SPA 側も追従（ここに追加）
+window.addEventListener('popstate', (e) => {
+  const state = e.state || {};
+  const page = state.page || 'home';
+
+  if (page === 'update' && state.u) {
+    const slug = String(state.u).trim();
+    const hit = UPDATES_CACHE.findIndex(x => String(x.slug || '').trim() === slug);
+    if (hit >= 0) {
+      openUpdate(hit, { push: false });
+      return;
+    }
+  }
+
+  if (page === 'service' && state.serviceId) {
+    showSvc(state.serviceId, { push: false });
+    return;
+  }
+
+  showPage(page, { push: false });
+
+  const qs = new URLSearchParams(location.search);
+  const serviceId = (qs.get('service') || '').trim();
+  const pageParam = (qs.get('page') || '').trim();
+
+  if (!pageParam && !serviceId && page === 'home') {
+    setTimeout(() => {
+      document.getElementById('svcs')?.scrollIntoView({ behavior: 'smooth' });
+    }, 120);
+  }
+});
+
 initObserver();
+bootFromUrl();
+loadUpdates();
 
 // CONTACT FORM
 const ctForm=document.getElementById('ct-form');
@@ -934,4 +4315,3 @@ if(window.netlifyIdentity){
 </script>
 </body>
 </html>
- 

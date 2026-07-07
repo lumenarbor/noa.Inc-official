@@ -2,47 +2,31 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "public/images"
-public_folder: "/images"
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
-locale: "ja"
+# 下書き運用しないなら true（無効でもOK）
+publish_mode: simple
 
 collections:
-  - name: "news"
-    label: "NEWS"
-    label_singular: "ニュース記事"
-    folder: "content/news"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{date}} | {{category}} | {{title}}"
-    sortable_fields: ["date", "title"]
+  - name: "updates"
+    label: "UPDATES"
+    format: "json"
+    extension: "json"
+    file: "public/content/updates.json"
+    editor:
+      preview: false
     fields:
-      - label: "タイトル"
-        name: "title"
-        widget: "string"
-      - label: "日付"
-        name: "date"
-        widget: "datetime"
-        format: "YYYY.MM.DD"
-        date_format: "YYYY.MM.DD"
-        time_format: false
-      - label: "カテゴリ"
-        name: "category"
-        widget: "select"
-        options:
-          - { label: "Company", value: "Company" }
-          - { label: "Service", value: "Service" }
-          - { label: "Event", value: "Event" }
-          - { label: "Press", value: "Press" }
-      - label: "本文（任意）"
-        name: "body"
-        widget: "markdown"
-        required: false
-      - label: "外部リンク（任意）"
-        name: "link"
-        widget: "string"
-        required: false
-      - label: "公開"
-        name: "published"
-        widget: "boolean"
-        default: true
+      - label: "Items"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.date}} | {{fields.category}} | {{fields.title}}"
+        fields:
+          - { label: "slug", name: "slug", widget: "hidden", required: false, default: "" }
+          - { label: "公開", name: "published", widget: "boolean", default: true }
+          - { label: "日付（YYYY.MM.DD）", name: "date", widget: "string" }
+          - { label: "カテゴリ", name: "category", widget: "string", default: "NEWS" }
+          - { label: "タイトル", name: "title", widget: "string" }
+          - { label: "本文（Markdown可）", name: "body", widget: "markdown", required: false }
+          - { label: "リンク（任意）", name: "url", widget: "string", required: false }
+          - { label: "画像（任意）", name: "image", widget: "image", required: false }

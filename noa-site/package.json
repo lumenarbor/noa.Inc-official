@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "vite public --port 5180 --strict-port",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "build": "npm run generate:sitemap && vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.0.8"
+  }
+}

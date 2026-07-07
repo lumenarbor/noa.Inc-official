@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://noa-place.co.jp/sitemap.xml
