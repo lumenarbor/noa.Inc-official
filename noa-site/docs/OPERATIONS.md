@@ -36,14 +36,28 @@ bash noa-site/scripts/make-drop-package.sh redesign/v2
    を付ければ**同じデプロイ内で新旧を切替比較**できる（機能単位のON/OFFも可）
 4. プレビュー用サイトは使い終わったら Netlify 上で削除してよい（残しても無害）
 
-## 手順B: 本番反映
+## 手順B: 本番反映（Netlify CLI・functions込み）
 
+> **重要**: ブラウザの Deploys タブへのドロップは**静的ファイルしか配備されず、
+> netlify/functions/slack.js（フォームのSlack通知）が本番から消える**。
+> 本番反映は必ず以下の CLI スクリプトで行うこと（2026-07-08 運用変更）。
+
+初回のみ（要ブラウザ認証）:
+```bash
+cd ~/Desktop/noa.Inc-official/noa-site
+npx --yes netlify-cli login     # ブラウザで認証
+npx netlify-cli link            # 本番サイト(noa-place.co.jp)を選択
+```
+
+毎回:
 1. 反映するコミットが GitHub に push 済みであることを確認
-2. `bash noa-site/scripts/make-drop-package.sh <ref>` でパッケージ生成
-3. Netlify 管理画面 → 本番サイト → **Deploys** タブ → パッケージフォルダをドロップ
-4. `curl https://noa-place.co.jp/deploy-info.json` で commit 一致を確認
-5. スモークチェック（下記チェックリスト）
-6. Git に記録:
+2. `bash scripts/deploy-prod.sh <ref>` — パッケージ生成〜本番デプロイまで一括
+3. 検証（スクリプトが末尾に表示する3点）:
+   - `curl -s https://noa-place.co.jp/deploy-info.json` → commit 一致
+   - `curl -s -o /dev/null -w '%{http_code}' https://noa-place.co.jp/.netlify/functions/slack`
+     → **405 = function 配備済み**（200 なら index.html が返っており未配備）
+   - 本番フォームからテスト送信1件 → Slack 受信確認
+4. Git に記録:
    ```bash
    git tag deploy/$(date +%Y-%m-%d)-1 <ref>   # 同日2回目は -2
    git push origin --tags
@@ -82,8 +96,9 @@ bash noa-site/scripts/make-drop-package.sh redesign/v2
 
 ## 本番を壊さないための注意点
 
-- **netlify.toml は Drop では読まれない** → パッケージに `_redirects` / `_headers` を自動同梱済み（スクリプトが生成）。SPA リダイレクトとセキュリティヘッダはこれで担保される
-- **Netlify Functions（netlify/functions/slack.js）は Drop ではデプロイされない** → 現行本番も Drop 運用のため同条件（機能後退なし）だが、フォームの Slack 通知が必要なら Netlify Forms の Email/Slack 通知設定（管理画面）で代替すること
+- **netlify.toml は手動デプロイでは読まれない** → パッケージに `_redirects` / `_headers` を自動同梱済み（スクリプトが生成）。SPA リダイレクトとセキュリティヘッダはこれで担保される
+- **ブラウザDropは Functions を配備できない** → slack.js が本番から消え、しかも通知先 URL には SPA キャッチオールにより **200 で index.html が返るため、通知失敗がどこにも表面化しない**（2026-07-08 に実際に発生）。本番反映は必ず `scripts/deploy-prod.sh` を使うこと
+- **SLACK_WEBHOOK_URL** が Netlify UI（Site configuration → Environment variables）に設定されていないと、function は配備されても 500 を返す。ローテーション時もコード変更不要・UI 変更のみ
 - Netlify 管理画面上でのファイル直編集・別フォルダの直接ドロップは禁止
 - パッケージ生成元の ref が GitHub に push 済みであることを常に確認（ローカルにしかないコミットを本番化しない）
 - `release/` は git 管理外。台帳とタグが対応関係の記録

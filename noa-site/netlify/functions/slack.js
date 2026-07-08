@@ -1,6 +1,11 @@
 // netlify/functions/slack.js
 exports.handler = async (event) => {
     try {
+      // POST以外は拒否: GETでの疎通確認時に空通知がSlackへ飛ぶのを防ぐ。
+      // 405が返れば「関数は配備済み」の安全な確認にもなる。
+      if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
+      }
       const webhook = process.env.SLACK_WEBHOOK_URL;
       if (!webhook) return { statusCode: 500, body: "Missing SLACK_WEBHOOK_URL" };
   
