@@ -2853,41 +2853,6 @@ html[data-work="on"] #work{
 .work-live-facts li{background:#050505;padding:1.1rem 1.2rem;font-size:.76rem;line-height:1.8;color:#94a3b8}
 .work-live-facts b{display:block;color:white;font-weight:700;font-size:.8rem;margin-bottom:.3rem;letter-spacing:.04em}
 
-/* 支援の型 — 課題→設計→変化の解剖図 */
-.work-row{
-  margin:0 .5rem;padding:2.6rem 0;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-@media(min-width:768px){.work-row{margin:0 2rem;padding:3.2rem 0}}
-.work-row:last-of-type{border-bottom:1px solid rgba(255,255,255,.08)}
-.work-row-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.4rem;margin-bottom:1.6rem}
-.work-row-num{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.3rem;color:#74D6E8;opacity:.6;line-height:1}
-.work-row-tag{
-  font-size:9px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.14);
-  border-radius:9999px;padding:.3rem .8rem;
-}
-.work-row-title{font-size:clamp(1rem,2vw,1.35rem);font-weight:800;color:white;letter-spacing:-.01em}
-.work-anatomy{display:grid;grid-template-columns:1fr;gap:0}
-@media(min-width:900px){.work-anatomy{grid-template-columns:1fr auto 1fr auto 1fr}}
-.work-cell{padding:.4rem 0}
-@media(min-width:900px){.work-cell{padding:0 .2rem}}
-.work-cell-label{
-  font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(116,214,232,.7);display:block;margin-bottom:.6rem;
-}
-.work-cell-label small{color:#475569;letter-spacing:.14em;margin-left:.6rem;text-transform:none;font-size:9.5px;font-weight:600}
-.work-cell p{font-size:.82rem;line-height:1.95;color:#94a3b8;margin:0}
-.work-arrow{
-  display:none;align-items:center;justify-content:center;
-  color:rgba(116,214,232,.4);padding:0 1.2rem;
-}
-@media(min-width:900px){.work-arrow{display:flex}}
-@media(max-width:899px){
-  .work-cell{padding:.7rem 0 .7rem 1rem;border-left:1px solid rgba(255,255,255,.1)}
-  .work-cell + .work-arrow + .work-cell{margin-top:.4rem}
-}
-
 /* 変換の橋（自分ごと化 → 相談） */
 .work-cta{
   display:flex;flex-direction:column;align-items:center;gap:.55rem;
@@ -2907,6 +2872,125 @@ html[data-work="on"] #work{
 }
 
 /* ============================================================
+   [flag:work v2] STRUCTURAL TRANSFORMATION — 事例の視覚化 (Phase 5)
+   左=コピー(45%) / 右=Before→Design→After図(55%)。本文はアコーディオン内へ。
+   ============================================================ */
+/* 上部 Case00 の4事実: 原則名+1行に凝縮（見出しを立て、本文を短く） */
+.work-live-facts b{font-size:.82rem;margin-bottom:.4rem}
+.work-live-facts li{font-size:.75rem;line-height:1.75;color:#8b9bb0}
+
+/* ケースブロック: 大きな罫線区切り・角丸/影なし */
+.work-case{
+  margin:0 .5rem;padding:2.8rem 0;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+@media(min-width:768px){.work-case{margin:0 2rem;padding:3.6rem 0}}
+.work-case:last-of-type{border-bottom:1px solid rgba(255,255,255,.1)}
+.work-case-grid{display:grid;grid-template-columns:1fr;gap:2.2rem}
+@media(min-width:960px){
+  .work-case-grid{grid-template-columns:44% 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center}
+}
+/* --- 左: コピー --- */
+.work-case-meta{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.5rem}
+.work-case-num{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:2rem;color:#74D6E8;opacity:.65;line-height:1;
+}
+.work-case-cat{
+  font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.16);
+  padding:.32rem .85rem;border-radius:9999px;
+}
+.work-case-title{
+  font-size:clamp(1.35rem,2.3vw,1.85rem);font-weight:800;color:#fff;
+  letter-spacing:-.02em;line-height:1.5;margin:0 0 1.3rem;
+}
+.work-case-summary{
+  font-size:clamp(.9rem,1.15vw,1rem);line-height:1.95;letter-spacing:.02em;
+  color:#b8c4d2;font-weight:500;max-width:30rem;margin:0 0 1.9rem;
+}
+.work-case-summary .em{color:#74D6E8;font-weight:600}
+/* VIEW DETAILS トグル */
+.work-toggle{
+  display:inline-flex;align-items:center;gap:.7rem;
+  background:none;border:none;cursor:pointer;padding:.55rem 0;min-height:44px;
+  font-family:inherit;color:#cbd5e1;
+  font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  transition:color .3s;
+}
+.work-toggle:hover{color:#74D6E8}
+.work-toggle-ic{
+  position:relative;width:14px;height:14px;flex:none;
+}
+.work-toggle-ic::before,.work-toggle-ic::after{
+  content:"";position:absolute;background:currentColor;
+  transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .3s;
+}
+.work-toggle-ic::before{top:6.5px;left:0;width:14px;height:1px}
+.work-toggle-ic::after{left:6.5px;top:0;width:1px;height:14px}
+.work-case.open .work-toggle-ic::after{transform:scaleY(0)}
+.work-case.open .work-toggle-lbl-open{display:none}
+.work-toggle-lbl-close{display:none}
+.work-case.open .work-toggle-lbl-close{display:inline}
+.work-toggle:focus-visible{outline:1px solid rgba(116,214,232,.6);outline-offset:4px;border-radius:2px}
+
+/* --- 右: Before→Design→After 図 --- */
+.work-diagram{
+  border:1px solid rgba(255,255,255,.08);
+  padding:1.4rem 1.2rem 1.1rem;position:relative;
+}
+.work-diagram svg{width:100%;height:auto;display:block}
+.work-dg-caption{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
+  margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.06);
+}
+.work-dg-cap{font-size:10px;line-height:1.7;color:#8b9bb0;letter-spacing:.02em}
+.work-dg-cap b{
+  display:block;font-size:8.5px;font-weight:700;letter-spacing:.24em;
+  text-transform:uppercase;margin-bottom:.35rem;
+}
+.work-dg-cap--b b{color:rgba(255,255,255,.5)}
+.work-dg-cap--d b{color:rgba(255,255,255,.5)}
+.work-dg-cap--a b{color:#74D6E8}
+/* 図の登場: ノード/線が順に灯る（スクロールイン） */
+.work-dg-el{opacity:0;transition:opacity .7s ease}
+.work-case.in .work-dg-el{opacity:1}
+.work-case.in .work-dg-el{transition-delay:calc(var(--i,0)*.09s)}
+.work-dg-draw{
+  stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.1s cubic-bezier(.22,1,.36,1);
+}
+.work-case.in .work-dg-draw{stroke-dashoffset:0;transition-delay:calc(.3s + var(--i,0)*.12s)}
+
+/* --- アコーディオン詳細: 3列 Issue/Approach/Shift --- */
+.work-detail{
+  grid-column:1/-1;
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .35s ease,margin .5s ease;
+}
+.work-case.open .work-detail{max-height:1200px;opacity:1;margin-top:2.4rem}
+.work-detail-inner{
+  padding-top:2.2rem;border-top:1px solid rgba(255,255,255,.1);
+  display:grid;grid-template-columns:1fr;gap:1.8rem;
+}
+@media(min-width:768px){.work-detail-inner{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
+.work-da-label{
+  display:flex;align-items:baseline;gap:.6rem;margin-bottom:.8rem;
+  font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(116,214,232,.75);
+}
+.work-da-label small{color:#64748b;letter-spacing:.14em;font-size:9.5px;font-weight:600;text-transform:none}
+.work-da p{font-size:.86rem;line-height:2;color:#aeb9c7;margin:0}
+@media(max-width:767px){
+  .work-da{padding-left:1rem;border-left:1px solid rgba(116,214,232,.25)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .work-dg-el{opacity:1;transition:none}
+  .work-dg-draw{stroke-dashoffset:0;transition:none}
+  .work-detail{transition:opacity .3s ease}
+}
+
+/* ============================================================
    [視覚化強化] CRAFT図解 + サービス詳細の図解 (Phase 3.5)
    すべて既存フラグ(work / svDetail)配下 — rollbackは同フラグで一括
    ============================================================ */
@@ -2915,9 +2999,6 @@ html[data-work="on"] #work{
 .work-voyage{display:none;width:100%;height:auto;margin:.4rem 0 2rem}
 @media(min-width:768px){html[data-work="on"] .work-voyage{display:block}}
 
-/* CRAFT: 構造記号（散らばり→整列→前進） */
-.work-glyph{width:38px;height:38px;display:block;margin-bottom:.7rem}
-@media(max-width:899px){.work-glyph{width:32px;height:32px;margin-bottom:.45rem}}
 
 /* 流儀: 本文(左) × 図解(右)。モバイルは図解が先＝読む前に理解 */
 html[data-svdetail="v2"] .sv-edge-wrap{
@@ -3453,7 +3534,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <span class="work-live-title">noa-place.co.jp — いまご覧のこのサイト</span>
           <span class="work-live-badge">Live Case</span>
         </div>
-        <p class="work-live-lead">私たちの仕事を最も正確に伝える事例は、いまあなたが体験しているこのサイトです。情報設計から演出、実装、戻せる運用設計まで、すべて自社で設計しました。この設計プロセスと判断基準を、そのままお客様の事業に適用します。</p>
+        <p class="work-live-lead">私たちの設計思想を最も正確に伝える事例は、いまあなたが体験しているこのサイトです。情報設計から実装、戻せる運用設計まで、すべて自社で設計しました。その原則は4つです。</p>
         <!-- 一回の訪問の航路図: このサイトで何をどう設計したか -->
         <svg class="work-voyage" viewBox="0 0 1180 150" role="img" aria-label="このサイトの体験設計図: 入場からContactまでの一本の航路">
           <line x1="40" y1="78" x2="1140" y2="78" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
@@ -3495,91 +3576,296 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <text x="40" y="140" font-size="9" fill="#475569" letter-spacing="2">ONE CONTINUOUS VOYAGE — 訪問は、一本の航路として設計されています</text>
         </svg>
         <ul class="work-live-facts">
-          <li><b>体験の連続性</b>サービス一覧の行が、詳細ページの見出しへそのまま変形する共有要素遷移。</li>
-          <li><b>構造の可視化</b>01–04の章立てと左端の章レール。最終章は常に Contact。</li>
-          <li><b>抑制された演出</b>Heroの海図は Canvas 2D・画面被覆率1%未満。派手さではなく気配で語る。</li>
-          <li><b>戻せる設計</b>全機能がフラグ1行で旧版へ戻る。攻めた改修と安全な運用の両立。</li>
+          <li><b>連続性</b>一覧の行が、詳細ページの見出しへ変形する。</li>
+          <li><b>構造</b>01–04の章立てと、常に最終章にある Contact。</li>
+          <li><b>抑制</b>Heroの海図は画面被覆率1%未満。気配で語る。</li>
+          <li><b>可逆性</b>全機能がフラグ1行で旧版へ戻せる。</li>
         </ul>
       </article>
 
       <!-- 支援の型: 課題 → 設計 → 変化 -->
-      <article class="work-row anim-up">
-        <div class="work-row-head">
-          <span class="work-row-num">01</span>
-          <span class="work-row-tag">Web</span>
-          <span class="work-row-title">情報は多いのに、問い合わせに辿り着けないサイト</span>
-        </div>
-        <div class="work-anatomy">
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-issue"/></svg>
-            <span class="work-cell-label">Issue<small>課題</small></span>
-            <p>伝えたいことを全部載せた結果、読み手がどこを見ればいいか分からず、途中で離脱していた。</p>
+      <article class="work-case anim-up" id="work-case-01">
+        <div class="work-case-grid">
+          <div class="work-case-copy">
+            <div class="work-case-meta">
+              <span class="work-case-num">01</span>
+              <span class="work-case-cat">Web</span>
+            </div>
+            <h3 class="work-case-title">情報は多いのに、<br>問い合わせに辿り着けないサイト</h3>
+            <p class="work-case-summary">情報構造と導線を再設計。<br>迷うサイトから、<span class="em">行動につながるサイト</span>へ。</p>
+            <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-01" onclick="toggleWorkCase(this)">
+              <span class="work-toggle-ic" aria-hidden="true"></span>
+              <span class="work-toggle-lbl-open">View Details</span>
+              <span class="work-toggle-lbl-close">Close</span>
+            </button>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-approach"/></svg>
-            <span class="work-cell-label">Approach<small>設計</small></span>
-            <p>読み手を役割で分け、それぞれの動線を一本化。情報を章立てで再構成し、削る勇気を持った。</p>
+
+          <div class="work-diagram">
+            <svg viewBox="0 0 560 190" role="img" aria-label="Before: 情報が分散し導線が交差している。Design: 情報を役割別に整理する。After: 主要な行動がCONTACTへ収束する。">
+              <!-- BEFORE: 分散・交差 -->
+              <text class="work-dg-el" style="--i:0" x="8" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">BEFORE</text>
+              <g stroke="rgba(148,163,184,.32)" fill="none">
+                <path class="work-dg-el" style="--i:1" d="M22 46 L128 122 M128 46 L22 122 M22 84 L128 84 M75 34 L40 134 M110 40 L60 130"/>
+              </g>
+              <g fill="rgba(203,213,225,.55)">
+                <circle class="work-dg-el" style="--i:2" cx="22" cy="46" r="2.6"/>
+                <circle class="work-dg-el" style="--i:2" cx="128" cy="46" r="2.6"/>
+                <circle class="work-dg-el" style="--i:3" cx="22" cy="122" r="2.6"/>
+                <circle class="work-dg-el" style="--i:3" cx="128" cy="122" r="2.6"/>
+                <circle class="work-dg-el" style="--i:3" cx="75" cy="84" r="2.6"/>
+                <circle class="work-dg-el" style="--i:4" cx="40" cy="134" r="2.6"/>
+                <circle class="work-dg-el" style="--i:4" cx="110" cy="40" r="2.6"/>
+              </g>
+              <!-- 遷移矢印 -->
+              <g class="work-dg-el" style="--i:5" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M158 84 L192 84"/><path d="M186 80 L193 84 L186 88"/>
+              </g>
+              <!-- DESIGN: グループ化 -->
+              <text class="work-dg-el" style="--i:5" x="212" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">DESIGN</text>
+              <g stroke="rgba(255,255,255,.14)" fill="none">
+                <rect class="work-dg-el" style="--i:6" x="214" y="32" width="120" height="30" rx="0"/>
+                <rect class="work-dg-el" style="--i:7" x="214" y="70" width="120" height="30" rx="0"/>
+                <rect class="work-dg-el" style="--i:8" x="214" y="108" width="120" height="30" rx="0"/>
+              </g>
+              <g fill="rgba(203,213,225,.5)">
+                <circle class="work-dg-el" style="--i:6" cx="232" cy="47" r="2.4"/><circle class="work-dg-el" style="--i:6" cx="248" cy="47" r="2.4"/>
+                <circle class="work-dg-el" style="--i:7" cx="232" cy="85" r="2.4"/><circle class="work-dg-el" style="--i:7" cx="248" cy="85" r="2.4"/>
+                <circle class="work-dg-el" style="--i:8" cx="232" cy="123" r="2.4"/><circle class="work-dg-el" style="--i:8" cx="248" cy="123" r="2.4"/>
+              </g>
+              <g class="work-dg-el" style="--i:9" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M360 84 L394 84"/><path d="M388 80 L395 84 L388 88"/>
+              </g>
+              <!-- AFTER: CONTACTへ収束 -->
+              <text class="work-dg-el" style="--i:9" x="414" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="#74D6E8">AFTER</text>
+              <g stroke="rgba(116,214,232,.5)" fill="none" stroke-width="1">
+                <path class="work-dg-draw" style="--i:0" pathLength="1" d="M420 44 C 470 44, 480 84, 520 92"/>
+                <path class="work-dg-draw" style="--i:1" pathLength="1" d="M420 84 C 470 84, 486 88, 520 92"/>
+                <path class="work-dg-draw" style="--i:2" pathLength="1" d="M420 124 C 470 124, 480 100, 520 92"/>
+              </g>
+              <g fill="rgba(203,213,225,.55)">
+                <circle class="work-dg-el" style="--i:10" cx="420" cy="44" r="2.6"/>
+                <circle class="work-dg-el" style="--i:10" cx="420" cy="84" r="2.6"/>
+                <circle class="work-dg-el" style="--i:10" cx="420" cy="124" r="2.6"/>
+              </g>
+              <circle class="work-dg-el" style="--i:12" cx="522" cy="92" r="4" fill="#74D6E8"/>
+              <circle class="work-dg-el" style="--i:12" cx="522" cy="92" r="10" fill="none" stroke="rgba(116,214,232,.4)"/>
+              <text class="work-dg-el" style="--i:12" x="522" y="122" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.5" fill="#74D6E8">CONTACT</text>
+            </svg>
+            <div class="work-dg-caption">
+              <span class="work-dg-cap work-dg-cap--b"><b>Before</b>情報が分散し、導線が交差している</span>
+              <span class="work-dg-cap work-dg-cap--d"><b>Design</b>情報を役割別・目的別に整理する</span>
+              <span class="work-dg-cap work-dg-cap--a"><b>After</b>主要な行動がCONTACTへ収束する</span>
+            </div>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-shift"/></svg>
-            <span class="work-cell-label">Shift<small>変化</small></span>
-            <p>「きれいだが読まれない」から「迷わず問い合わせに着地する」構造へ。公開後も計測と改善が回る状態を引き渡し。</p>
+
+          <div class="work-detail" id="work-detail-01" role="region" aria-label="CASE 01 の詳細">
+            <div class="work-detail-inner">
+              <div class="work-da">
+                <span class="work-da-label">Issue<small>課題</small></span>
+                <p>情報を詰め込みすぎ、ユーザーが目的のページに辿り着けない状態になっていた。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Approach<small>設計</small></span>
+                <p>情報の優先順位と導線を、ユーザーの役割と目的ごとに再設計した。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Shift<small>変化</small></span>
+                <p>読まれるだけのサイトから、問い合わせにつながるサイトへ変化させた。</p>
+              </div>
+            </div>
           </div>
         </div>
       </article>
 
-      <article class="work-row anim-up">
-        <div class="work-row-head">
-          <span class="work-row-num">02</span>
-          <span class="work-row-tag">HR</span>
-          <span class="work-row-title">応募は来るのに、承諾まで至らない採用</span>
-        </div>
-        <div class="work-anatomy">
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-issue"/></svg>
-            <span class="work-cell-label">Issue<small>課題</small></span>
-            <p>母集団は確保できているのに、選考の途中で候補者の熱が冷め、内定承諾率が上がらなかった。</p>
+      <article class="work-case anim-up" id="work-case-02">
+        <div class="work-case-grid">
+          <div class="work-case-copy">
+            <div class="work-case-meta">
+              <span class="work-case-num">02</span>
+              <span class="work-case-cat">HR</span>
+            </div>
+            <h3 class="work-case-title">応募は来るのに、<br>承諾まで至らない採用</h3>
+            <p class="work-case-summary">選考体験と採用オペレーションを再設計。<br>担当者に依存しない、<span class="em">再現可能な採用</span>へ。</p>
+            <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-02" onclick="toggleWorkCase(this)">
+              <span class="work-toggle-ic" aria-hidden="true"></span>
+              <span class="work-toggle-lbl-open">View Details</span>
+              <span class="work-toggle-lbl-close">Close</span>
+            </button>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-approach"/></svg>
-            <span class="work-cell-label">Approach<small>設計</small></span>
-            <p>数字ではなく選考体験を遡り、訴求と実際の面接のズレを特定。日程・伝え方・面接の手順を再設計した。</p>
+
+          <div class="work-diagram">
+            <svg viewBox="0 0 560 190" role="img" aria-label="Before: 応募者が選考途中で離脱している。Design: 日程・伝え方・面接体験を構造化する。After: 応募から承諾まで一貫した選考フローになる。">
+              <!-- BEFORE: 途中で切れる線と離脱 -->
+              <text class="work-dg-el" style="--i:0" x="8" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">BEFORE</text>
+              <line class="work-dg-el" style="--i:1" x1="20" y1="84" x2="66" y2="84" stroke="rgba(148,163,184,.4)"/>
+              <line class="work-dg-el" style="--i:2" x1="80" y1="84" x2="112" y2="84" stroke="rgba(148,163,184,.28)" stroke-dasharray="3 4"/>
+              <line class="work-dg-el" style="--i:3" x1="126" y1="84" x2="146" y2="84" stroke="rgba(148,163,184,.18)" stroke-dasharray="2 5"/>
+              <g fill="rgba(203,213,225,.5)">
+                <circle class="work-dg-el" style="--i:1" cx="20" cy="84" r="2.8"/>
+                <circle class="work-dg-el" style="--i:2" cx="73" cy="84" r="2.4"/>
+                <circle class="work-dg-el" style="--i:3" cx="119" cy="84" r="2"/>
+              </g>
+              <!-- 離脱点（下向きの逸れ） -->
+              <g stroke="rgba(148,163,184,.3)" fill="none">
+                <path class="work-dg-el" style="--i:2" d="M73 84 L86 116"/>
+                <path class="work-dg-el" style="--i:3" d="M119 84 L132 116"/>
+              </g>
+              <g fill="rgba(148,163,184,.35)">
+                <circle class="work-dg-el" style="--i:2" cx="87" cy="119" r="1.8"/>
+                <circle class="work-dg-el" style="--i:3" cx="133" cy="119" r="1.8"/>
+              </g>
+              <text class="work-dg-el" style="--i:4" x="76" y="140" font-size="8" fill="#64748b" letter-spacing="1">離脱</text>
+              <g class="work-dg-el" style="--i:5" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M170 84 L204 84"/><path d="M198 80 L205 84 L198 88"/>
+              </g>
+              <!-- DESIGN: 4ステップの構造化 -->
+              <text class="work-dg-el" style="--i:5" x="222" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">DESIGN</text>
+              <g stroke="rgba(255,255,255,.16)" fill="none">
+                <rect class="work-dg-el" style="--i:6" x="224" y="58" width="26" height="52"/>
+                <rect class="work-dg-el" style="--i:7" x="256" y="58" width="26" height="52"/>
+                <rect class="work-dg-el" style="--i:8" x="288" y="58" width="26" height="52"/>
+                <rect class="work-dg-el" style="--i:9" x="320" y="58" width="26" height="52"/>
+              </g>
+              <g fill="rgba(116,214,232,.75)">
+                <circle class="work-dg-el" style="--i:6" cx="237" cy="84" r="2.2"/>
+                <circle class="work-dg-el" style="--i:7" cx="269" cy="84" r="2.2"/>
+                <circle class="work-dg-el" style="--i:8" cx="301" cy="84" r="2.2"/>
+                <circle class="work-dg-el" style="--i:9" cx="333" cy="84" r="2.2"/>
+              </g>
+              <text class="work-dg-el" style="--i:9" x="285" y="130" text-anchor="middle" font-size="8" fill="#64748b" letter-spacing="1">日程 / 伝え方 / 面接 / フォロー</text>
+              <g class="work-dg-el" style="--i:10" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M370 84 L404 84"/><path d="M398 80 L405 84 L398 88"/>
+              </g>
+              <!-- AFTER: 切れ目のない一本 -->
+              <text class="work-dg-el" style="--i:10" x="424" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="#74D6E8">AFTER</text>
+              <line class="work-dg-draw" style="--i:0" pathLength="1" x1="424" y1="84" x2="534" y2="84" stroke="rgba(116,214,232,.75)" stroke-width="1.2"/>
+              <path class="work-dg-el" style="--i:13" d="M528 80 L536 84 L528 88" fill="none" stroke="rgba(116,214,232,.75)"/>
+              <g fill="#74D6E8">
+                <circle class="work-dg-el" style="--i:11" cx="424" cy="84" r="2.6"/>
+                <circle class="work-dg-el" style="--i:11" cx="461" cy="84" r="2.6"/>
+                <circle class="work-dg-el" style="--i:12" cx="498" cy="84" r="2.6"/>
+              </g>
+              <text class="work-dg-el" style="--i:11" x="424" y="110" font-size="8" fill="#64748b" letter-spacing="1">応募</text>
+              <text class="work-dg-el" style="--i:13" x="534" y="110" text-anchor="end" font-size="8" fill="#74D6E8" letter-spacing="1">承諾</text>
+            </svg>
+            <div class="work-dg-caption">
+              <span class="work-dg-cap work-dg-cap--b"><b>Before</b>応募者が選考途中で離脱している</span>
+              <span class="work-dg-cap work-dg-cap--d"><b>Design</b>日程・伝え方・面接体験を構造化する</span>
+              <span class="work-dg-cap work-dg-cap--a"><b>After</b>応募から承諾まで一貫した選考フローになる</span>
+            </div>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-shift"/></svg>
-            <span class="work-cell-label">Shift<small>変化</small></span>
-            <p>担当者の勘に頼らない、手順として回る採用オペレーションへ。担当が変わっても品質が落ちない形で定着。</p>
+
+          <div class="work-detail" id="work-detail-02" role="region" aria-label="CASE 02 の詳細">
+            <div class="work-detail-inner">
+              <div class="work-da">
+                <span class="work-da-label">Issue<small>課題</small></span>
+                <p>応募は集まる一方で、選考途中の離脱と承諾率に課題があった。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Approach<small>設計</small></span>
+                <p>候補者体験を可視化し、日程調整・面接・情報提供の手順を再設計した。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Shift<small>変化</small></span>
+                <p>担当者の勘に頼る採用から、再現可能な採用オペレーションへ変化させた。</p>
+              </div>
+            </div>
           </div>
         </div>
       </article>
 
-      <article class="work-row anim-up">
-        <div class="work-row-head">
-          <span class="work-row-num">03</span>
-          <span class="work-row-tag">Marketing</span>
-          <span class="work-row-title">広告費を増やしても、伸びが鈍いままの集客</span>
-        </div>
-        <div class="work-anatomy">
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-issue"/></svg>
-            <span class="work-cell-label">Issue<small>課題</small></span>
-            <p>チャネルごとに施策を足し続けた結果、どこが効いているのか誰も説明できなくなっていた。</p>
+      <article class="work-case anim-up" id="work-case-03">
+        <div class="work-case-grid">
+          <div class="work-case-copy">
+            <div class="work-case-meta">
+              <span class="work-case-num">03</span>
+              <span class="work-case-cat">Marketing</span>
+            </div>
+            <h3 class="work-case-title">広告費を増やしても、<br>成果が伸びない集客</h3>
+            <p class="work-case-summary">集客から接客までを可視化。<br>感覚の運用から、<span class="em">改善が回る仕組み</span>へ。</p>
+            <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-03" onclick="toggleWorkCase(this)">
+              <span class="work-toggle-ic" aria-hidden="true"></span>
+              <span class="work-toggle-lbl-open">View Details</span>
+              <span class="work-toggle-lbl-close">Close</span>
+            </button>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-approach"/></svg>
-            <span class="work-cell-label">Approach<small>設計</small></span>
-            <p>集客から接客までを一つの流れとして分解し、ボトルネックを特定。効かない施策を止め、投資を再配分した。</p>
+
+          <div class="work-diagram">
+            <svg viewBox="0 0 560 190" role="img" aria-label="Before: 複数チャネルから流入するが成果要因が見えない。Design: 集客から接客までを一本のフローとして分解する。After: データが改善ループへ戻り運用が継続的に回る。">
+              <!-- BEFORE: 流入するが先が見えない -->
+              <text class="work-dg-el" style="--i:0" x="8" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">BEFORE</text>
+              <g stroke="rgba(148,163,184,.35)" fill="none">
+                <path class="work-dg-el" style="--i:1" d="M20 48 L104 80"/>
+                <path class="work-dg-el" style="--i:1" d="M20 84 L104 86"/>
+                <path class="work-dg-el" style="--i:2" d="M20 120 L104 92"/>
+              </g>
+              <g fill="rgba(203,213,225,.5)">
+                <circle class="work-dg-el" style="--i:1" cx="20" cy="48" r="2.6"/>
+                <circle class="work-dg-el" style="--i:1" cx="20" cy="84" r="2.6"/>
+                <circle class="work-dg-el" style="--i:2" cx="20" cy="120" r="2.6"/>
+              </g>
+              <!-- 不透明な箱（見えない先） -->
+              <rect class="work-dg-el" style="--i:3" x="108" y="62" width="42" height="46" fill="none" stroke="rgba(148,163,184,.3)" stroke-dasharray="3 3"/>
+              <text class="work-dg-el" style="--i:4" x="129" y="90" text-anchor="middle" font-size="13" fill="rgba(148,163,184,.55)">?</text>
+              <text class="work-dg-el" style="--i:4" x="129" y="128" text-anchor="middle" font-size="8" fill="#64748b" letter-spacing="1">要因不明</text>
+              <g class="work-dg-el" style="--i:5" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M172 84 L206 84"/><path d="M200 80 L207 84 L200 88"/>
+              </g>
+              <!-- DESIGN: 一本のファネルへ分解 -->
+              <text class="work-dg-el" style="--i:5" x="224" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,.45)">DESIGN</text>
+              <g stroke="rgba(255,255,255,.16)" fill="none">
+                <path class="work-dg-el" style="--i:6" d="M226 56 L346 56 L330 78 L242 78 Z"/>
+                <path class="work-dg-el" style="--i:7" d="M244 84 L328 84 L314 106 L258 106 Z"/>
+                <path class="work-dg-el" style="--i:8" d="M260 112 L312 112 L302 132 L270 132 Z"/>
+              </g>
+              <g fill="rgba(116,214,232,.7)">
+                <circle class="work-dg-el" style="--i:6" cx="286" cy="67" r="2"/>
+                <circle class="work-dg-el" style="--i:7" cx="286" cy="95" r="2"/>
+                <circle class="work-dg-el" style="--i:8" cx="286" cy="122" r="2"/>
+              </g>
+              <text class="work-dg-el" style="--i:8" x="286" y="148" text-anchor="middle" font-size="8" fill="#64748b" letter-spacing="1">集客 → LP → 接客</text>
+              <g class="work-dg-el" style="--i:9" stroke="rgba(116,214,232,.4)" fill="none">
+                <path d="M366 84 L400 84"/><path d="M394 80 L401 84 L394 88"/>
+              </g>
+              <!-- AFTER: 改善ループ -->
+              <text class="work-dg-el" style="--i:9" x="420" y="16" font-size="8.5" font-weight="700" letter-spacing="2" fill="#74D6E8">AFTER</text>
+              <g fill="none" stroke="rgba(116,214,232,.6)">
+                <path class="work-dg-draw" style="--i:0" pathLength="1" d="M480 52 A 36 36 0 1 1 479.9 52"/>
+              </g>
+              <path class="work-dg-el" style="--i:12" d="M474 50 L481 52 L477 58" fill="none" stroke="rgba(116,214,232,.75)"/>
+              <g fill="#74D6E8">
+                <circle class="work-dg-el" style="--i:11" cx="480" cy="52" r="2.6"/>
+                <circle class="work-dg-el" style="--i:11" cx="516" cy="88" r="2.6"/>
+                <circle class="work-dg-el" style="--i:12" cx="480" cy="124" r="2.6"/>
+                <circle class="work-dg-el" style="--i:12" cx="444" cy="88" r="2.6"/>
+              </g>
+              <text class="work-dg-el" style="--i:11" x="480" y="42" text-anchor="middle" font-size="7.5" fill="#94a3b8" letter-spacing="1">施策</text>
+              <text class="work-dg-el" style="--i:11" x="534" y="91" text-anchor="middle" font-size="7.5" fill="#94a3b8" letter-spacing="1">成果</text>
+              <text class="work-dg-el" style="--i:12" x="480" y="142" text-anchor="middle" font-size="7.5" fill="#94a3b8" letter-spacing="1">データ</text>
+              <text class="work-dg-el" style="--i:12" x="424" y="91" text-anchor="middle" font-size="7.5" fill="#94a3b8" letter-spacing="1">改善</text>
+            </svg>
+            <div class="work-dg-caption">
+              <span class="work-dg-cap work-dg-cap--b"><b>Before</b>複数チャネルから流入するが、成果要因が見えない</span>
+              <span class="work-dg-cap work-dg-cap--d"><b>Design</b>集客から接客までを一本のフローとして分解する</span>
+              <span class="work-dg-cap work-dg-cap--a"><b>After</b>データが改善ループへ戻り、運用が継続的に回る</span>
+            </div>
           </div>
-          <span class="work-arrow" aria-hidden="true">→</span>
-          <div class="work-cell">
-            <svg class="work-glyph" aria-hidden="true"><use href="#g-shift"/></svg>
-            <span class="work-cell-label">Shift<small>変化</small></span>
-            <p>感覚の運用から、データと手順で社内が回し続けられる改善サイクルへ。外部依存ではない成長構造を残した。</p>
+
+          <div class="work-detail" id="work-detail-03" role="region" aria-label="CASE 03 の詳細">
+            <div class="work-detail-inner">
+              <div class="work-da">
+                <span class="work-da-label">Issue<small>課題</small></span>
+                <p>施策を増やすほど、成果につながる要因が見えなくなっていた。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Approach<small>設計</small></span>
+                <p>集客から接客までを分解し、ボトルネックと改善対象を特定した。</p>
+              </div>
+              <div class="work-da">
+                <span class="work-da-label">Shift<small>変化</small></span>
+                <p>広告依存の運用から、社内で改善が回り続ける仕組みへ変化させた。</p>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -5391,6 +5677,14 @@ function renderServicePage(id, s){
 function toggleFaq(btn){
   const item = btn.closest('.sv-faq-item');
   item.classList.toggle('open');
+}
+
+// [flag:work v2] CRAFT 事例の詳細アコーディオン（1件ずつ独立開閉）
+function toggleWorkCase(btn){
+  const item = btn.closest('.work-case');
+  if(!item) return;
+  const open = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
 }
 
 function renderServiceCrossLink(serviceId, s){
