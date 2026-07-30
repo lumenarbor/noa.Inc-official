@@ -3,3 +3,8 @@ dist/
 .DS_Store
 .netlify/
 release/
+
+# 環境変数（.env.example のみコミットする）
+.env
+.env.*
+!.env.example
