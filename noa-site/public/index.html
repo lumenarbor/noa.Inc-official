@@ -10,6 +10,8 @@
 #page-home{display:block!important;opacity:1!important;filter:none!important;transform:none!important}
 /* セクション表示フラグ(data-*)はJSで付与されるため、JS無効時は既定で表示する */
 #work,#hero-chart{display:block!important}
+/* サービス詳細はJSで内容を描画するため、JS無効時は専用セクションを出さない（空表示の防止） */
+.aid-only{display:none!important}
 .anim-up,.reveal-line,.sdtl-reveal,.work-case{opacity:1!important;transform:none!important;filter:none!important}
 .reveal-line .inner,.phil-line-in,.phil-big-in,.cta-row-in{transform:none!important;opacity:1!important}
 .work-dg-el{opacity:1!important}
@@ -17,12 +19,12 @@
 </style></noscript>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
-<title>noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援</title>
-<meta name="description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<title>noa Inc.（株式会社noa）| 人材紹介・AI/DX・Web開発・マーケティング支援</title>
+<meta name="description" content="株式会社noaは、人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニーです。"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
 <link rel="canonical" href="https://noa-place.co.jp/"/>
 
-<meta property="og:title" content="noa Inc. | 人材紹介・Web構築・マーケティング支援"/>
-<meta property="og:description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta property="og:type" content="website"/>
+<meta property="og:title" content="noa Inc. | 人材紹介・AI/DX・Web開発・マーケティング支援"/>
+<meta property="og:description" content="株式会社noaは、人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニーです。"/><meta property="og:type" content="website"/>
 <meta property="og:url" content="https://noa-place.co.jp/"/>
 <meta property="og:site_name" content="noa Inc."/>
 <meta property="og:locale" content="ja_JP"/>
@@ -31,8 +33,8 @@
 <meta property="og:image:height" content="630"/>
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="noa Inc. | 人材紹介・Web構築・マーケティング支援"/>
-<meta name="twitter:description" content="株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。"/><meta name="twitter:image" content="https://noa-place.co.jp/ogp.jpg"/>
+<meta name="twitter:title" content="noa Inc. | 人材紹介・AI/DX・Web開発・マーケティング支援"/>
+<meta name="twitter:description" content="株式会社noaは、人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニーです。"/><meta name="twitter:image" content="https://noa-place.co.jp/ogp.jpg"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,7 +62,7 @@
   "alternateName": "noa Inc.",
   "url": "https://noa-place.co.jp/",
   "logo": "https://noa-place.co.jp/logo-noa.png",
-  "description": "人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニー",  "foundingDate": "2023-09-14",
+  "description": "人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニー",  "foundingDate": "2023-09-14",
   "address": [
     {
       "@type": "PostalAddress",
@@ -3300,6 +3302,173 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 
 /* 初回相談: 持ち帰り物の構造記号 */
 .sv-consult-glyph{width:30px;height:30px;display:block;margin-bottom:.75rem}
+
+/* ============================================================
+   [AI & DIGITAL] service=web 専用（aid- 名前空間）
+   既存トークン（#050505 / #74D6E8 / 罫線 / Cormorant数字）のみ使用。
+   .aid-only は service=web の時だけ body に付く data 属性で表示。
+   ============================================================ */
+.aid-only{display:none}
+#page-service[data-svc="web"] .aid-only{display:block}
+
+/* Hero: 英字カテゴリ + 2段見出し */
+.sv-hero-cat{display:none}
+#page-service[data-svc="web"] .sv-hero-cat{
+  display:block;
+  font-size:clamp(1.6rem,4.2vw,2.9rem);font-weight:900;letter-spacing:-.02em;
+  color:rgba(255,255,255,.9);line-height:1.05;margin-bottom:clamp(.9rem,2vw,1.3rem);
+}
+.sv-hero-title2{display:none}
+#page-service[data-svc="web"] .sv-hero-title2{
+  display:block;
+  font-size:clamp(1.5rem,4.4vw,3.1rem);font-weight:800;line-height:1.34;
+  letter-spacing:-.035em;color:#74D6E8;
+  margin:0 0 clamp(1.1rem,2.2vw,1.6rem);max-width:24ch;
+}
+@media(max-width:420px){
+  /* AI & DIGITAL は幅があるため、意図した位置で2行に折る */
+  #page-service[data-svc="web"] .sv-hero-cat{white-space:pre-line}
+}
+
+/* Hero背景: 写真ではなく設計図（AI & DIGITAL のみ） */
+.aid-hero-bp{display:none}
+#page-service[data-svc="web"] .sv-hero-img-wrap{display:none}
+#page-service[data-svc="web"] .aid-hero-bp{
+  display:block;position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;opacity:.55;
+}
+/* PCではテキストが左半分を占めるため、図は右側へ寄せて重なりを避ける */
+@media(min-width:900px){
+  #page-service[data-svc="web"] .aid-hero-bp{
+    left:auto;right:0;width:54%;height:78%;top:11%;opacity:1;
+  }
+}
+/* 狭い画面では図を背景の気配に留め、コピーの可読性を優先 */
+@media(max-width:899px){
+  #page-service[data-svc="web"] .aid-hero-bp{opacity:.3}
+}
+#page-service[data-svc="web"] .sv-hero{
+  background:
+    radial-gradient(ellipse 70% 60% at 22% 42%, rgba(116,214,232,.06), transparent 70%),
+    #050505;
+}
+/* 図の各層が順に立ち上がる（1回のみ・控えめ） */
+.aid-bp-a,.aid-bp-b,.aid-bp-c{opacity:0;animation:aidBpIn .9s ease forwards}
+.aid-bp-a{animation-delay:.25s}
+.aid-bp-b{animation-delay:.55s}
+.aid-bp-c{animation-delay:.85s}
+@keyframes aidBpIn{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  .aid-bp-a,.aid-bp-b,.aid-bp-c{opacity:1;animation:none}
+}
+
+/* WHAT WE DESIGN: カードではなく横長の行 */
+.aid-cap-list{display:flex;flex-direction:column}
+.aid-cap-row{
+  padding:1.9rem 0;border-top:1px solid rgba(255,255,255,.08);
+}
+.aid-cap-row:first-child{border-top:0;padding-top:.4rem}
+.aid-cap-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.1rem;margin-bottom:.9rem}
+.aid-cap-num{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:1.35rem;color:#74D6E8;opacity:.6;line-height:1;
+}
+.aid-cap-title{
+  font-size:clamp(1rem,2vw,1.35rem);font-weight:800;color:white;
+  letter-spacing:-.01em;line-height:1.2;margin:0;
+}
+.aid-cap-jp{font-size:10px;font-weight:700;letter-spacing:.22em;color:rgba(255,255,255,.42)}
+.aid-cap-desc{font-size:.86rem;line-height:1.95;color:#aeb9c7;max-width:46rem;margin:0 0 1rem}
+.aid-cap-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}
+.aid-cap-tags li{
+  font-size:.66rem;letter-spacing:.1em;color:rgba(255,255,255,.6);
+  border:1px solid rgba(255,255,255,.14);border-radius:9999px;padding:.3rem .8rem;
+}
+@media(min-width:900px){
+  .aid-cap-row{display:grid;grid-template-columns:15rem 1fr;gap:2.5rem;align-items:start;padding:2.3rem 0}
+  .aid-cap-head{flex-direction:column;align-items:flex-start;gap:.55rem;margin:0}
+  .aid-cap-desc{margin-bottom:1.1rem}
+}
+
+/* HOW WE WORK: 一本の工程線（詳細ページの工程線と同じ言語） */
+.aid-proc-list{
+  display:grid;grid-template-columns:1fr;gap:0;margin:0;padding:0;list-style:none;position:relative;
+}
+.aid-proc-step{
+  position:relative;padding:.55rem 0 1.35rem 1.6rem;
+  border-left:1px solid rgba(255,255,255,.14);
+}
+.aid-proc-step--last{border-left-color:transparent}
+.aid-proc-step::before{
+  content:"";position:absolute;left:-3px;top:.85rem;
+  width:5px;height:5px;border-radius:50%;background:rgba(116,214,232,.85);
+}
+.aid-proc-num{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:1.05rem;color:rgba(116,214,232,.55);display:block;line-height:1;margin-bottom:.4rem;
+}
+.aid-proc-en{
+  display:block;font-size:11px;font-weight:700;letter-spacing:.26em;
+  text-transform:uppercase;color:white;margin-bottom:.3rem;
+}
+.aid-proc-jp{display:block;font-size:.8rem;color:#94a3b8;line-height:1.8}
+.aid-proc-note{
+  margin-top:1.6rem;font-size:.78rem;letter-spacing:.06em;color:#64748b;
+  padding-left:1.6rem;border-left:1px solid rgba(116,214,232,.35);
+}
+@media(min-width:900px){
+  .aid-proc-list{grid-template-columns:repeat(5,1fr);gap:1.4rem}
+  .aid-proc-step{
+    padding:1.6rem 1rem 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.14);
+  }
+  .aid-proc-step--last{border-top-color:rgba(116,214,232,.5)}
+  .aid-proc-step::before{left:0;top:-3px}
+  .aid-proc-note{margin-top:2.2rem;padding-left:1.2rem}
+}
+
+/* NOT EVERYTHING NEEDS AI: 大きなタイポ + 短文 */
+.aid-stance{border-top:1px solid rgba(255,255,255,.08);padding-top:clamp(2.4rem,5vw,4rem)}
+.aid-stance-en{
+  font-size:clamp(1.9rem,6.4vw,4.4rem);font-weight:900;line-height:1.02;
+  letter-spacing:-.045em;color:white;margin:0 0 1.6rem;
+}
+.aid-stance-body{max-width:40rem}
+.aid-stance-lead{font-size:clamp(.95rem,1.5vw,1.1rem);font-weight:700;color:white;margin:0 0 1rem;line-height:1.8}
+.aid-stance-text{font-size:.86rem;line-height:2.05;color:#aeb9c7;margin:0 0 .7rem}
+.aid-stance-text--accent{color:#74D6E8;font-weight:700;margin-top:1.2rem}
+@media(min-width:900px){
+  /* display は data-svc スコープ側で指定（.aid-only の非表示を上書きしないため） */
+  #page-service[data-svc="web"] .aid-stance{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+  .aid-stance-en{margin-bottom:0}
+}
+
+/* BEFORE → AFTER */
+.aid-ba-grid{display:grid;grid-template-columns:1fr;gap:1.1rem;align-items:start}
+@media(min-width:760px){
+  .aid-ba-grid{grid-template-columns:1fr auto 1fr auto 1fr;gap:.8rem}
+}
+.aid-ba-step{margin:0}
+.aid-ba-lbl{
+  display:block;font-size:8.5px;font-weight:700;letter-spacing:.26em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.7rem;
+}
+.aid-ba-step--after .aid-ba-lbl{color:#74D6E8}
+.aid-ba-svg{width:100%;height:auto;display:block}
+@media(max-width:759px){.aid-ba-svg{max-height:160px;margin:0 auto}}
+.aid-ba-step figcaption{
+  font-size:10.5px;line-height:1.75;color:#8b9bb0;letter-spacing:.02em;
+  margin-top:.7rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.06);
+}
+.aid-ba-arrow{display:flex;align-items:center;justify-content:center;color:rgba(116,214,232,.45);padding:.2rem 0}
+.aid-ba-arrow svg{width:26px;height:8px;display:block;transform:rotate(90deg)}
+@media(min-width:760px){
+  .aid-ba-arrow{align-self:center;margin-top:1.2rem}
+  .aid-ba-arrow svg{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .aid-only,.aid-cap-row,.aid-proc-step{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -3441,7 +3610,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
     </div>
     <div class="hero-text-block">
     <h1 class="hero-lines">
-      <span class="sr-only">株式会社noa | 人材紹介・Web構築・マーケティング支援</span>
+      <span class="sr-only">株式会社noa | 人材紹介・AI/DX・Web開発・マーケティング支援</span>
       <div class="hero-line reveal-line"><span class="inner hl-w">BE</span></div>
       <div class="hero-line i1 reveal-line" style="transition-delay:.1s"><span class="inner hl-w">YOURSELF.</span></div>
       <div class="hero-line i2 reveal-line" style="transition-delay:.2s"><span class="inner hl-o">BELONG.</span></div>
@@ -4549,6 +4718,41 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
     <!-- 1. HERO -->
     <div class="sv-hero">
       <div class="sv-hero-img-wrap"><img id="sv-hero-img" src="" alt="" class="sv-hero-img"></div>
+      <!-- AI & DIGITAL 専用のHero背景: 課題→構造化→手段の分岐を示す設計図（外部画像に依存しない） -->
+      <svg class="aid-hero-bp" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+        <g stroke="rgba(255,255,255,.05)" fill="none">
+          <path d="M0 130H1200M0 260H1200M0 390H1200M300 0V520M600 0V520M900 0V520"/>
+        </g>
+        <g class="aid-bp-a" stroke="rgba(148,163,184,.3)" fill="none">
+          <path d="M96 118 L250 232 M232 96 L104 268 M84 214 L268 176 M180 84 L150 296"/>
+        </g>
+        <g class="aid-bp-a" fill="rgba(203,213,225,.42)">
+          <circle cx="96" cy="118" r="3.2"/><circle cx="232" cy="96" r="3.2"/>
+          <circle cx="104" cy="268" r="3.2"/><circle cx="268" cy="176" r="3.2"/>
+          <circle cx="84" cy="214" r="3.2"/><circle cx="150" cy="296" r="3.2"/>
+        </g>
+        <g class="aid-bp-b">
+          <line x1="288" y1="200" x2="470" y2="200" stroke="rgba(255,255,255,.16)"/>
+          <rect x="470" y="160" width="180" height="80" fill="none" stroke="rgba(116,214,232,.4)"/>
+          <text x="560" y="205" text-anchor="middle" font-size="15" font-weight="700" letter-spacing="4" fill="rgba(116,214,232,.65)">STRUCTURE</text>
+        </g>
+        <g class="aid-bp-c" stroke="rgba(116,214,232,.28)" fill="none">
+          <path d="M650 200 C 730 200, 742 76, 840 76"/>
+          <path d="M650 200 C 730 200, 742 158, 840 158"/>
+          <path d="M650 200 C 730 200, 742 242, 840 242"/>
+          <path d="M650 200 C 730 200, 742 324, 840 324"/>
+        </g>
+        <g class="aid-bp-c" fill="rgba(116,214,232,.5)">
+          <circle cx="842" cy="76" r="3.2"/><circle cx="842" cy="158" r="3.2"/>
+          <circle cx="842" cy="242" r="3.2"/><circle cx="842" cy="324" r="3.2"/>
+        </g>
+        <g class="aid-bp-c" font-size="12" font-weight="700" letter-spacing="3.5" fill="rgba(203,213,225,.4)">
+          <text x="866" y="81">AI</text>
+          <text x="866" y="163">AUTOMATION</text>
+          <text x="866" y="247">SYSTEM</text>
+          <text x="866" y="329">WEB</text>
+        </g>
+      </svg>
       <button class="sdtl-back" onclick="backToServices()">
         <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         <span>Services</span>
@@ -4560,8 +4764,12 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <span class="sv-index-c" id="sv-index-detail">Detail 01 / 03</span>
           <span class="sv-index-r">noa Inc.</span>
         </div>
+        <!-- 英字カテゴリ名（AI & DIGITAL 等）。JSでサービスごとに差し込む -->
+        <span class="sv-hero-cat" id="sv-hero-cat" aria-hidden="true"></span>
         <div class="sv-hero-tags" id="sv-hero-tags"></div>
         <h1 id="sv-hero-title" class="sv-hero-title"></h1>
+        <!-- 2段目見出し（AI & DIGITAL のみ使用。他サービスは非表示） -->
+        <p id="sv-hero-title2" class="sv-hero-title2"></p>
         <p id="sv-hero-sub" class="sv-hero-sub"></p>
       </div>
       <!-- [flag:svDetail v2] サービス番号の透かし -->
@@ -4620,6 +4828,183 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <h2 class="sv-sec-title">事例イメージ</h2>
         </div>
         <div id="sv-case-cards" class="sv-case-cards"></div>
+      </section>
+
+      <!-- ===== AI & DIGITAL 専用セクション（service=web のみ表示） ===== -->
+      <!-- A. WHAT WE DESIGN: 4領域を中央STRUCTUREからの分岐として見せる -->
+      <section class="sv-section aid-only aid-cap sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">What we design</span>
+          <h2 class="sv-sec-title">設計する4つの領域</h2>
+        </div>
+        <div class="aid-cap-list">
+          <article class="aid-cap-row">
+            <div class="aid-cap-head">
+              <span class="aid-cap-num">01</span>
+              <h3 class="aid-cap-title">AI TRANSFORMATION</h3>
+              <span class="aid-cap-jp">AI活用設計</span>
+            </div>
+            <p class="aid-cap-desc">AIを導入する前に、どこで使うべきかを設計する。業務とデータを整理し、実務に組み込めるAI活用を構築します。</p>
+            <ul class="aid-cap-tags">
+              <li>生成AI活用設計</li><li>AIエージェント</li><li>社内AI活用</li><li>ナレッジ活用</li>
+            </ul>
+          </article>
+          <article class="aid-cap-row">
+            <div class="aid-cap-head">
+              <span class="aid-cap-num">02</span>
+              <h3 class="aid-cap-title">BUSINESS AUTOMATION</h3>
+              <span class="aid-cap-jp">業務設計・自動化</span>
+            </div>
+            <p class="aid-cap-desc">人が判断すべき仕事と、仕組みに任せる仕事を分ける。属人的な業務を、継続して回る構造へ変えます。</p>
+            <ul class="aid-cap-tags">
+              <li>業務整理</li><li>業務フロー設計</li><li>自動化</li><li>API連携</li>
+            </ul>
+          </article>
+          <article class="aid-cap-row">
+            <div class="aid-cap-head">
+              <span class="aid-cap-num">03</span>
+              <h3 class="aid-cap-title">SYSTEM DEVELOPMENT</h3>
+              <span class="aid-cap-jp">システム開発</span>
+            </div>
+            <p class="aid-cap-desc">業務に合わせてシステムを設計し、実際に使われるところまで実装。運用後の改善まで見据えて構築します。</p>
+            <ul class="aid-cap-tags">
+              <li>Webアプリ</li><li>業務システム</li><li>社内ツール</li><li>データ連携</li>
+            </ul>
+          </article>
+          <article class="aid-cap-row">
+            <div class="aid-cap-head">
+              <span class="aid-cap-num">04</span>
+              <h3 class="aid-cap-title">WEB EXPERIENCE</h3>
+              <span class="aid-cap-jp">Web体験設計</span>
+            </div>
+            <p class="aid-cap-desc">見た目だけではなく、情報と導線から設計する。ユーザーが迷わず行動できるWeb体験をつくります。</p>
+            <ul class="aid-cap-tags">
+              <li>コーポレートサイト</li><li>サービスサイト / LP</li><li>UI / UX</li><li>情報設計</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- B. HOW WE WORK: AIから始めない順序そのものを見せる -->
+      <section class="sv-section aid-only aid-proc sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">How we work</span>
+          <h2 class="sv-sec-title">進め方</h2>
+        </div>
+        <ol class="aid-proc-list">
+          <li class="aid-proc-step">
+            <span class="aid-proc-num">01</span>
+            <span class="aid-proc-en">UNDERSTAND</span>
+            <span class="aid-proc-jp">課題を見る</span>
+          </li>
+          <li class="aid-proc-step">
+            <span class="aid-proc-num">02</span>
+            <span class="aid-proc-en">STRUCTURE</span>
+            <span class="aid-proc-jp">業務と情報を構造化する</span>
+          </li>
+          <li class="aid-proc-step">
+            <span class="aid-proc-num">03</span>
+            <span class="aid-proc-en">DESIGN</span>
+            <span class="aid-proc-jp">最適な方法を設計する</span>
+          </li>
+          <li class="aid-proc-step">
+            <span class="aid-proc-num">04</span>
+            <span class="aid-proc-en">BUILD</span>
+            <span class="aid-proc-jp">AI・システム・Webを実装する</span>
+          </li>
+          <li class="aid-proc-step aid-proc-step--last">
+            <span class="aid-proc-num">05</span>
+            <span class="aid-proc-en">IMPROVE</span>
+            <span class="aid-proc-jp">運用しながら改善する</span>
+          </li>
+        </ol>
+        <p class="aid-proc-note">AIから始めません。課題と構造を見てから、手段を決めます。</p>
+      </section>
+
+      <!-- C. NOT EVERYTHING NEEDS AI: 思想セクション -->
+      <section class="sv-section aid-only aid-stance sdtl-reveal d1">
+        <p class="aid-stance-en">NOT EVERYTHING<br>NEEDS AI.</p>
+        <div class="aid-stance-body">
+          <p class="aid-stance-lead">すべてをAIにする必要はありません。</p>
+          <p class="aid-stance-text">AIが向いているならAIを。自動化で十分なら自動化を。システムが必要ならシステムを。Webだけで解けるならWebを。</p>
+          <p class="aid-stance-text aid-stance-text--accent">手段ではなく、課題から設計します。</p>
+        </div>
+      </section>
+
+      <!-- D. BEFORE → AFTER: 分断された業務が一本の運用構造になる -->
+      <section class="sv-section aid-only aid-ba sdtl-reveal d1">
+        <div class="sv-sec-header">
+          <span class="sv-kicker">Before / After</span>
+          <h2 class="sv-sec-title">何が変わるのか</h2>
+        </div>
+        <div class="aid-ba-grid">
+          <figure class="aid-ba-step">
+            <span class="aid-ba-lbl">Before</span>
+            <svg class="aid-ba-svg" viewBox="0 0 180 150" role="img" aria-label="業務・データ・判断・顧客接点が分断され、担当者ごとに個別につながっている状態">
+              <g stroke="rgba(148,163,184,.32)" fill="none">
+                <path d="M28 26 L96 62 M150 22 L40 74 M22 118 L140 54 M120 128 L52 40 M150 104 L34 96"/>
+              </g>
+              <g fill="rgba(203,213,225,.55)">
+                <circle cx="28" cy="26" r="3"/><circle cx="150" cy="22" r="3"/>
+                <circle cx="22" cy="118" r="3"/><circle cx="120" cy="128" r="3"/>
+                <circle cx="150" cy="104" r="3"/><circle cx="34" cy="96" r="3"/>
+              </g>
+              <text x="90" y="146" text-anchor="middle" font-size="9" fill="#64748b" letter-spacing="1">つながっていない</text>
+            </svg>
+            <figcaption>業務・データ・判断が分断し、担当者ごとに閉じている</figcaption>
+          </figure>
+          <span class="aid-ba-arrow" aria-hidden="true">
+            <svg viewBox="0 0 26 8" fill="none" stroke="currentColor"><path d="M0 4 H21"/><path d="M17 1 L21 4 L17 7"/></svg>
+          </span>
+          <figure class="aid-ba-step">
+            <span class="aid-ba-lbl">Design</span>
+            <svg class="aid-ba-svg" viewBox="0 0 180 150" role="img" aria-label="業務・データ・判断・顧客接点を4つの層に整理し、構造化した状態">
+              <g stroke="rgba(255,255,255,.2)" fill="none">
+                <rect x="18" y="16" width="144" height="24"/>
+                <rect x="18" y="46" width="144" height="24"/>
+                <rect x="18" y="76" width="144" height="24"/>
+                <rect x="18" y="106" width="144" height="24"/>
+              </g>
+              <g font-size="9" fill="#94a3b8" letter-spacing="1">
+                <text x="30" y="32">業務</text><text x="30" y="62">データ</text>
+                <text x="30" y="92">判断</text><text x="30" y="122">顧客接点</text>
+              </g>
+              <g fill="rgba(116,214,232,.75)">
+                <circle cx="146" cy="28" r="2.4"/><circle cx="146" cy="58" r="2.4"/>
+                <circle cx="146" cy="88" r="2.4"/><circle cx="146" cy="118" r="2.4"/>
+              </g>
+            </svg>
+            <figcaption>業務・データ・判断・顧客接点を整理する</figcaption>
+          </figure>
+          <span class="aid-ba-arrow" aria-hidden="true">
+            <svg viewBox="0 0 26 8" fill="none" stroke="currentColor"><path d="M0 4 H21"/><path d="M17 1 L21 4 L17 7"/></svg>
+          </span>
+          <figure class="aid-ba-step aid-ba-step--after">
+            <span class="aid-ba-lbl">After</span>
+            <svg class="aid-ba-svg" viewBox="0 0 180 150" role="img" aria-label="人・AI・システム・データ・Webがそれぞれの役割を持ち、一本の運用構造として連携している状態。判断は人が担う">
+              <line x1="20" y1="66" x2="160" y2="66" stroke="rgba(116,214,232,.5)"/>
+              <path d="M155 62 L162 66 L155 70" fill="none" stroke="rgba(116,214,232,.7)"/>
+              <g font-size="8.5" letter-spacing="1" text-anchor="middle">
+                <circle cx="24" cy="66" r="3.4" fill="#74D6E8"/>
+                <text x="24" y="52" fill="#cbd5e1">HUMAN</text>
+                <text x="24" y="86" fill="#64748b" font-size="7.5">判断</text>
+                <circle cx="70" cy="66" r="3" fill="rgba(116,214,232,.8)"/>
+                <text x="70" y="52" fill="#94a3b8">AI</text>
+                <circle cx="112" cy="66" r="3" fill="rgba(116,214,232,.8)"/>
+                <text x="112" y="52" fill="#94a3b8">SYSTEM</text>
+                <circle cx="152" cy="66" r="3" fill="rgba(116,214,232,.8)"/>
+                <text x="152" y="52" fill="#94a3b8">WEB</text>
+              </g>
+              <g stroke="rgba(255,255,255,.14)" fill="none">
+                <path d="M70 74 L70 104 M112 74 L112 104"/>
+                <rect x="46" y="104" width="90" height="22"/>
+              </g>
+              <text x="91" y="119" text-anchor="middle" font-size="8.5" fill="#94a3b8" letter-spacing="1">DATA</text>
+              <text x="90" y="146" text-anchor="middle" font-size="9" fill="#64748b" letter-spacing="1">一本の運用構造になる</text>
+            </svg>
+            <figcaption>人が判断し、AI・システム・Webが役割を分担する</figcaption>
+          </figure>
+        </div>
       </section>
 
       <!-- [flag:svDetail v2] 6.5 noaの流儀（差別化） -->
@@ -4767,7 +5152,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
               <select class="ct-input" name="subject" style="appearance:none;-webkit-appearance:none">
                 <option value="">選択してください</option>
                 <option value="hr">人材紹介 (Human Resources)</option>
-                <option value="web">Web構築 (Web Integration)</option>
+                <option value="web">AI・DX / Web・システム開発 (AI &amp; Digital)</option>
                 <option value="marketing">マーケティング (Marketing)</option>
                 <option value="other">その他 (Other)</option>
               </select>
@@ -4936,98 +5321,112 @@ const SVC = {
     },
 
     otherServices:[
-      { id:"web", label:"Web構築", sub:"サイト制作・導線設計・改善運用" },
+      { id:"web", label:"AI・デジタル", sub:"AI活用・業務自動化・Web/システム開発" },
       { id:"marketing", label:"マーケティング", sub:"集客設計・導線改善・分析運用" }
     ]
   },
 
   web:{
-    title:"WEB",
-    jp:"Web構築",
-    heroTitle:"つくるだけで終わらない、<br class=\"br-pc\">事業に効くWeb構築。",
-    heroSub:"Webサイト制作、導線設計、改善運用まで。ブランドらしさと成果の両立を支援します。",
-    tags:["コーポレートサイト / LP制作","導線設計 / UI改善","保守運用 / 改善支援"],
+    // routing key は "web" を維持（既存リンク・Notion連携の subject=web と整合）
+    title:"AI & DIGITAL",
+    titleShort:"AI・デジタル",
+    jp:"AI・DX / Web・システム開発",
+    jpShort:"AI・デジタル",
+    heroTitle:"AIを導入することが、<br class=\"br-pc\">目的ではない。",
+    heroTitle2:"事業が前に進む<br class=\"br-pc\">仕組みをつくる。",
+    heroSub:"AI・業務設計・Web・システムを横断し、課題の整理から設計、実装、運用まで。現場で使われ続けるデジタルの仕組みをつくります。",
+    tags:["AI活用設計 / 業務自動化","業務システム / Webアプリ開発","コーポレートサイト / LP制作"],
     img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
 
     valueCards:[
       {
-        icon:"layout",
-        title:"情報を伝わる形に整理する",
-        desc:"事業の強みが伝わる構成と訴求を設計します。"
-      },
-      {
-        icon:"arrow-right",
-        title:"迷わない導線を設計する",
-        desc:"CTA・回遊・フォームまで、成果につながる導線を整えます。"
+        icon:"git-merge",
+        title:"どこで使うべきかを設計する",
+        desc:"AIありきではなく、業務とデータを整理してから手段を決めます。"
       },
       {
         icon:"refresh",
-        title:"改善し続けられる状態をつくる",
-        desc:"公開後も更新・改善しやすい運用基盤を構築します。"
+        title:"人と仕組みの役割を分ける",
+        desc:"判断は人に残し、繰り返しは仕組みへ。属人化を解きます。"
+      },
+      {
+        icon:"layout",
+        title:"使われ続ける状態まで実装する",
+        desc:"作って終わりにせず、運用と改善が回る形で引き渡します。"
       }
     ],
 
     problems:[
-      "サイトはあるが問い合わせにつながらない",
-      "情報が整理しきれていない",
-      "デザインがブランドの印象とズレている",
-      "LPや採用ページを分けて整えたい",
-      "更新や改善が属人化している",
-      "制作後の運用まで相談したい"
+      "社内でAIを使いたいが、どこから始めればいいか分からない",
+      "手作業や転記が多く、業務が属人化している",
+      "SaaSを組み合わせても業務がつながらない",
+      "自社の業務に合ったシステムをつくりたい",
+      "サイトはあるが成果につながらない",
+      "社内に蓄積したデータを活用しきれていない",
+      "AIを試したが、実務に定着しなかった",
+      "導入後の運用ルールまで含めて相談したい"
     ],
 
-    flowCenter:"伝わって、動き出す",
+    flowCenter:"整えて、動き続ける",
     flow:[
-      { title:"定める", desc:"事業の強みと読み手を整理し、サイトの軸を決める" },
-      { title:"導く", desc:"見出しからCTAまで、迷わず辿り着ける構成を引く" },
-      { title:"仕上げる", desc:"装飾を削ぎ、企業の質感が伝わる形で実装する" },
-      { title:"育てる", desc:"改善できる構造を残し、公開後も数字をもとに伸ばす" }
+      { title:"見る", desc:"事業と業務の実態を把握し、どこが詰まっているかを特定する" },
+      { title:"整える", desc:"業務・情報・判断を構造化し、手段を選べる状態にする" },
+      { title:"つくる", desc:"AI・自動化・システム・Webから最適な組み合わせを実装する" },
+      { title:"回す", desc:"運用しながら計測し、改善が続く形で定着させる" }
     ],
 
     scope:[
-      "コーポレートサイト制作",
-      "LP制作",
-      "採用ページ制作",
-      "ワイヤー設計",
-      "CTA設計",
-      "UI改善",
-      "フォーム改善",
-      "更新 / 保守支援"
+      "生成AI活用設計",
+      "AIエージェント構築",
+      "社内AI活用支援",
+      "業務フロー設計",
+      "業務自動化 / API連携",
+      "業務システム開発",
+      "Webアプリ開発",
+      "コーポレートサイト / LP制作",
+      "UI・UX設計",
+      "情報設計",
+      "データ連携 / 活用",
+      "運用設計 / 改善支援"
     ],
 
     cases:[
       {
-        title:"コーポレートサイト刷新",
-        desc:"情報設計からデザイン・実装まで一貫対応。問い合わせ導線を再構築。"
+        title:"社内AI活用の設計と定着",
+        desc:"どの業務にAIが向くかを整理し、使い方のルールと運用体制まで設計。"
       },
       {
-        title:"採用ページ新設",
-        desc:"カルチャーと働く魅力を伝えるページを新設し、応募導線を整備。"
+        title:"手作業業務の自動化",
+        desc:"転記・集計・連携を仕組み化し、属人化していた業務を継続して回る形へ。"
       },
       {
-        title:"LP改善による導線再設計",
-        desc:"既存LPの構成・訴求・CTAを見直し、CV率を改善。"
+        title:"業務システム / Web構築",
+        desc:"業務に合わせたシステムとサイトを設計・実装し、改善できる状態で引き渡し。"
       }
     ],
 
     faq:[
       {
-        q:"要件が固まっていなくても相談できますか？",
-        a:"はい。何をつくるべきかの整理からお手伝いします。"
+        q:"AIを使うかどうか、決まっていなくても相談できますか？",
+        a:"はい。むしろその段階からのご相談を歓迎します。課題を整理した結果、AIを使わない設計をご提案することもあります。"
       },
       {
-        q:"デザインだけ、実装だけでも対応可能ですか？",
-        a:"可能です。必要な工程に応じて柔軟に対応します。"
+        q:"小さな業務改善からでもお願いできますか？",
+        a:"はい。一部の業務整理や自動化だけでも対応しています。全体を一度に変える必要はありません。"
       },
       {
-        q:"公開後の改善も依頼できますか？",
-        a:"はい。保守運用・改善提案まで継続的にサポートしています。"
+        q:"Webサイト制作だけの依頼も可能ですか？",
+        a:"可能です。サイト単体のご依頼から、業務システムとの連携まで、必要な範囲で対応します。"
+      },
+      {
+        q:"導入後の運用も相談できますか？",
+        a:"はい。運用ルールの設計、改善の伴走まで継続的にサポートしています。"
       }
     ],
 
     cta:{
-      headline:"作るべきか、直すべきか。<br class=\"br-pc\">その整理からご相談ください。",
-      sub:"まずは現状と目的を整理するところから始めます。",
+      headline:"AIにするかどうかも、<br class=\"br-pc\">まだ決まっていなくて大丈夫です。",
+      sub:"課題の整理から、一緒に考えます。",
       button:"相談する"
     },
 
@@ -5128,7 +5527,7 @@ const SVC = {
 
     otherServices:[
       { id:"hr", label:"HR事業", sub:"人材紹介・採用設計・運用構築" },
-      { id:"web", label:"Web構築", sub:"サイト制作・導線設計・改善運用" }
+      { id:"web", label:"AI・デジタル", sub:"AI活用・業務自動化・Web/システム開発" }
     ]
   }
 };
@@ -5144,7 +5543,7 @@ const CO = [
   {label:"事業内容",type:"list",value:[
     "有料職業紹介事業",
     "採用戦略設計／採用オペレーション構築支援",
-    "Webサイト制作／システム構築／UI・UX設計",
+    "AI活用支援／業務自動化／Web・システム開発／UI・UX設計",
     "マーケティング戦略設計／集客導線改善支援",
     "AI活用／業務自動化／データ活用支援"
   ]},
@@ -5155,16 +5554,16 @@ const SITE_URL = 'https://noa-place.co.jp';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/ogp.jpg`;
 
 const META_DEFAULT = {
-  title: 'noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援',
-  description: '株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。',
+  title: 'noa Inc.（株式会社noa）| 人材紹介・AI/DX・Web開発・マーケティング支援',
+  description: '株式会社noaは、人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニーです。',
   path: '/',
   type: 'website'
 };
 
 const PAGE_META = {
   home: {
-    title: 'noa Inc.（株式会社noa）| 人材紹介・Web構築・マーケティング支援',
-    description: '株式会社noaは、人材紹介、採用戦略設計、採用オペレーション構築、Webサイト制作・システム構築、マーケティング支援を通じて、人と組織の成長を支援するフィジタルデザインカンパニーです。',
+    title: 'noa Inc.（株式会社noa）| 人材紹介・AI/DX・Web開発・マーケティング支援',
+    description: '株式会社noaは、人材紹介・採用設計、AI活用と業務自動化、Web・業務システム開発、マーケティング支援を通じて、人と組織と事業の成長を支援するフィジタルデザインカンパニーです。',
     path: '/'
   },
   vmv: {
@@ -5184,12 +5583,12 @@ const PAGE_META = {
   },
   contact: {
     title: 'Contact | noa Inc.',
-    description: '株式会社noaへのお問い合わせページです。人材紹介、採用戦略設計、Webサイト制作・システム構築、マーケティング支援のご相談を受け付けています。',
+    description: '株式会社noaへのお問い合わせページです。人材紹介・採用設計、AI活用・業務自動化・Web/システム開発、マーケティング支援のご相談を受け付けています。',
     path: '/?page=contact'
   },
   service: {
     title: 'Services | noa Inc.',
-    description: '株式会社noaの提供サービス一覧です。人材紹介、採用戦略設計、AI活用を含むWebサイト制作・システム構築、マーケティング支援をご紹介します。',
+    description: '株式会社noaの提供サービス一覧です。人材紹介・採用設計、AI活用・業務自動化・Web/システム開発、マーケティング支援をご紹介します。',
     path: '/?page=services'
   },
   update: {
@@ -5676,10 +6075,22 @@ const SV_ICONS = {
 };
 
 function renderServicePage(id, s){
+  // サービス識別子をページ要素に付与（AI & DIGITAL 専用セクションの表示制御に使う）
+  const svPage = document.getElementById('page-service');
+  if (svPage) svPage.dataset.svc = id;
+
   // Hero
   document.getElementById('sv-hero-img').src = s.img;
   document.getElementById('sv-hero-img').alt = s.jp;
+  // 英字カテゴリ名（狭い画面では意図した位置で改行させる）
+  const catEl = document.getElementById('sv-hero-cat');
+  if (catEl) catEl.textContent = window.matchMedia('(max-width:420px)').matches
+    ? String(s.title).replace(' & ', ' &\n')
+    : s.title;
   document.getElementById('sv-hero-title').innerHTML = s.heroTitle;
+  // 2段目見出し（定義があるサービスのみ）
+  const t2 = document.getElementById('sv-hero-title2');
+  if (t2) t2.innerHTML = s.heroTitle2 || '';
   document.getElementById('sv-hero-sub').textContent = s.heroSub;
 
   // Tags
@@ -5980,7 +6391,7 @@ if (SITE_FLAGS.stickyCta === 'on') {
 // 説得（課題/フロー/事例/FAQ）は詳細ページに任せる。
 const SVC_V2_SUMMARY = {
   hr:        "採用の入口から定着まで、仕組みごと設計する。",
-  web:       "ブランドの質感と成果を両立する、事業に効くWebを組み立てる。",
+  web:       "AI・自動化・システム・Webから、事業に効く手段を選んで組み立てる。",
   marketing: "施策を足す前に、伸び続ける構造を整える。",
 };
 function renderServicesV2(){
@@ -5993,10 +6404,11 @@ function renderServicesV2(){
       <div class="svc-v2-main">
         <div class="svc-row-l">
           <span class="svc-num">0${i+1}</span>
-          <h4 class="svc-title">${s.title}</h4>
+          <h4 class="svc-title" data-short="${escapeHtml(s.titleShort || s.title)}">${s.title}</h4>
         </div>
         <div class="svc-row-r">
-          <span class="svc-jp">${escapeHtml(s.jp)}</span>
+          <!-- 一覧は短縮表記(jpShort)。正式名 jp は詳細ページで伝える -->
+          <span class="svc-jp">${escapeHtml(s.jpShort || s.jp)}</span>
           <div class="svc-arrow">
             <svg class="arr1 arrow-svg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             <svg class="arr2 arrow-svg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -6242,17 +6654,17 @@ const SVC_V2_DETAIL = {
   web: {
     num: '02',
     edge: [
-      { title: 'デザインの前に、情報を設計する',
-        desc: '誰が、何を求めて訪れるのか。情報の構造と優先順位を設計してから、はじめて見た目に進みます。美しさは正しい構造の上にしか成立しません。' },
-      { title: '体験は、遷移まで含めて設計する',
-        desc: 'ページ単体ではなく、入口から問い合わせまでの動線全体をひとつの体験として作ります。このサイト自体が、その設計思想のサンプルです。' },
-      { title: '公開日をゴールにしない',
-        desc: '計測と改善の仕組みを残し、事業と一緒に育つサイトにします。「作って終わり」の納品物ではなく、成果を出し続ける資産を渡します。' },
+      { title: '手段から入らない',
+        desc: 'AIが向いているならAIを、自動化で十分なら自動化を、Webだけで解けるならWebを。課題を構造化してから手段を選ぶので、必要のない導入は提案しません。' },
+      { title: '人が判断する領域を残す',
+        desc: '繰り返しと集計は仕組みへ、判断と対話は人へ。役割を分けて設計するので、現場が納得して使い続けられる形になります。' },
+      { title: '動いた後まで設計する',
+        desc: '導入がゴールではありません。運用ルールと改善の手順まで残すので、担当者が変わっても回り続けます。' },
     ],
     consult: [
-      { title: '現状サイトの構造診断', desc: '情報設計・導線・表現の課題を、専門家の視点で言語化します。' },
-      { title: '改善の方向性', desc: '作り直すべきか、部分的に直すべきか。投資判断の見立てをお渡しします。' },
-      { title: '進め方の目安', desc: '体制・スケジュール・費用感の目安を、その場でお伝えします。' },
+      { title: '課題と業務の現在地整理', desc: 'どこが詰まっているのか、業務の構造を一緒に言語化します。' },
+      { title: '手段の見立て', desc: 'AI・自動化・システム・Webのどれが適しているか、判断材料をお渡しします。' },
+      { title: '進め方の目安', desc: '着手する順番・体制・費用感の目安を、その場でお伝えします。' },
     ],
   },
   marketing: {
@@ -6295,21 +6707,32 @@ const SVC_V2_DIAGRAMS = {
   <text x="50" y="212" font-size="9.5" fill="#74D6E8">noa — 仕組みが回り続けるところまで</text>
 </svg>`,
   web: `
-<svg viewBox="0 0 360 220" role="img" aria-label="noaの設計レイヤー: 情報設計を土台に、体験、ブランド、継続改善が積み上がる">
-  <text x="16" y="26" font-size="9" font-weight="700" letter-spacing="2.5" fill="#475569">STRUCTURE — 美しさは構造の上に</text>
+<svg viewBox="0 0 360 220" role="img" aria-label="課題を構造化したうえで、AI・自動化・システム・Webから最適な手段を選ぶ構造図">
+  <text x="16" y="26" font-size="9" font-weight="700" letter-spacing="2.5" fill="#475569">SELECTION — 手段は、課題から選ぶ</text>
   <g font-size="10.5" font-weight="700" fill="#cbd5e1">
-    <rect x="92" y="48" width="176" height="30" fill="none" stroke="rgba(255,255,255,.15)" stroke-dasharray="3 4"/>
-    <text x="106" y="67">継続改善</text><text x="254" y="67" text-anchor="end" font-size="8.5" font-weight="600" fill="#475569" letter-spacing="1.5">ITERATE</text>
-    <rect x="72" y="86" width="216" height="30" fill="none" stroke="rgba(255,255,255,.2)"/>
-    <text x="86" y="105">ブランド表現</text><text x="274" y="105" text-anchor="end" font-size="8.5" font-weight="600" fill="#475569" letter-spacing="1.5">BRAND</text>
-    <rect x="52" y="124" width="256" height="30" fill="none" stroke="rgba(255,255,255,.25)"/>
-    <text x="66" y="143">体験設計</text><text x="294" y="143" text-anchor="end" font-size="8.5" font-weight="600" fill="#475569" letter-spacing="1.5">EXPERIENCE</text>
-    <rect x="32" y="162" width="296" height="30" fill="rgba(116,214,232,.05)" stroke="rgba(116,214,232,.65)"/>
-    <text x="46" y="181" fill="#74D6E8">情報設計</text><text x="314" y="181" text-anchor="end" font-size="8.5" font-weight="600" fill="rgba(116,214,232,.7)" letter-spacing="1.5">INFORMATION</text>
+    <circle cx="34" cy="112" r="3.4" fill="rgba(203,213,225,.6)"/>
+    <text x="34" y="136" text-anchor="middle">課題</text>
+    <line x1="42" y1="112" x2="118" y2="112" stroke="rgba(255,255,255,.18)"/>
+    <rect x="118" y="94" width="74" height="36" fill="none" stroke="rgba(116,214,232,.6)"/>
+    <text x="155" y="117" text-anchor="middle" fill="#74D6E8" font-size="10">構造化</text>
+    <g stroke="rgba(116,214,232,.4)" fill="none">
+      <path d="M192 112 C 226 112, 232 44, 262 44"/>
+      <path d="M192 112 C 226 112, 232 90, 262 90"/>
+      <path d="M192 112 C 226 112, 232 134, 262 134"/>
+      <path d="M192 112 C 226 112, 232 180, 262 180"/>
+    </g>
+    <g fill="rgba(203,213,225,.55)">
+      <circle cx="264" cy="44" r="2.6"/><circle cx="264" cy="90" r="2.6"/>
+      <circle cx="264" cy="134" r="2.6"/><circle cx="264" cy="180" r="2.6"/>
+    </g>
+    <g font-size="9.5" letter-spacing="1.5" fill="#94a3b8">
+      <text x="278" y="48">AI</text>
+      <text x="278" y="94">AUTOMATION</text>
+      <text x="278" y="138">SYSTEM</text>
+      <text x="278" y="184">WEB</text>
+    </g>
   </g>
-  <path d="M276 63 C 344 63 344 177 334 177" fill="none" stroke="rgba(116,214,232,.4)" stroke-dasharray="3 4"/>
-  <path d="M341 173 L333 177 L340 182" fill="none" stroke="rgba(116,214,232,.4)"/>
-  <text x="352" y="120" font-size="8.5" fill="#475569" letter-spacing="1" text-anchor="middle" transform="rotate(90 352 120)">改善は構造へ還る</text>
+  <text x="16" y="208" font-size="8.5" fill="#475569" letter-spacing="1">課題によっては、AIを使わない設計を選ぶこともあります</text>
 </svg>`,
   marketing: `
 <svg viewBox="0 0 360 220" role="img" aria-label="noaの成長構造: 分断された施策ではなく、集客・導線・接客・分析が循環するループ">
@@ -6368,7 +6791,7 @@ function svChainSvg(labels, ringIndex, ringNote){
 }
 const SVC_V2_CHAINS = {
   hr:        () => svChainSvg(['母集団','訴求','面接','承諾','定着'], 2, '例えば、ここ'),
-  web:       () => svChainSvg(['情報','導線','表現','実装','改善'], 1, '例えば、ここ'),
+  web:       () => svChainSvg(['業務','データ','判断','システム','顧客接点'], 2, '例えば、ここ'),
   marketing: () => svChainSvg(['集客','導線','接客','分析','改善'], 3, '例えば、ここ'),
 };
 function svDetailFill(id){
