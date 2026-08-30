@@ -265,7 +265,10 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .sv-cta-headline, .sv-cta-sub,
 .sv-crosslink-title, .sv-crosslink-desc,
 .sv-other-label, .sv-other-sub{
-  word-break:keep-all;
+  /* keep-all(句読点でしか折らない)は行末に1〜2文字が孤立する原因になるため、
+     文節境界で折る auto-phrase を使う（非対応ブラウザは normal にフォールバック）。
+     overflow-wrap:anywhere は grid の min-content 由来の横溢れ対策として維持。 */
+  word-break:auto-phrase;
   overflow-wrap:anywhere;
   line-break:strict;
 }
@@ -1422,7 +1425,10 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
   border-top:1px solid rgba(255,255,255,.05);
 }
 @media(min-width:768px){
-  #news{padding:8rem 1.5rem}
+  /* .news-item は hover 背景を広げるため margin:0 -2rem を持つ。
+     セクションの左右 padding がそれ未満だと 8px 横溢れするため、
+     負マージンと同値の 2rem を確保する（root cause 修正）。 */
+  #news{padding:8rem 2rem}
 }
 .news-inner{max-width:72rem;margin:0 auto}
 .news-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:1.5rem}
@@ -2965,16 +2971,13 @@ html[data-work="on"] #work{
   font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
   font-size:2rem;color:#74D6E8;opacity:.65;line-height:1;
 }
-/* 上位サービス → 具体の仕事、の親子関係をラベルだけで示す。
-   視線順位は「課題見出し > 図 > 変化 > ここ」なので、目立たせない。 */
+/* CRAFT は「その案件で何を設計したか」だけを示す。
+   SERVICES 体系（提供領域）はサービス詳細ページの責任なので重ねない。
+   視線順位は「課題見出し > 図 > 変化 > ここ」なので目立たせない。 */
 .work-case-cat{
-  display:inline-flex;align-items:center;flex-wrap:wrap;gap:.5rem;
-  font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-  line-height:1.5;
+  font-size:9px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);line-height:1.5;
 }
-.work-case-svc{color:rgba(255,255,255,.7)}
-.work-case-arrow{color:rgba(116,214,232,.55);font-size:10px;letter-spacing:0}
-.work-case-type{color:rgba(255,255,255,.5)}
 .work-case-title{
   font-size:clamp(1.35rem,2.3vw,1.85rem);font-weight:800;color:#fff;
   letter-spacing:-.02em;line-height:1.5;margin:0 0 1.3rem;
@@ -3069,6 +3072,10 @@ html[data-work="on"] #work{
 }
 html.js .work-detail{grid-template-rows:0fr;opacity:0;margin-top:0}
 html.js .work-case.open .work-detail{grid-template-rows:1fr;opacity:1;margin-top:2.4rem}
+/* 0fr でも padding/border は潰れず約36pxの不可視余白が残るため、閉状態で明示的に畳む */
+html.js .work-detail-inner{padding-top:0;border-top-color:transparent;
+  transition:padding-top .5s cubic-bezier(.4,0,.2,1),border-top-color .4s ease}
+html.js .work-case.open .work-detail-inner{padding-top:2.2rem;border-top-color:rgba(255,255,255,.1)}
 html:not(.js) .work-toggle{display:none}
 .work-detail-inner{
   overflow:hidden;min-height:0;
@@ -3468,6 +3475,29 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 @media(prefers-reduced-motion:reduce){
   .aid-only,.aid-cap-row,.aid-proc-step{transition:none!important;animation:none!important}
 }
+
+/* ============================================================
+   [FINAL PASS] 改行品質の共通ルール
+   個別に <br> を撒かず、ブラウザの行分配で解決する。
+   balance : 見出しの行長を均し「最終行に1文字」を防ぐ
+   pretty  : 本文の孤立行（最終行が1〜2文字）を防ぐ
+   いずれも未対応ブラウザでは単に無視されるため安全。
+   ============================================================ */
+.sv-sec-title,.sv-cta-headline,.sv-hero-title,
+.work-case-title,.work-cta-main,.work-h,
+.aid-cap-title,.aid-stance-lead,
+.svcs-h,.co-h,.news-h,.phil-head{
+  text-wrap:balance;
+  word-break:auto-phrase;
+}
+.sv-hero-sub,.sv-cta-sub,.sv-value-card-desc,.sv-case-desc,
+.sv-consult-desc,.sv-edge-desc,.sv-faq-a-text,.sv-problem-item,
+.aid-cap-desc,.aid-stance-text,.aid-proc-jp,
+.work-case-summary,.work-desc,.work-cta-sub,.work-cell p,
+.svcs-desc,.co-body,.phil-desc{
+  text-wrap:pretty;
+  word-break:auto-phrase;
+}
 </style>
 </head>
 <body>
@@ -3815,7 +3845,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">01</span>
-              <span class="work-case-cat"><span class="work-case-svc">AI &amp; DIGITAL</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">WEB EXPERIENCE</span></span>
+              <span class="work-case-cat">WEB EXPERIENCE</span>
             </div>
             <h3 class="work-case-title">情報は多いのに、<br>問い合わせに辿り着けないサイト</h3>
             <p class="work-case-summary">情報構造と導線を再設計。<br>迷うサイトから、<span class="em">行動につながる構造</span>へ。</p>
@@ -3918,7 +3948,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">02</span>
-              <span class="work-case-cat"><span class="work-case-svc">HUMAN RESOURCES</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">RECRUITING</span></span>
+              <span class="work-case-cat">RECRUITING</span>
             </div>
             <h3 class="work-case-title">応募は来るのに、<br>承諾まで至らない採用</h3>
             <p class="work-case-summary">選考体験と採用オペレーションを再設計。<br>担当者に依存する採用から、<span class="em">再現できる選考構造</span>へ。</p>
@@ -4025,7 +4055,7 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">03</span>
-              <span class="work-case-cat"><span class="work-case-svc">MARKETING</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">GROWTH</span></span>
+              <span class="work-case-cat">GROWTH</span>
             </div>
             <h3 class="work-case-title">広告費を増やしても、<br>成果が伸びない集客</h3>
             <p class="work-case-summary">集客から接客までを可視化。<br>感覚で回す集客から、<span class="em">改善が続く成長構造</span>へ。</p>
@@ -5964,7 +5994,10 @@ function showPage(p, opts = { push: true, state: {}, urlExtra: {} }){
   t.classList.add('active');
   curPage = p;
 
-  if (p !== 'update') {
+  // 'service' は showSvc / bootFromUrl が applyServiceMeta で個別に設定する。
+  // View Transitions で showPage が非同期化するため、ここで汎用metaを当てると
+  // サービス固有の title/description を後から上書きしてしまう。
+  if (p !== 'update' && p !== 'service') {
     applyMetaForPage(p);
   }
 
