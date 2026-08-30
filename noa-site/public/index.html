@@ -250,7 +250,11 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 /* ===== SERVICE PAGE v2 — polished ===== */
 
 /* Japanese typography — never break mid-word, break only at commas / periods / spaces.
-   Falls back to break-word only when a single word would otherwise overflow. */
+   overflow-wrap は anywhere を使う。break-word は「折り返しはするが min-content 幅は
+   折り返さない前提で算出される」ため、grid の 1fr(=minmax(auto,1fr)) トラックが
+   最長の非分割日本語ラン幅まで広がり、狭い幅で横溢れしていた。
+   anywhere は min-content にも分割機会を反映するためトラックが縮められる。
+   （行の埋まり方は変わらないので、1文字ずつ折れるような不自然な改行にはならない） */
 .sv-hero-title, .sv-hero-sub,
 .sv-sec-title,
 .sv-value-card-title, .sv-value-card-desc,
@@ -262,9 +266,13 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .sv-crosslink-title, .sv-crosslink-desc,
 .sv-other-label, .sv-other-sub{
   word-break:keep-all;
-  overflow-wrap:break-word;
+  overflow-wrap:anywhere;
   line-break:strict;
 }
+/* grid/flex 子要素は既定で min-width:auto(=min-content) のため縮まない。
+   0 を明示して、トラックがコンテナ幅を超えないようにする。 */
+.sv-value-cards>*,.sv-case-cards>*,.sv-other-services>*,
+.sv-consult-list>*,.sv-flow-grid>*,.sv-problem-list>*{min-width:0}
 
 /* HERO */
 .sv-hero{
@@ -3329,6 +3337,15 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
   /* AI & DIGITAL は幅があるため、意図した位置で2行に折る */
   #page-service[data-svc="web"] .sv-hero-cat{white-space:pre-line}
 }
+
+/* 重複整理（service=web のみ）:
+   - 共通テンプレの「進め方」(sv-flow) は HOW WE WORK と同義。見出しまで同名で
+     2回出るため、5工程＋「AIから始めません」を持つ HOW WE WORK 側に一本化する。
+   - 「支援範囲」(sv-scope) の12タグは「設計する4つの領域」の各タグとして
+     文脈付きで既出のため、平坦なタグ列は出さない。
+   他サービス(HR / MARKETING)では従来どおり両方表示される。 */
+#page-service[data-svc="web"] .sv-flow,
+#page-service[data-svc="web"] .sv-scope{display:none}
 
 /* Hero背景: 写真ではなく設計図（AI & DIGITAL のみ） */
 .aid-hero-bp{display:none}
