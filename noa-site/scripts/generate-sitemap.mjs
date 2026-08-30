@@ -11,6 +11,10 @@ const STATIC_PAGES = [
   { loc: `${SITE_URL}/`, changefreq: 'weekly', priority: '1.0' },
   { loc: `${SITE_URL}/?page=philosophy`, changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE_URL}/?page=services`, changefreq: 'monthly', priority: '0.8' },
+  // サービス詳細は canonical が自己参照する独立URL。未掲載だと発見されにくいため明示する。
+  { loc: `${SITE_URL}/?page=services&service=hr`, changefreq: 'monthly', priority: '0.9' },
+  { loc: `${SITE_URL}/?page=services&service=web`, changefreq: 'monthly', priority: '0.9' },
+  { loc: `${SITE_URL}/?page=services&service=marketing`, changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE_URL}/?page=contact`, changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE_URL}/?page=privacy`, changefreq: 'yearly', priority: '0.3' },
   { loc: `${SITE_URL}/?page=terms`, changefreq: 'yearly', priority: '0.3' }
