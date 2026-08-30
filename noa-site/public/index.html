@@ -3487,7 +3487,10 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 .sv-sec-title,.sv-cta-headline,.sv-hero-title,
 .work-case-title,.work-cta-main,.work-h,
 .aid-cap-title,.aid-stance-lead,
-.svcs-h,.co-h,.news-h,.phil-head{
+.svcs-h,.co-h,.news-h,.phil-head,
+/* balance は Firefox も対応するため、pretty が効かない環境で
+   1文字だけ行末に残るカード見出し・事例要約にも適用する */
+.sv-value-card-title,.sv-case-title,.work-case-summary{
   text-wrap:balance;
 }
 .sv-hero-sub,.sv-cta-sub,.sv-value-card-desc,.sv-case-desc,
