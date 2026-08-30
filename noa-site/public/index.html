@@ -3319,65 +3319,13 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 .aid-only{display:none}
 #page-service[data-svc="web"] .aid-only{display:block}
 
-/* Hero: 英字カテゴリ + 2段見出し */
-.sv-hero-cat{display:none}
-#page-service[data-svc="web"] .sv-hero-cat{
-  display:block;
-  font-size:clamp(1.6rem,4.2vw,2.9rem);font-weight:900;letter-spacing:-.02em;
-  color:rgba(255,255,255,.9);line-height:1.05;margin-bottom:clamp(.9rem,2vw,1.3rem);
-}
-.sv-hero-title2{display:none}
-#page-service[data-svc="web"] .sv-hero-title2{
-  display:block;
-  font-size:clamp(1.5rem,4.4vw,3.1rem);font-weight:800;line-height:1.34;
-  letter-spacing:-.035em;color:#74D6E8;
-  margin:0 0 clamp(1.1rem,2.2vw,1.6rem);max-width:24ch;
-}
-@media(max-width:420px){
-  /* AI & DIGITAL は幅があるため、意図した位置で2行に折る */
-  #page-service[data-svc="web"] .sv-hero-cat{white-space:pre-line}
-}
-
 /* 重複整理（service=web のみ）:
-   - 共通テンプレの「進め方」(sv-flow) は HOW WE WORK と同義。見出しまで同名で
-     2回出るため、5工程＋「AIから始めません」を持つ HOW WE WORK 側に一本化する。
-   - 「支援範囲」(sv-scope) の12タグは「設計する4つの領域」の各タグとして
-     文脈付きで既出のため、平坦なタグ列は出さない。
+   - 共通テンプレの「進め方」(sv-flow) は HOW WE WORK と同義で見出しまで同名のため、
+     5工程＋「AIから始めません」を持つ HOW WE WORK 側に一本化する。
+   - 「支援範囲」(sv-scope) の12タグは「設計する4つの領域」内で文脈付きで既出。
    他サービス(HR / MARKETING)では従来どおり両方表示される。 */
 #page-service[data-svc="web"] .sv-flow,
 #page-service[data-svc="web"] .sv-scope{display:none}
-
-/* Hero背景: 写真ではなく設計図（AI & DIGITAL のみ） */
-.aid-hero-bp{display:none}
-#page-service[data-svc="web"] .sv-hero-img-wrap{display:none}
-#page-service[data-svc="web"] .aid-hero-bp{
-  display:block;position:absolute;inset:0;width:100%;height:100%;
-  z-index:0;pointer-events:none;opacity:.55;
-}
-/* PCではテキストが左半分を占めるため、図は右側へ寄せて重なりを避ける */
-@media(min-width:900px){
-  #page-service[data-svc="web"] .aid-hero-bp{
-    left:auto;right:0;width:54%;height:78%;top:11%;opacity:1;
-  }
-}
-/* 狭い画面では図を背景の気配に留め、コピーの可読性を優先 */
-@media(max-width:899px){
-  #page-service[data-svc="web"] .aid-hero-bp{opacity:.3}
-}
-#page-service[data-svc="web"] .sv-hero{
-  background:
-    radial-gradient(ellipse 70% 60% at 22% 42%, rgba(116,214,232,.06), transparent 70%),
-    #050505;
-}
-/* 図の各層が順に立ち上がる（1回のみ・控えめ） */
-.aid-bp-a,.aid-bp-b,.aid-bp-c{opacity:0;animation:aidBpIn .9s ease forwards}
-.aid-bp-a{animation-delay:.25s}
-.aid-bp-b{animation-delay:.55s}
-.aid-bp-c{animation-delay:.85s}
-@keyframes aidBpIn{to{opacity:1}}
-@media(prefers-reduced-motion:reduce){
-  .aid-bp-a,.aid-bp-b,.aid-bp-c{opacity:1;animation:none}
-}
 
 /* WHAT WE DESIGN: カードではなく横長の行 */
 .aid-cap-list{display:flex;flex-direction:column}
@@ -4735,41 +4683,6 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
     <!-- 1. HERO -->
     <div class="sv-hero">
       <div class="sv-hero-img-wrap"><img id="sv-hero-img" src="" alt="" class="sv-hero-img"></div>
-      <!-- AI & DIGITAL 専用のHero背景: 課題→構造化→手段の分岐を示す設計図（外部画像に依存しない） -->
-      <svg class="aid-hero-bp" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-        <g stroke="rgba(255,255,255,.05)" fill="none">
-          <path d="M0 130H1200M0 260H1200M0 390H1200M300 0V520M600 0V520M900 0V520"/>
-        </g>
-        <g class="aid-bp-a" stroke="rgba(148,163,184,.3)" fill="none">
-          <path d="M96 118 L250 232 M232 96 L104 268 M84 214 L268 176 M180 84 L150 296"/>
-        </g>
-        <g class="aid-bp-a" fill="rgba(203,213,225,.42)">
-          <circle cx="96" cy="118" r="3.2"/><circle cx="232" cy="96" r="3.2"/>
-          <circle cx="104" cy="268" r="3.2"/><circle cx="268" cy="176" r="3.2"/>
-          <circle cx="84" cy="214" r="3.2"/><circle cx="150" cy="296" r="3.2"/>
-        </g>
-        <g class="aid-bp-b">
-          <line x1="288" y1="200" x2="470" y2="200" stroke="rgba(255,255,255,.16)"/>
-          <rect x="470" y="160" width="180" height="80" fill="none" stroke="rgba(116,214,232,.4)"/>
-          <text x="560" y="205" text-anchor="middle" font-size="15" font-weight="700" letter-spacing="4" fill="rgba(116,214,232,.65)">STRUCTURE</text>
-        </g>
-        <g class="aid-bp-c" stroke="rgba(116,214,232,.28)" fill="none">
-          <path d="M650 200 C 730 200, 742 76, 840 76"/>
-          <path d="M650 200 C 730 200, 742 158, 840 158"/>
-          <path d="M650 200 C 730 200, 742 242, 840 242"/>
-          <path d="M650 200 C 730 200, 742 324, 840 324"/>
-        </g>
-        <g class="aid-bp-c" fill="rgba(116,214,232,.5)">
-          <circle cx="842" cy="76" r="3.2"/><circle cx="842" cy="158" r="3.2"/>
-          <circle cx="842" cy="242" r="3.2"/><circle cx="842" cy="324" r="3.2"/>
-        </g>
-        <g class="aid-bp-c" font-size="12" font-weight="700" letter-spacing="3.5" fill="rgba(203,213,225,.4)">
-          <text x="866" y="81">AI</text>
-          <text x="866" y="163">AUTOMATION</text>
-          <text x="866" y="247">SYSTEM</text>
-          <text x="866" y="329">WEB</text>
-        </g>
-      </svg>
       <button class="sdtl-back" onclick="backToServices()">
         <svg viewBox="0 0 24 24" class="arrow-svg" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         <span>Services</span>
@@ -4781,12 +4694,8 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <span class="sv-index-c" id="sv-index-detail">Detail 01 / 03</span>
           <span class="sv-index-r">noa Inc.</span>
         </div>
-        <!-- 英字カテゴリ名（AI & DIGITAL 等）。JSでサービスごとに差し込む -->
-        <span class="sv-hero-cat" id="sv-hero-cat" aria-hidden="true"></span>
         <div class="sv-hero-tags" id="sv-hero-tags"></div>
         <h1 id="sv-hero-title" class="sv-hero-title"></h1>
-        <!-- 2段目見出し（AI & DIGITAL のみ使用。他サービスは非表示） -->
-        <p id="sv-hero-title2" class="sv-hero-title2"></p>
         <p id="sv-hero-sub" class="sv-hero-sub"></p>
       </div>
       <!-- [flag:svDetail v2] サービス番号の透かし -->
@@ -5350,9 +5259,8 @@ const SVC = {
     jp:"AI・DX / Web・システム開発",
     jpShort:"AI・デジタル",
     heroTitle:"AIを導入することが、<br class=\"br-pc\">目的ではない。",
-    heroTitle2:"事業が前に進む<br class=\"br-pc\">仕組みをつくる。",
-    heroSub:"AI・業務設計・Web・システムを横断し、課題の整理から設計、実装、運用まで。現場で使われ続けるデジタルの仕組みをつくります。",
-    tags:["AI活用設計 / 業務自動化","業務システム / Webアプリ開発","コーポレートサイト / LP制作"],
+    heroSub:"AI・業務設計・Web・システムを横断し、課題の整理から実装・運用まで。事業が前に進む仕組みをつくります。",
+    tags:["AI活用設計","業務自動化 / システム開発","Web制作 / UI設計"],
     img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
 
     valueCards:[
@@ -6099,15 +6007,7 @@ function renderServicePage(id, s){
   // Hero
   document.getElementById('sv-hero-img').src = s.img;
   document.getElementById('sv-hero-img').alt = s.jp;
-  // 英字カテゴリ名（狭い画面では意図した位置で改行させる）
-  const catEl = document.getElementById('sv-hero-cat');
-  if (catEl) catEl.textContent = window.matchMedia('(max-width:420px)').matches
-    ? String(s.title).replace(' & ', ' &\n')
-    : s.title;
   document.getElementById('sv-hero-title').innerHTML = s.heroTitle;
-  // 2段目見出し（定義があるサービスのみ）
-  const t2 = document.getElementById('sv-hero-title2');
-  if (t2) t2.innerHTML = s.heroTitle2 || '';
   document.getElementById('sv-hero-sub').textContent = s.heroSub;
 
   // Tags
@@ -6724,32 +6624,37 @@ const SVC_V2_DIAGRAMS = {
   <text x="50" y="212" font-size="9.5" fill="#74D6E8">noa — 仕組みが回り続けるところまで</text>
 </svg>`,
   web: `
-<svg viewBox="0 0 360 220" role="img" aria-label="課題を構造化したうえで、AI・自動化・システム・Webから最適な手段を選ぶ構造図">
+<svg viewBox="0 0 408 240" role="img" aria-label="分散した課題を構造化したうえで、AI・自動化・システム・Webから最適な手段を選ぶ構造図">
   <text x="16" y="26" font-size="9" font-weight="700" letter-spacing="2.5" fill="#475569">SELECTION — 手段は、課題から選ぶ</text>
-  <g font-size="10.5" font-weight="700" fill="#cbd5e1">
-    <circle cx="34" cy="112" r="3.4" fill="rgba(203,213,225,.6)"/>
-    <text x="34" y="136" text-anchor="middle">課題</text>
-    <line x1="42" y1="112" x2="118" y2="112" stroke="rgba(255,255,255,.18)"/>
-    <rect x="118" y="94" width="74" height="36" fill="none" stroke="rgba(116,214,232,.6)"/>
-    <text x="155" y="117" text-anchor="middle" fill="#74D6E8" font-size="10">構造化</text>
-    <g stroke="rgba(116,214,232,.4)" fill="none">
-      <path d="M192 112 C 226 112, 232 44, 262 44"/>
-      <path d="M192 112 C 226 112, 232 90, 262 90"/>
-      <path d="M192 112 C 226 112, 232 134, 262 134"/>
-      <path d="M192 112 C 226 112, 232 180, 262 180"/>
-    </g>
-    <g fill="rgba(203,213,225,.55)">
-      <circle cx="264" cy="44" r="2.6"/><circle cx="264" cy="90" r="2.6"/>
-      <circle cx="264" cy="134" r="2.6"/><circle cx="264" cy="180" r="2.6"/>
-    </g>
-    <g font-size="9.5" letter-spacing="1.5" fill="#94a3b8">
-      <text x="278" y="48">AI</text>
-      <text x="278" y="94">AUTOMATION</text>
-      <text x="278" y="138">SYSTEM</text>
-      <text x="278" y="184">WEB</text>
-    </g>
+  <g stroke="rgba(148,163,184,.3)" fill="none">
+    <path d="M28 74 L96 138 M92 66 L34 152 M22 118 L104 100 M62 58 L52 166"/>
   </g>
-  <text x="16" y="208" font-size="8.5" fill="#475569" letter-spacing="1">課題によっては、AIを使わない設計を選ぶこともあります</text>
+  <g fill="rgba(203,213,225,.5)">
+    <circle cx="28" cy="74" r="2.8"/><circle cx="92" cy="66" r="2.8"/>
+    <circle cx="34" cy="152" r="2.8"/><circle cx="104" cy="100" r="2.8"/>
+    <circle cx="22" cy="118" r="2.8"/><circle cx="52" cy="166" r="2.8"/>
+  </g>
+  <text x="58" y="196" text-anchor="middle" font-size="9" fill="#64748b" letter-spacing="1">課題</text>
+  <line x1="116" y1="115" x2="152" y2="115" stroke="rgba(255,255,255,.18)"/>
+  <rect x="152" y="96" width="76" height="38" fill="none" stroke="rgba(116,214,232,.6)"/>
+  <text x="190" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#74D6E8">構造化</text>
+  <g stroke="rgba(116,214,232,.4)" fill="none">
+    <path d="M228 115 C 256 115, 260 52, 286 52"/>
+    <path d="M228 115 C 256 115, 260 94, 286 94"/>
+    <path d="M228 115 C 256 115, 260 136, 286 136"/>
+    <path d="M228 115 C 256 115, 260 178, 286 178"/>
+  </g>
+  <g fill="rgba(203,213,225,.55)">
+    <circle cx="288" cy="52" r="2.6"/><circle cx="288" cy="94" r="2.6"/>
+    <circle cx="288" cy="136" r="2.6"/><circle cx="288" cy="178" r="2.6"/>
+  </g>
+  <g font-size="9" font-weight="700" letter-spacing="1.5" fill="#94a3b8">
+    <text x="300" y="56">AI</text>
+    <text x="300" y="98">AUTOMATION</text>
+    <text x="300" y="140">SYSTEM</text>
+    <text x="300" y="182">WEB</text>
+  </g>
+  <text x="16" y="228" font-size="8.5" fill="#475569" letter-spacing="1">課題によっては、AIを使わない設計を選ぶこともあります</text>
 </svg>`,
   marketing: `
 <svg viewBox="0 0 360 220" role="img" aria-label="noaの成長構造: 分断された施策ではなく、集客・導線・接客・分析が循環するループ">
