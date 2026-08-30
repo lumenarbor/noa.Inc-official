@@ -265,10 +265,11 @@ button,a{font-family:'Inter',sans-serif;cursor:none;text-decoration:none;color:i
 .sv-cta-headline, .sv-cta-sub,
 .sv-crosslink-title, .sv-crosslink-desc,
 .sv-other-label, .sv-other-sub{
-  /* keep-all(句読点でしか折らない)は行末に1〜2文字が孤立する原因になるため、
-     文節境界で折る auto-phrase を使う（非対応ブラウザは normal にフォールバック）。
-     overflow-wrap:anywhere は grid の min-content 由来の横溢れ対策として維持。 */
-  word-break:auto-phrase;
+  /* baseline: word-break:normal（CJKは字間で折れる標準挙動）。
+     keep-all は行末に1〜2文字が孤立する原因になるため使わない。
+     overflow-wrap:anywhere は grid の min-content 由来の横溢れ対策として必須。
+     文節境界での改行は下の @supports で上乗せする（Progressive Enhancement）。 */
+  word-break:normal;
   overflow-wrap:anywhere;
   line-break:strict;
 }
@@ -3488,7 +3489,6 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 .aid-cap-title,.aid-stance-lead,
 .svcs-h,.co-h,.news-h,.phil-head{
   text-wrap:balance;
-  word-break:auto-phrase;
 }
 .sv-hero-sub,.sv-cta-sub,.sv-value-card-desc,.sv-case-desc,
 .sv-consult-desc,.sv-edge-desc,.sv-faq-a-text,.sv-problem-item,
@@ -3496,7 +3496,25 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 .work-case-summary,.work-desc,.work-cta-sub,.work-cell p,
 .svcs-desc,.co-body,.phil-desc{
   text-wrap:pretty;
-  word-break:auto-phrase;
+}
+
+/* --- Progressive Enhancement ---
+   word-break:auto-phrase は日本語を文節境界で折る。Chromium系のみ対応。
+   値が非対応のブラウザは宣言ごと破棄されるため、暗黙の挙動に頼らず
+   @supports で明示的に上乗せする。非対応環境は上の baseline
+   (word-break:normal + overflow-wrap:anywhere) で成立する。 */
+@supports (word-break: auto-phrase) {
+  .sv-hero-title,.sv-hero-sub,.sv-sec-title,
+  .sv-value-card-title,.sv-value-card-desc,.sv-problem-item,
+  .sv-flow-verb,.sv-flow-desc,.sv-case-title,.sv-case-desc,
+  .sv-faq-q,.sv-faq-a-text,.sv-cta-headline,.sv-cta-sub,
+  .sv-consult-desc,.sv-edge-desc,
+  .work-case-title,.work-case-summary,.work-cta-main,.work-cta-sub,
+  .work-desc,.work-cell p,.work-h,
+  .aid-cap-title,.aid-cap-desc,.aid-stance-lead,.aid-stance-text,.aid-proc-jp,
+  .svcs-h,.svcs-desc,.co-h,.co-body,.news-h,.phil-head,.phil-desc{
+    word-break:auto-phrase;
+  }
 }
 </style>
 </head>
@@ -3845,10 +3863,10 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">01</span>
-              <span class="work-case-cat">WEB EXPERIENCE</span>
+              <span class="work-case-cat">AI ENABLEMENT</span>
             </div>
-            <h3 class="work-case-title">情報は多いのに、<br>問い合わせに辿り着けないサイト</h3>
-            <p class="work-case-summary">情報構造と導線を再設計。<br>迷うサイトから、<span class="em">行動につながる構造</span>へ。</p>
+            <h3 class="work-case-title">AIを使っても、<br>仕事が仕組みにならない。</h3>
+            <p class="work-case-summary">業務・データ・判断を分解し、AIが効く場所だけを設計。<br>個人のAI活用から、<span class="em">現場で回り続ける運用構造</span>へ。</p>
           </div>
             <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-01" onclick="toggleWorkCase(this)">
               <span class="work-toggle-ic" aria-hidden="true"></span>
@@ -3860,21 +3878,23 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
             <div class="work-dg-steps">
               <figure class="work-dg-step">
                 <span class="work-dg-lbl">Before</span>
-                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="情報が分散し、導線が交差している状態">
-                  <g stroke="rgba(148,163,184,.34)" fill="none">
-                    <path class="work-dg-el" style="--i:1" d="M18 24 L146 88 M140 18 L24 100 M10 46 L150 68 M104 8 L54 108 M28 16 L132 102"/>
+                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="担当者が個別にAIを使い、業務やデータとつながっていない状態">
+                  <g stroke="rgba(148,163,184,.3)" fill="none" stroke-dasharray="3 4">
+                    <path class="work-dg-el" style="--i:1" d="M26 34 L26 58 M80 28 L80 52 M134 36 L134 60"/>
                   </g>
                   <g fill="rgba(203,213,225,.6)">
-                    <circle class="work-dg-el" style="--i:2" cx="18" cy="24" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:2" cx="140" cy="18" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:3" cx="24" cy="100" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:3" cx="146" cy="88" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:3" cx="150" cy="68" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:4" cx="104" cy="8" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:4" cx="54" cy="108" r="2.8"/>
+                    <circle class="work-dg-el" style="--i:1" cx="26" cy="28" r="3"/>
+                    <circle class="work-dg-el" style="--i:1" cx="80" cy="22" r="3"/>
+                    <circle class="work-dg-el" style="--i:1" cx="134" cy="30" r="3"/>
                   </g>
+                  <g stroke="rgba(148,163,184,.32)" fill="none">
+                    <rect class="work-dg-el" style="--i:2" x="14" y="58" width="24" height="16"/>
+                    <rect class="work-dg-el" style="--i:2" x="68" y="52" width="24" height="16"/>
+                    <rect class="work-dg-el" style="--i:2" x="122" y="60" width="24" height="16"/>
+                  </g>
+                  <text class="work-dg-el" style="--i:3" x="80" y="98" text-anchor="middle" font-size="8.5" fill="#64748b" letter-spacing="1">つながっていない</text>
                 </svg>
-                <figcaption>情報が分散し、導線が交差している</figcaption>
+                <figcaption>個人ごとにAIを使い、業務は変わらない</figcaption>
               </figure>
 
               <span class="work-dg-arrow" aria-hidden="true">
@@ -3883,19 +3903,27 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 
               <figure class="work-dg-step">
                 <span class="work-dg-lbl">Design</span>
-                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="情報を役割別・目的別に3つのグループへ整理した状態">
-                  <g stroke="rgba(255,255,255,.18)" fill="none">
-                    <rect class="work-dg-el" style="--i:5" x="12" y="10" width="136" height="28"/>
-                    <rect class="work-dg-el" style="--i:6" x="12" y="44" width="136" height="28"/>
-                    <rect class="work-dg-el" style="--i:7" x="12" y="78" width="136" height="28"/>
+                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="業務・データ・判断・引き継ぎを先に構造化してから、人とAIとシステムの役割を決める">
+                  <g stroke="rgba(255,255,255,.2)" fill="none">
+                    <rect class="work-dg-el" style="--i:5" x="12" y="8" width="136" height="20"/>
+                    <rect class="work-dg-el" style="--i:6" x="12" y="32" width="136" height="20"/>
+                    <rect class="work-dg-el" style="--i:7" x="12" y="56" width="136" height="20"/>
+                    <rect class="work-dg-el" style="--i:8" x="12" y="80" width="136" height="20"/>
                   </g>
-                  <g fill="rgba(203,213,225,.55)">
-                    <circle class="work-dg-el" style="--i:5" cx="30" cy="24" r="2.6"/><circle class="work-dg-el" style="--i:5" cx="48" cy="24" r="2.6"/>
-                    <circle class="work-dg-el" style="--i:6" cx="30" cy="58" r="2.6"/><circle class="work-dg-el" style="--i:6" cx="48" cy="58" r="2.6"/>
-                    <circle class="work-dg-el" style="--i:7" cx="30" cy="92" r="2.6"/><circle class="work-dg-el" style="--i:7" cx="48" cy="92" r="2.6"/>
+                  <g font-size="8" letter-spacing="1.4" fill="#94a3b8">
+                    <text class="work-dg-el" style="--i:5" x="24" y="21">WORK</text>
+                    <text class="work-dg-el" style="--i:6" x="24" y="45">DATA</text>
+                    <text class="work-dg-el" style="--i:7" x="24" y="69">JUDGMENT</text>
+                    <text class="work-dg-el" style="--i:8" x="24" y="93">HANDOFF</text>
+                  </g>
+                  <g fill="rgba(116,214,232,.7)">
+                    <circle class="work-dg-el" style="--i:5" cx="136" cy="18" r="2.4"/>
+                    <circle class="work-dg-el" style="--i:6" cx="136" cy="42" r="2.4"/>
+                    <circle class="work-dg-el" style="--i:7" cx="136" cy="66" r="2.4"/>
+                    <circle class="work-dg-el" style="--i:8" cx="136" cy="90" r="2.4"/>
                   </g>
                 </svg>
-                <figcaption>情報を役割別・目的別に整理する</figcaption>
+                <figcaption>業務・データ・判断・引き継ぎを先に構造化する</figcaption>
               </figure>
 
               <span class="work-dg-arrow" aria-hidden="true">
@@ -3904,22 +3932,30 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 
               <figure class="work-dg-step work-dg-step--a">
                 <span class="work-dg-lbl">After</span>
-                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="主要な行動が1つのCONTACTへ収束した状態">
-                  <g stroke="rgba(116,214,232,.55)" fill="none">
-                    <path class="work-dg-draw" style="--i:0" pathLength="1" d="M16 20 C 70 20, 84 52, 120 58"/>
-                    <path class="work-dg-draw" style="--i:1" pathLength="1" d="M16 58 C 70 58, 90 56, 120 58"/>
-                    <path class="work-dg-draw" style="--i:2" pathLength="1" d="M16 96 C 70 96, 84 64, 120 58"/>
+                <svg class="work-dg-svg" viewBox="0 0 160 116" role="img" aria-label="人が判断し、AIとシステムが役割を分担し、データが改善へ戻る運用構造">
+                  <line class="work-dg-draw" style="--i:0" pathLength="1" x1="18" y1="34" x2="138" y2="34" stroke="rgba(116,214,232,.6)"/>
+                  <path class="work-dg-el" style="--i:9" d="M134 30 L142 34 L134 38" fill="none" stroke="rgba(116,214,232,.7)"/>
+                  <g font-size="8" letter-spacing="1.2" text-anchor="middle">
+                    <circle class="work-dg-el" style="--i:8" cx="26" cy="34" r="3.2" fill="#74D6E8"/>
+                    <text class="work-dg-el" style="--i:8" x="26" y="22" fill="#cbd5e1">HUMAN</text>
+                    <circle class="work-dg-el" style="--i:9" cx="80" cy="34" r="2.8" fill="rgba(116,214,232,.8)"/>
+                    <text class="work-dg-el" style="--i:9" x="80" y="22" fill="#94a3b8">AI</text>
+                    <circle class="work-dg-el" style="--i:9" cx="130" cy="34" r="2.8" fill="rgba(116,214,232,.8)"/>
+                    <text class="work-dg-el" style="--i:9" x="130" y="22" fill="#94a3b8">SYSTEM</text>
                   </g>
-                  <g fill="rgba(203,213,225,.6)">
-                    <circle class="work-dg-el" style="--i:8" cx="16" cy="20" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:8" cx="16" cy="58" r="2.8"/>
-                    <circle class="work-dg-el" style="--i:8" cx="16" cy="96" r="2.8"/>
+                  <text class="work-dg-el" style="--i:8" x="26" y="50" text-anchor="middle" font-size="7.5" fill="#64748b">判断</text>
+                  <g stroke="rgba(255,255,255,.16)" fill="none">
+                    <path class="work-dg-el" style="--i:10" d="M80 40 L80 66 M130 40 L130 66"/>
+                    <rect class="work-dg-el" style="--i:10" x="56" y="66" width="82" height="18"/>
                   </g>
-                  <circle class="work-dg-el" style="--i:10" cx="122" cy="58" r="4.2" fill="#74D6E8"/>
-                  <circle class="work-dg-el" style="--i:10" cx="122" cy="58" r="10" fill="none" stroke="rgba(116,214,232,.45)"/>
-                  <text class="work-dg-el" style="--i:11" x="122" y="88" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="1.2" fill="#74D6E8">CONTACT</text>
+                  <text class="work-dg-el" style="--i:10" x="97" y="78" text-anchor="middle" font-size="8" fill="#94a3b8" letter-spacing="1.2">DATA</text>
+                  <g stroke="rgba(116,214,232,.5)" fill="none">
+                    <path class="work-dg-el" style="--i:11" d="M56 75 C 26 75, 10 64, 16 40"/>
+                    <path class="work-dg-el" style="--i:11" d="M12 46 L16 38 L21 44"/>
+                  </g>
+                  <text class="work-dg-el" style="--i:11" x="80" y="103" text-anchor="middle" font-size="8.5" fill="#64748b" letter-spacing="1">改善が回る</text>
                 </svg>
-                <figcaption>主要な行動がCONTACTへ収束する</figcaption>
+                <figcaption>人が判断し、AIとシステムが分担して回り続ける</figcaption>
               </figure>
             </div>
           </div>
@@ -3928,15 +3964,15 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
             <div class="work-detail-inner">
               <div class="work-da">
                 <span class="work-da-label">Issue<small>課題</small></span>
-                <p>情報を詰め込みすぎ、ユーザーが目的のページに辿り着けない状態になっていた。</p>
+                <p>AIツールは使われているものの、活用方法が個人に依存し、業務そのものは変わっていなかった。</p>
               </div>
               <div class="work-da">
                 <span class="work-da-label">Approach<small>設計</small></span>
-                <p>情報の優先順位と導線を、ユーザーの役割と目的ごとに再設計した。</p>
+                <p>業務・データ・判断・引き継ぎを整理し、AIを使うべき領域と、人が担う領域を設計。</p>
               </div>
               <div class="work-da">
                 <span class="work-da-label">Shift<small>変化</small></span>
-                <p>読まれるだけのサイトから、問い合わせにつながるサイトへ変化させた。</p>
+                <p>「AIを使える状態」から、AIが業務に組み込まれ、改善が回る構造へ。</p>
               </div>
             </div>
           </div>
@@ -5328,7 +5364,7 @@ const SVC = {
     titleShort:"AI・デジタル",
     jp:"AI・DX / Web・システム開発",
     jpShort:"AI・デジタル",
-    heroTitle:"AIを導入することが、<br class=\"br-pc\">目的ではない。",
+    heroTitle:"AIを導入することが、<br>目的ではない。",
     heroSub:"AI・業務設計・Web・システムを横断し、課題の整理から実装・運用まで。事業が前に進む仕組みをつくります。",
     tags:["AI活用設計","業務自動化 / システム開発","Web制作 / UI設計"],
     img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
