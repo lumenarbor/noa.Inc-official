@@ -2876,19 +2876,48 @@ html[data-work="on"] #work{
 .work-live-facts li{background:#050505;padding:1.1rem 1.2rem;font-size:.76rem;line-height:1.8;color:#94a3b8}
 .work-live-facts b{display:block;color:white;font-weight:700;font-size:.8rem;margin-bottom:.3rem;letter-spacing:.04em}
 
-/* 変換の橋（自分ごと化 → 相談） */
+/* 変換の橋（自分ごと化 → 相談）。CTAはページ全体で1つだけ。 */
 .work-cta{
-  display:flex;flex-direction:column;align-items:center;gap:.55rem;
-  margin-top:3rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  margin:clamp(3.5rem,7vw,6rem) .5rem 0;
+  padding-top:clamp(2.6rem,5vw,4rem);
+  border-top:1px solid rgba(255,255,255,.08);
 }
-.work-cta-note{font-size:11px;letter-spacing:.16em;color:#64748b}
-.work-cta-link{
-  background:none;border:none;cursor:pointer;
-  font-size:12px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;
-  border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:.2rem;
-  transition:color .3s,border-color .3s;
+@media(min-width:768px){.work-cta{margin-left:2rem;margin-right:2rem}}
+.work-cta-eyebrow{
+  font-size:9.5px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(116,214,232,.75);margin-bottom:1.5rem;
 }
-.work-cta-link:hover{color:#74D6E8;border-color:#74D6E8}
+.work-cta-main{
+  font-size:clamp(1.15rem,2.4vw,1.75rem);font-weight:800;color:#fff;
+  letter-spacing:-.015em;line-height:1.75;margin:0 0 1.1rem;max-width:34rem;
+}
+.work-cta-sub{
+  font-size:clamp(.8rem,1.1vw,.9rem);line-height:2;color:#8b9bb0;
+  margin:0 0 clamp(1.9rem,3.5vw,2.6rem);max-width:32rem;
+}
+.work-cta-btn{
+  display:inline-flex;align-items:center;gap:.85rem;
+  padding:1rem 1.9rem;min-height:52px;
+  background:none;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);border-radius:9999px;
+  color:#fff;font-family:inherit;
+  transition:border-color .4s ease,background .4s ease,color .4s ease;
+}
+.work-cta-btn-en{font-size:9.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .4s ease}
+.work-cta-btn-jp{font-size:.92rem;font-weight:700;letter-spacing:.08em}
+.work-cta-btn-arw{width:15px;height:15px;color:#74D6E8;transition:transform .45s cubic-bezier(.22,1,.36,1),color .4s ease}
+.work-cta-btn:hover{border-color:#74D6E8;background:rgba(116,214,232,.06)}
+.work-cta-btn:hover .work-cta-btn-en{color:rgba(255,255,255,.7)}
+.work-cta-btn:hover .work-cta-btn-arw{transform:translate(3px,-3px)}
+.work-cta-btn:focus-visible{outline:1px solid rgba(116,214,232,.8);outline-offset:3px}
+/* 意図した位置でのみ改行（狭い幅では自然折返しに任せる） */
+.work-cta-br{display:none}
+@media(min-width:600px){.work-cta-br{display:inline}}
+@media(prefers-reduced-motion:reduce){
+  .work-cta-btn,.work-cta-btn-arw{transition:none}
+  .work-cta-btn:hover .work-cta-btn-arw{transform:none}
+}
 
 @media(prefers-reduced-motion:reduce){
   .work-live-badge::before{animation:none}
@@ -2936,11 +2965,16 @@ html[data-work="on"] #work{
   font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
   font-size:2rem;color:#74D6E8;opacity:.65;line-height:1;
 }
+/* 上位サービス → 具体の仕事、の親子関係をラベルだけで示す。
+   視線順位は「課題見出し > 図 > 変化 > ここ」なので、目立たせない。 */
 .work-case-cat{
-  font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.16);
-  padding:.32rem .85rem;border-radius:9999px;
+  display:inline-flex;align-items:center;flex-wrap:wrap;gap:.5rem;
+  font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  line-height:1.5;
 }
+.work-case-svc{color:rgba(255,255,255,.38)}
+.work-case-arrow{color:rgba(116,214,232,.55);font-size:10px;letter-spacing:0}
+.work-case-type{color:rgba(255,255,255,.72)}
 .work-case-title{
   font-size:clamp(1.35rem,2.3vw,1.85rem);font-weight:800;color:#fff;
   letter-spacing:-.02em;line-height:1.5;margin:0 0 1.3rem;
@@ -3781,10 +3815,10 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">01</span>
-              <span class="work-case-cat">Web</span>
+              <span class="work-case-cat"><span class="work-case-svc">AI &amp; DIGITAL</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">WEB EXPERIENCE</span></span>
             </div>
             <h3 class="work-case-title">情報は多いのに、<br>問い合わせに辿り着けないサイト</h3>
-            <p class="work-case-summary">情報構造と導線を再設計。<br>迷うサイトから、<span class="em">行動につながるサイト</span>へ。</p>
+            <p class="work-case-summary">情報構造と導線を再設計。<br>迷うサイトから、<span class="em">行動につながる構造</span>へ。</p>
           </div>
             <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-01" onclick="toggleWorkCase(this)">
               <span class="work-toggle-ic" aria-hidden="true"></span>
@@ -3884,10 +3918,10 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">02</span>
-              <span class="work-case-cat">HR</span>
+              <span class="work-case-cat"><span class="work-case-svc">HUMAN RESOURCES</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">RECRUITING</span></span>
             </div>
             <h3 class="work-case-title">応募は来るのに、<br>承諾まで至らない採用</h3>
-            <p class="work-case-summary">選考体験と採用オペレーションを再設計。<br>担当者に依存しない、<span class="em">再現可能な採用</span>へ。</p>
+            <p class="work-case-summary">選考体験と採用オペレーションを再設計。<br>担当者に依存する採用から、<span class="em">再現できる選考構造</span>へ。</p>
           </div>
             <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-02" onclick="toggleWorkCase(this)">
               <span class="work-toggle-ic" aria-hidden="true"></span>
@@ -3991,10 +4025,10 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
           <div class="work-case-copy">
             <div class="work-case-meta">
               <span class="work-case-num">03</span>
-              <span class="work-case-cat">Marketing</span>
+              <span class="work-case-cat"><span class="work-case-svc">MARKETING</span><span class="work-case-arrow" aria-hidden="true">→</span><span class="work-case-type">GROWTH</span></span>
             </div>
             <h3 class="work-case-title">広告費を増やしても、<br>成果が伸びない集客</h3>
-            <p class="work-case-summary">集客から接客までを可視化。<br>感覚の運用から、<span class="em">改善が回る仕組み</span>へ。</p>
+            <p class="work-case-summary">集客から接客までを可視化。<br>感覚で回す集客から、<span class="em">改善が続く成長構造</span>へ。</p>
           </div>
             <button class="work-toggle" type="button" aria-expanded="false" aria-controls="work-detail-03" onclick="toggleWorkCase(this)">
               <span class="work-toggle-ic" aria-hidden="true"></span>
@@ -4092,8 +4126,14 @@ html[data-svdetail="v2"] .sv-problem-diagram{display:block;margin-top:2.2rem}
 
       <!-- 自分ごと化 → 相談への橋 -->
       <div class="work-cta anim-up">
-        <span class="work-cta-note">あなたの事業なら、どこから設計するか。</span>
-        <button class="work-cta-link" onclick="showPage('contact')">その仮説から、お話しできます</button>
+        <span class="work-cta-eyebrow">Your business, next.</span>
+        <p class="work-cta-main">似た課題があるなら、<br class="work-cta-br">解決策が決まっていなくても大丈夫です。</p>
+        <p class="work-cta-sub">Webなのか、AIなのか、採用なのか。<br class="work-cta-br">手段を決める前に、まず課題から整理します。</p>
+        <button class="work-cta-btn" onclick="showPage('contact')">
+          <span class="work-cta-btn-en">Contact</span>
+          <span class="work-cta-btn-jp">相談する</span>
+          <svg class="work-cta-btn-arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </button>
       </div>
     </div>
   </section>
