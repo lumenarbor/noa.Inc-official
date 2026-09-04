@@ -21,6 +21,21 @@
 # 旧運用（release フォルダを app.netlify.com/drop や本番 Deploys 画面へ
 # ドラッグする方法）はこのスクリプトで置き換える。ドロップ運用は
 # 静的ファイルしか配備できず、本番へ投入すると Functions が消失する。
+#
+# ⚠️ PREVIEW の限界（2026-09-04 実測で判明）:
+#   CLI の draft deploy は context = branch-deploy で動く。
+#   本番の環境変数（NOTION_TOKEN 等）はこの context の function ランタイムへ
+#   届かないため、function は env missing 分岐に入る。
+#   つまり preview で確認できるのは
+#     - routing（/hooks/* の rewrite、404 フォールバック、SPA fallback）
+#     - static content
+#     - function が deploy に含まれているか（GET で 405 が返るか）
+#   までであり、Notion 書き込み / Slack 投稿 / business logic の E2E は
+#   本番同等ではない。
+#   preview へ POST すると notion-intake が env missing 分岐に入り、
+#   Slack へ「⚠️ 設定エラー」の警告が飛ぶ（2026-09-04 に実際に発生）。
+#   → preview では POST しないこと。E2E は本番フォームで行う。
+#   → 本番の秘密情報を branch-deploy へコピーして解決してはならない。
 # =============================================================
 set -euo pipefail
 
@@ -47,6 +62,12 @@ echo "=============================================="
 echo " PREVIEW DEPLOY (draft / 本番は変更しません)"
 echo " ref=$REF ($SHA)  alias=$ALIAS"
 echo "=============================================="
+echo ""
+echo "  PREVIEW LIMITATION:"
+echo "    Function routing can be tested."
+echo "    Production secrets are not available in branch-deploy."
+echo "    Do not use preview POST requests for Slack/Notion E2E."
+echo ""
 
 # 本番サイトへ draft を作るので、link 先が想定どおりかは確認する。
 # ただし確認するだけで、本番デプロイは行わない。

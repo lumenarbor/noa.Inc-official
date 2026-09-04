@@ -52,7 +52,17 @@ git worktree remove --force "$WT"
 
 # netlify.toml は手動デプロイでは読まれないため、file-based config を同梱して
 # SPA リダイレクトとセキュリティヘッダを確実に効かせる
-printf '/*  /index.html  200\n' > "$OUT/_redirects"
+# _redirects は netlify.toml より先に処理され、上から first-match。
+# /hooks/* は Netlify Forms の Outgoing Webhook が叩く公開エイリアス。
+# /.netlify/ は予約名前空間で redirect の from に指定できないため、
+# 予約外 prefix から rewrite することで「未配備 function = 404」を成立させる
+# （直接 /.netlify/functions/* を叩くと未配備時に 200 + index.html になる）。
+cat > "$OUT/_redirects" <<'EOF'
+/hooks/slack          /.netlify/functions/slack          200
+/hooks/notion-intake  /.netlify/functions/notion-intake  200
+/hooks/*              /function-not-found.txt            404
+/*                    /index.html                        200
+EOF
 cat > "$OUT/_headers" <<'EOF'
 /*
   X-Frame-Options: DENY

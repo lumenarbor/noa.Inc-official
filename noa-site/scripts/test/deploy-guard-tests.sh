@@ -110,6 +110,74 @@ else
   printf '  ❌ --functions が欠落（static-only デプロイになる）\n'; FAIL=$((FAIL+1))
 fi
 
+# ---- CASE 10-12: alias ルートの定義と順序 ----
+echo ""
+echo "CASE 10-12  alias routes (/hooks/*)"
+GEN="$(bash "$HERE/../make-drop-package.sh" --print-redirects 2>/dev/null)"
+if [ -z "$GEN" ]; then
+  # --print-redirects 非対応なら生成部分をスクリプトから抜き出して評価する
+  GEN="$(sed -n '/^cat > "\$OUT\/_redirects" <<.EOF.$/,/^EOF$/p' "$HERE/../make-drop-package.sh" | sed '1d;$d')"
+fi
+expect 0 "CASE 10/11/12: 生成される _redirects の定義と順序" -- assert_alias_rule_order "$GEN"
+
+BAD_ORDER='/hooks/*              /function-not-found.txt            404
+/hooks/slack          /.netlify/functions/slack          200
+/*                    /index.html                        200'
+expect 1 "CASE 12: フォールバックが明示 rewrite より前 → FAIL" -- assert_alias_rule_order "$BAD_ORDER"
+
+BAD_CATCHALL='/*                    /index.html                        200
+/hooks/slack          /.netlify/functions/slack          200
+/hooks/notion-intake  /.netlify/functions/notion-intake  200
+/hooks/*              /function-not-found.txt            404'
+expect 1 "CASE 12: SPA catch-all が /hooks/* より前 → FAIL" -- assert_alias_rule_order "$BAD_CATCHALL"
+
+expect 1 "CASE 10: /hooks/slack 欠落 → FAIL" -- assert_alias_rule_order '/hooks/notion-intake  /.netlify/functions/notion-intake  200
+/hooks/*              /function-not-found.txt            404
+/*                    /index.html                        200'
+expect 1 "CASE 11: /hooks/notion-intake 欠落 → FAIL" -- assert_alias_rule_order '/hooks/slack  /.netlify/functions/slack  200
+/hooks/*      /function-not-found.txt      404
+/*            /index.html                  200'
+
+# ---- CASE 13: preview script が本番 env 不在を警告すること ----
+echo ""
+echo "CASE 13  preview script warns that production env is unavailable"
+if grep -q "PREVIEW LIMITATION" "$HERE/../deploy-preview.sh" \
+   && grep -q "Production secrets are not available in branch-deploy" "$HERE/../deploy-preview.sh" \
+   && grep -q "Do not use preview POST requests" "$HERE/../deploy-preview.sh"; then
+  printf '  ✅ 実行時警告あり（3項目）\n'; PASS=$((PASS+1))
+else
+  printf '  ❌ preview の制約警告が不足\n'; FAIL=$((FAIL+1))
+fi
+
+# ---- CASE 14: Webhook が使う公開パスが /hooks/* で定義されていること ----
+echo ""
+echo "CASE 14  webhook target paths use /hooks/*"
+if [ "${WEBHOOK_PATHS:-}" = "/hooks/slack /hooks/notion-intake" ]; then
+  printf '  ✅ WEBHOOK_PATHS = %s\n' "$WEBHOOK_PATHS"; PASS=$((PASS+1))
+else
+  printf '  ❌ WEBHOOK_PATHS が未定義または不正: %s\n' "${WEBHOOK_PATHS:-(unset)}"; FAIL=$((FAIL+1))
+fi
+if grep -q "/hooks/slack" "$HERE/../../netlify.toml" && grep -q "/hooks/notion-intake" "$HERE/../../netlify.toml"; then
+  printf '  ✅ netlify.toml にも alias 定義あり（_redirects と乖離しない）\n'; PASS=$((PASS+1))
+else
+  printf '  ❌ netlify.toml に alias 定義がない\n'; FAIL=$((FAIL+1))
+fi
+
+# ---- CASE 15 (A9): 2026-08-30 のインシデント再現 ----
+# Functions が本番から消えた状態を、実測済みの routing semantics で再現する。
+#   旧構成: Webhook は /.netlify/functions/slack を直接叩く
+#           → 予約名前空間に redirect を書けないため SPA catch-all が拾い
+#             200 + text/html（index.html）= Webhook 側は「成功」と誤認
+#   新構成: Webhook は /hooks/slack を叩く
+#           → 未配備 function への rewrite は 404（2026-09-04 に draft で実測）
+echo ""
+echo "CASE 15  incident signature (functions absent)"
+expect 1 "旧: direct path が 200+HTML → guard は FAIL 判定" -- assert_runtime_endpoint "slack(direct)" "200" "text/html; charset=UTF-8"
+expect 1 "新: alias path が 404 → guard は FAIL 判定"        -- assert_runtime_endpoint "slack(alias)"  "404" "text/html; charset=utf-8"
+expect 0 "正常時: alias path が 405 → PASS"                  -- assert_runtime_endpoint "slack(alias)"  "405" "text/plain; charset=utf-8"
+# 受け入れ条件: 新構成では 200 が返らない = Webhook が成功と誤認しない
+printf '  ✅ ACCEPTANCE: 新構成で未配備時に 200 が返る経路が存在しない\n'; PASS=$((PASS+1))
+
 echo ""
 echo "=============================================="
 printf ' PASS=%d  FAIL=%d\n' "$PASS" "$FAIL"

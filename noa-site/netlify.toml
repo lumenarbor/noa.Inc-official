@@ -9,6 +9,40 @@ functions = "netlify/functions"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
 
+# ---------------------------------------------------------------------------
+# Webhook 用の公開エイリアス（/hooks/*）
+#
+# Netlify Forms の Outgoing Webhook は /.netlify/functions/* を直接叩かず、
+# ここを経由させる。理由:
+#   /.netlify/ は Netlify の予約名前空間で、redirect の from に指定できない
+#   （CLI が "path field must not start with /.netlify" で拒否する）。
+#   一方 Netlify 自身の catch-all は同パスに適用されるため、function が
+#   未配備だと 200 + index.html が返り、Webhook 側が成功と誤認する
+#   （2026-08-30 の障害が5日間無検知だった直接の原因）。
+#
+#   予約外 prefix から rewrite すると、未配備 function は 404 になる。
+#   これは 2026-09-04 に draft deploy で実測確認済み。
+#
+# 順序が意味を持つ（rules は上から first-match）:
+#   1. 実在 function への明示 rewrite
+#   2. 未定義 hook の 404 フォールバック
+#   3. SPA catch-all
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/hooks/slack"
+  to = "/.netlify/functions/slack"
+  status = 200
+
+[[redirects]]
+  from = "/hooks/notion-intake"
+  to = "/.netlify/functions/notion-intake"
+  status = 200
+
+[[redirects]]
+  from = "/hooks/*"
+  to = "/function-not-found.txt"
+  status = 404
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

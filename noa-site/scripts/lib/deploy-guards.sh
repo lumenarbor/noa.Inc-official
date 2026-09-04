@@ -102,6 +102,53 @@ assert_runtime_endpoint() {
   return 1
 }
 
+# -------------------------------------------------------------
+# A1: alias ルートの定義順が正しいか（純関数・引数は _redirects 相当の文字列）
+#   assert_alias_rule_order <redirects_text>
+#   要件: 実在 function への明示 rewrite が /hooks/* フォールバックより前、
+#         かつ /hooks/* フォールバックが SPA catch-all より前にあること。
+#   （rules は上から first-match なので順序が逆だと alias が死ぬ）
+# -------------------------------------------------------------
+assert_alias_rule_order() {
+  local text="$1"
+  local rc=0 line n=0 i_slack=0 i_notion=0 i_fallback=0 i_catchall=0
+  while IFS= read -r line; do
+    case "$line" in ""|"#"*) continue ;; esac
+    n=$((n+1))
+    case "$line" in
+      "/hooks/slack "*)         [ "$i_slack" -eq 0 ] && i_slack=$n ;;
+      "/hooks/notion-intake "*) [ "$i_notion" -eq 0 ] && i_notion=$n ;;
+      "/hooks/* "*)             [ "$i_fallback" -eq 0 ] && i_fallback=$n ;;
+      "/* "*)                   [ "$i_catchall" -eq 0 ] && i_catchall=$n ;;
+    esac
+  done <<< "$text"
+
+  if [ "$i_slack" -gt 0 ]; then guard_pass "alias 定義: /hooks/slack"
+  else guard_fail "MISSING_ALIAS_ROUTE: /hooks/slack が未定義"; rc=1; fi
+
+  if [ "$i_notion" -gt 0 ]; then guard_pass "alias 定義: /hooks/notion-intake"
+  else guard_fail "MISSING_ALIAS_ROUTE: /hooks/notion-intake が未定義"; rc=1; fi
+
+  if [ "$i_fallback" -gt 0 ]; then
+    if [ "$i_slack" -gt 0 ] && [ "$i_slack" -gt "$i_fallback" ]; then
+      guard_fail "ALIAS_RULE_ORDER: /hooks/* フォールバックが /hooks/slack より前にあります"; rc=1
+    elif [ "$i_notion" -gt 0 ] && [ "$i_notion" -gt "$i_fallback" ]; then
+      guard_fail "ALIAS_RULE_ORDER: /hooks/* フォールバックが /hooks/notion-intake より前にあります"; rc=1
+    else
+      guard_pass "alias 順序: 明示 rewrite → /hooks/* フォールバック"
+    fi
+  else
+    guard_fail "MISSING_ALIAS_ROUTE: /hooks/* の 404 フォールバックが未定義"; rc=1
+  fi
+
+  if [ "$i_catchall" -gt 0 ] && [ "$i_fallback" -gt 0 ] && [ "$i_catchall" -lt "$i_fallback" ]; then
+    guard_fail "ALIAS_RULE_ORDER: SPA catch-all が /hooks/* より前にあります"; rc=1
+  elif [ "$i_catchall" -gt 0 ]; then
+    guard_pass "alias 順序: /hooks/* → SPA catch-all"
+  fi
+  return $rc
+}
+
 # =============================================================
 # 以下は I/O 担当（テストからは呼ばない）
 # =============================================================
