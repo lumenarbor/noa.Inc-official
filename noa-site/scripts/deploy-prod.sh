@@ -91,7 +91,7 @@ npx --yes netlify-cli deploy --prod \
   --json \
   --message "manual deploy (no build) ${REF} @ ${SHA}" > "$DEPLOY_JSON"
 
-DEPLOY_ID="$(node -e 'try{const j=require(process.argv[1]);process.stdout.write(j.deploy_id||j.deployId||(j.deploy&&j.deploy.id)||"")}catch(e){}' "$DEPLOY_JSON")"
+DEPLOY_ID="$(node -e 'try{const j=require(process.argv[1]);process.stdout.write(j.deploy_id||j.deployId||j.id||(j.deploy&&j.deploy.id)||"")}catch(e){}' "$DEPLOY_JSON")"
 DEPLOY_URL="$(node -e 'try{const j=require(process.argv[1]);process.stdout.write(j.url||j.deploy_url||"")}catch(e){}' "$DEPLOY_JSON")"
 echo ""
 echo "🚀 deploy complete"

@@ -10,6 +10,7 @@
 | 2026-07-30 | | f10d0f5 | redesign/v2 | deploy-prod.sh。functions 2件配備（最後の正常デプロイ） | |
 | 2026-08-30 | | 328a92f→a91314b | redesign/v2 | ⚠️ static-only デプロイ4件。**Functions 消失 → Slack/Notion 通知停止（9/4 まで無検知）** | |
 | 2026-09-04 | | a91314b | redesign/v2 | 復旧デプロイ（deploy-prod.sh）。functions 2件再配備・405 確認・E2E PASS。取りこぼし1件は Notion へ Backfill 済み | |
+| 2026-09-04 | | f6631f0 | redesign/v2 | Webhook 用エイリアス `/hooks/*` を追加。Outgoing Webhook を direct function path から alias へ移行し、未配備時に 200 ではなく 4xx を返す構成へ。E2E 2件 PASS | |
 
 ※ 2026-07-07 時点の本番は Netlify Drop による手動反映（deploy-info.json なしの世代）。
    baseline 相当 = tag `baseline-v1-2026-07-07`（commit e75e7ee）。

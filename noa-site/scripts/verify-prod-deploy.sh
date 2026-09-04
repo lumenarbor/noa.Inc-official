@@ -7,8 +7,10 @@
 # これ1本で以下を確認する:
 #   1. Site identity        … link 先が noa-place.co.jp の本番サイトか
 #   2. Deployed functions   … 本番 deploy metadata に slack / notion-intake があるか
-#   3. Runtime health       … 両エンドポイントが 405 を返すか
-#   4. HTML fallback 検知   … 200 + text/html（= function 未配備）を FAIL にする
+#   3. Webhook path health  … Outgoing Webhook が実際に叩く /hooks/* が 405 を返すか
+#   4. Alias fallback       … 未定義の /hooks/* が 4xx になるか（200 を返さないこと）
+#   5. Internal endpoints   … /.netlify/functions/* も 405 を返すか（内部健全性）
+#   6. HTML fallback 検知   … 200 + text/html（= function 未配備）を FAIL にする
 #
 # deploy-prod.sh からデプロイ直後にも呼ばれる。
 # GET しか行わないため、本番の問い合わせデータを生成することはない。
@@ -33,7 +35,7 @@ echo "=============================================="
 
 # ---- 1. Site identity ------------------------------------------------
 echo ""
-echo "[1/3] SITE_IDENTITY"
+echo "[1/5] SITE_IDENTITY"
 LINKED_ID="$(fetch_linked_site_id "$SITE_ROOT")"
 FACTS="$(fetch_site_facts "${LINKED_ID:-$PROD_SITE_ID}")"
 ACTUAL_ID="$(printf '%s' "$FACTS" | cut -f1)"
@@ -43,7 +45,7 @@ assert_site_identity "${LINKED_ID:-$ACTUAL_ID}" "$ACTUAL_DOMAIN" "$PROD_SITE_ID"
 
 # ---- 2. Deployed functions (metadata) --------------------------------
 echo ""
-echo "[2/3] DEPLOYED_FUNCTIONS (Netlify deploy metadata)"
+echo "[2/5] DEPLOYED_FUNCTIONS (Netlify deploy metadata)"
 if [ -n "$TARGET_DEPLOY" ]; then
   DEPLOYED_FNS="$(fetch_deploy_functions "$TARGET_DEPLOY")"
   echo "  対象 deploy_id: $TARGET_DEPLOY"
@@ -54,12 +56,34 @@ fi
 # shellcheck disable=SC2086
 assert_deployed_functions "$DEPLOYED_FNS" $REQUIRED_FUNCTIONS || FAIL=1
 
-# ---- 3. Runtime health ------------------------------------------------
+# ---- 3. Webhook path health（Outgoing Webhook が実際に叩くパス）--------
+# 直接 /.netlify/functions/* を叩くと、function 未配備時に SPA catch-all が
+# 200 + index.html を返してしまう（予約名前空間には redirect を書けない）。
+# Webhook は /hooks/* を経由するので、まずそちらを主判定にする。
 echo ""
-echo "[3/3] RUNTIME (safe GET / 405 期待・HTML fallback 検知)"
-for fn in $REQUIRED_FUNCTIONS; do
-  R="$(probe_endpoint "$PROD_URL/.netlify/functions/$fn")"
-  assert_runtime_endpoint "$fn" "$(printf '%s' "$R" | cut -f1)" "$(printf '%s' "$R" | cut -f2)" || FAIL=1
+echo "[3/5] WEBHOOK_PATHS (Outgoing Webhook が叩く公開パス)"
+for wp in $WEBHOOK_PATHS; do
+  R="$(probe_endpoint "$PROD_URL$wp")"
+  assert_runtime_endpoint "$wp" "$(printf '%s' "$R" | cut -f1)" "$(printf '%s' "$R" | cut -f2)" || FAIL=1
+done
+
+# ---- 4. Alias fallback（未定義 hook が 200 を返さないこと）--------------
+echo ""
+echo "[4/5] ALIAS_FALLBACK (未定義 hook は 4xx であること)"
+R="$(probe_endpoint "$PROD_URL/hooks/__nonexistent__")"
+FB_STATUS="$(printf '%s' "$R" | cut -f1)"
+FB_CTYPE="$(printf '%s' "$R" | cut -f2)"
+case "$FB_STATUS" in
+  4*) guard_pass "/hooks/__nonexistent__: $FB_STATUS (${FB_CTYPE%%;*})" ;;
+  *)  guard_fail "ALIAS_FALLBACK_BROKEN: /hooks/__nonexistent__ expected 4xx, got $FB_STATUS ${FB_CTYPE%%;*} — SPA catch-all に吸われています"; FAIL=1 ;;
+esac
+
+# ---- 5. Internal endpoints（内部健全性）--------------------------------
+echo ""
+echo "[5/5] INTERNAL_FUNCTION_PATHS (直接エンドポイントの健全性)"
+for ip in $INTERNAL_FUNCTION_PATHS; do
+  R="$(probe_endpoint "$PROD_URL$ip")"
+  assert_runtime_endpoint "$ip" "$(printf '%s' "$R" | cut -f1)" "$(printf '%s' "$R" | cut -f2)" || FAIL=1
 done
 
 echo ""

@@ -46,12 +46,70 @@ GitHub（lumenarbor/noa.Inc-official）は **履歴管理・rollback 管理の s
 | R1 デプロイ前 | `netlify/functions/{slack,notion-intake}.js` が存在するか | `PRODUCTION_DEPLOY_BLOCKED` / `MISSING_REQUIRED_FUNCTION` |
 | R2 デプロイ前 | link 先が本番サイト（custom_domain・site_id 一致）か | `PRODUCTION_DEPLOY_BLOCKED` / `SITE_IDENTITY_MISMATCH` |
 | R3 デプロイ後 | Netlify の deploy metadata に両 function が載っているか | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` / `MISSING_DEPLOYED_FUNCTION` |
-| R4 デプロイ後 | 両エンドポイントが **405** を返すか（`text/html` は即 FAIL） | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` |
+| R4 デプロイ後 | Webhook が叩く `/hooks/*` が **405** を返すか（`text/html` は即 FAIL） | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` |
+| R4b デプロイ後 | 未定義の `/hooks/*` が **4xx** か（200 なら SPA catch-all に吸われている） | `ALIAS_FALLBACK_BROKEN` |
+| R4c デプロイ後 | `/.netlify/functions/*` も 405 か（内部健全性） | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` |
 
 - R3 は「ローカルにファイルがある」では PASS しない。**Netlify 側の `available_functions` を見る。**
 - R4 は 2026-08-30 の事故状態（`200 + text/html + index.html`）を確実に FAIL させる。
 - 本番サイトの同一性は `scripts/prod-site.conf` が single source of truth（秘密情報は含まない）。
 - Guard の回帰テスト: `bash scripts/test/deploy-guard-tests.sh`（ネットワーク不要・本番に触れない）
+
+---
+
+## 通知アーキテクチャ（2026-09-04 alias 移行後）
+
+```
+Netlify Forms (form = contact)
+  ├─ email hook ─────────────────────────────► メール通知（Function 非依存）
+  ├─ url hook → /hooks/slack ────────────────► /.netlify/functions/slack
+  └─ url hook → /hooks/notion-intake ────────► /.netlify/functions/notion-intake
+```
+
+**Outgoing Webhook には `/.netlify/functions/*` を直接指定しない。**
+
+理由（2026-09-04 に draft deploy で実測確定）:
+
+- `/.netlify/` は Netlify の予約名前空間で、redirect の `from` に指定できない。
+  CLI が `"path" field must not start with "/.netlify"` で明示的に拒否する。
+  `force`（`404!`）でも不可。
+- にもかかわらず Netlify 自身の SPA catch-all は同パスに適用される。
+  その結果、function が未配備だと **200 + index.html** が返り、
+  Outgoing Webhook 側は「成功」と誤認する。
+  これが 2026-08-30 の障害が5日間無検知だった直接の原因。
+- 予約外 prefix（`/hooks/*`）から rewrite すれば、未配備 function は **404** になる。
+  POST もメソッド・ボディともに rewrite を透過する
+  （直接叩いた場合とバイト単位で同一のレスポンスを実測確認済み）。
+
+| Path | 用途 | function 配備時 | function 未配備時 |
+|---|---|---:|---:|
+| `/hooks/slack` | **Outgoing Webhook 用** | 405 (GET) | **404** |
+| `/hooks/notion-intake` | **Outgoing Webhook 用** | 405 (GET) | **404** |
+| `/hooks/<未定義>` | — | 404 | 404 |
+| `/.netlify/functions/*` | 内部エンドポイント（監視・デバッグ用） | 405 (GET) | ⚠️ 200 + index.html |
+
+`/.netlify/functions/*` は残してあるが、**Webhook 設定には使わないこと**。
+ルート定義は `netlify.toml` と `scripts/make-drop-package.sh`（`_redirects` 生成）の
+両方にあり、順序が意味を持つ（上から first-match）。順序は
+`scripts/test/deploy-guard-tests.sh` の CASE 10-12 が検証している。
+
+---
+
+## Preview の限界（重要）
+
+`scripts/deploy-preview.sh` の draft deploy は **context = branch-deploy** で動く。
+本番の環境変数（`NOTION_TOKEN` 等）はこの context の function ランタイムへ届かない。
+
+| preview で確認できる | preview で確認できない |
+|---|---|
+| routing（`/hooks/*` の rewrite、404 フォールバック、SPA fallback） | Notion への書き込み |
+| static content | Slack への投稿 |
+| function が deploy に含まれているか（GET で 405 が返るか） | business logic の E2E |
+
+**preview へ POST しないこと。** `notion-intake` が env missing 分岐に入り、
+Slack へ「⚠️ 設定エラー」の警告が飛ぶ（2026-09-04 に実際に発生させた）。
+E2E は本番フォームで行う。**本番の秘密情報を branch-deploy へコピーして
+解決してはならない。**
 
 ---
 
@@ -179,4 +237,4 @@ npx netlify-cli link            # 本番サイト(noa-place.co.jp)を選択
 |---|---|
 | Notion に会社名が保存されない | 問い合わせフォームの `company` は Netlify Forms には保存されるが、`notion-intake.js` の `buildProperties` に会社名プロパティのマッピングが無いため Notion DB へ書かれない。2026-09-03 の Backfill でも同じ理由で未記録。対応には Notion DB 側のプロパティ追加とマッピング追加が必要 |
 | Notion Integration の権限 | Read + Insert のみで Update 権限が無いため、API からページのアーカイブ（削除）ができない。登録動作には影響しないが、テスト行の後始末は手動になる |
-| SPA catch-all が未配備 function を隠す | `netlify.toml` の `/* → /index.html 200` により、未配備の function URL が 404 ではなく 200 + HTML を返す。Guard R4 で検知はできるが、根治するには catch-all から `/.netlify/functions/*` を除外する必要がある（本番挙動に影響するため別フェーズ） |
+| ~~SPA catch-all が未配備 function を隠す~~ | **RESOLVED（2026-09-04）**。`/.netlify/*` へは redirect を書けないことが判明したため、catch-all の除外ではなく `/hooks/*` エイリアス経由へ Webhook を移行して解決した。**Function 未配備時、Webhook が叩くパスは 4xx を返す。** 直接パス `/.netlify/functions/*` は依然 200 + HTML を返すが、Webhook はそこを使わない。Guard は `/hooks/*` を主判定にしている |
