@@ -9,18 +9,6 @@ functions = "netlify/functions"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
 
-# 未配備の Netlify Function を SPA catch-all に吸わせない。
-# これが無いと /.netlify/functions/<name> が 200 + index.html を返し、
-# Netlify Forms の Outgoing Webhook や監視系が「成功」と誤認する
-# サイレント障害になる（2026-08-30 に実際に発生）。
-# force は付けない: 実在する function は既存コンテンツとして
-# このルールをシャドウし、従来どおり function に到達する。
-# catch-all より前に置くこと（rules は上から first-match）。
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/function-not-found.txt"
-  status = 404
-
 [[redirects]]
   from = "/*"
   to = "/index.html"

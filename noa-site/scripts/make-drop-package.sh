@@ -52,13 +52,7 @@ git worktree remove --force "$WT"
 
 # netlify.toml は手動デプロイでは読まれないため、file-based config を同梱して
 # SPA リダイレクトとセキュリティヘッダを確実に効かせる
-# _redirects は netlify.toml より先に処理され、上から first-match。
-# 未配備 function を SPA catch-all に吸わせないルールを catch-all の前に置く
-# （force を付けないので、実在する function はこのルールをシャドウする）。
-cat > "$OUT/_redirects" <<'EOF'
-/.netlify/functions/*  /function-not-found.txt  404
-/*                     /index.html              200
-EOF
+printf '/*  /index.html  200\n' > "$OUT/_redirects"
 cat > "$OUT/_headers" <<'EOF'
 /*
   X-Frame-Options: DENY
