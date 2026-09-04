@@ -178,6 +178,96 @@ expect 0 "正常時: alias path が 405 → PASS"                  -- assert_run
 # 受け入れ条件: 新構成では 200 が返らない = Webhook が成功と誤認しない
 printf '  ✅ ACCEPTANCE: 新構成で未配備時に 200 が返る経路が存在しない\n'; PASS=$((PASS+1))
 
+# ---- CASE 16 (W6/W8): Outgoing Webhook 設定監査 ----
+# Netlify API には一切接続せず、fixture だけで全分岐を再現する。
+echo ""
+echo "CASE 16  webhook configuration audit (fixture only)"
+TAB="$(printf '\t')"
+mkhook() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" "$5"; }
+EMAIL_HOOK="$(mkhook email submission_created contact null '')"
+SLACK_OK="$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/slack)"
+NOTION_OK="$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/notion-intake)"
+SLACK_DIRECT="$(mkhook url submission_created contact false https://noa-place.co.jp/.netlify/functions/slack)"
+NOTION_DIRECT="$(mkhook url submission_created contact false https://noa-place.co.jp/.netlify/functions/notion-intake)"
+WA() { assert_webhook_configuration "$1" "$EXPECTED_FORM_NAME" "$EXPECTED_SLACK_WEBHOOK_URL" "$EXPECTED_NOTION_WEBHOOK_URL"; }
+
+# 1. 正常構成
+expect 0 "16-1  Slack alias + Notion alias + email → PASS" -- WA "$EMAIL_HOOK
+$SLACK_OK
+$NOTION_OK"
+
+# 2/3. CASE C/D 旧 direct path（W8 の drift simulation）
+expect 1 "16-2  CASE C: Slack が旧 direct path → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_DIRECT
+$NOTION_OK"
+expect 1 "16-3  CASE D: Notion が旧 direct path → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_OK
+$NOTION_DIRECT"
+expect 1 "16-W8 事故構成: 両方とも旧 direct path → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_DIRECT
+$NOTION_DIRECT"
+
+# 4/5. CASE A/B 欠落
+expect 1 "16-4  CASE A: Slack hook 欠落 → MISMATCH" -- WA "$EMAIL_HOOK
+$NOTION_OK"
+expect 1 "16-5  CASE B: Notion hook 欠落 → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_OK"
+
+# 6. CASE E disabled
+expect 1 "16-6  CASE E: disabled=true → MISMATCH" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact true https://noa-place.co.jp/hooks/slack)
+$NOTION_OK"
+
+# 7. CASE F 別 form
+expect 1 "16-7  CASE F: 別 form に紐づく → MISMATCH" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created recruit false https://noa-place.co.jp/hooks/slack)
+$NOTION_OK"
+
+# 8/9. CASE G 重複
+expect 1 "16-8  CASE G: Slack hook が2本 → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_OK
+$SLACK_OK
+$NOTION_OK"
+expect 1 "16-9  CASE G: Notion hook が2本 → MISMATCH" -- WA "$EMAIL_HOOK
+$SLACK_OK
+$NOTION_OK
+$NOTION_OK"
+
+# 10. CASE H 別ホスト
+expect 1 "16-10 CASE H: 別ホスト → MISMATCH" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact false https://simplecareer.jp/hooks/slack)
+$NOTION_OK"
+expect 1 "16-10b http scheme → MISMATCH" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact false http://noa-place.co.jp/hooks/slack)
+$NOTION_OK"
+
+# 11. CASE I typo / 部分一致で誤 PASS しないこと
+expect 1 "16-11 CASE I: /hooks/slack-old → MISMATCH" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/slack-old)
+$NOTION_OK"
+expect 1 "16-11b CASE I: /hooks/slac（前方一致で誤 PASS しない）" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/slac)
+$NOTION_OK"
+expect 1 "16-11c CASE I: /hooks/notion（末尾欠け）" -- WA "$EMAIL_HOOK
+$SLACK_OK
+$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/notion)"
+
+# 12. email hook が URL hook の判定を汚さない / 正規化の許容範囲
+expect 0 "16-12 email hook が複数でも URL 判定は汚れない → PASS" -- WA "$EMAIL_HOOK
+$EMAIL_HOOK
+$SLACK_OK
+$NOTION_OK"
+expect 0 "16-12b 末尾スラッシュは同一とみなす → PASS" -- WA "$EMAIL_HOOK
+$(mkhook url submission_created contact false https://noa-place.co.jp/hooks/slack/)
+$NOTION_OK"
+expect 1 "16-12c メール通知 hook が無い → MISMATCH" -- WA "$SLACK_OK
+$NOTION_OK"
+# 別 event のフックは評価対象外（deploy_request_* を混ぜても結論が変わらない）
+expect 0 "16-12d 別 event の hook は無視される → PASS" -- WA "$(mkhook email deploy_request_pending '' null '')
+$EMAIL_HOOK
+$SLACK_OK
+$NOTION_OK"
+
 echo ""
 echo "=============================================="
 printf ' PASS=%d  FAIL=%d\n' "$PASS" "$FAIL"

@@ -19,6 +19,9 @@
 #              R2 link 先が本番サイト（noa-place.co.jp）であること
 #   デプロイ後  R3 deploy metadata に slack / notion-intake があること
 #              R4 本番ランタイムが 405 を返すこと（HTML fallback を FAIL 扱い）
+#              R5 Netlify Forms の Outgoing Webhook が alias URL を向いていること
+#                 （verify-prod-deploy.sh の 6 Gate をそのまま実行する。
+#                   Webhook 設定は read-only で検査するだけで、変更はしない）
 #   いずれか1つでも落ちれば non-zero exit する。
 #
 # 事前準備（初回のみ・要ブラウザ操作。※既に link 済みなら不要）:

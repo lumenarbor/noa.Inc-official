@@ -149,6 +149,109 @@ assert_alias_rule_order() {
   return $rc
 }
 
+# -------------------------------------------------------------
+# W1-W3: Netlify Forms の Outgoing Webhook 設定監査（純関数）
+#
+#   assert_webhook_configuration <hooks_tsv> <form> <slack_url> <notion_url>
+#
+# hooks_tsv は1行1フックの TSV:
+#   <type>\t<event>\t<form_name>\t<disabled>\t<url>
+# （I/O は fetch_hooks_tsv が担当。ここはネットワークに触れない）
+#
+# 評価対象は event = submission_created のフックのみ。
+# URL は正規化してから完全一致で比較する（部分一致では PASS させない）。
+# -------------------------------------------------------------
+
+# query string / fragment を落とし、末尾スラッシュを1つ除去する
+normalize_hook_url() {
+  local u="${1%%\#*}"
+  u="${u%%\?*}"
+  case "$u" in */) u="${u%/}" ;; esac
+  printf '%s' "$u"
+}
+
+assert_webhook_configuration() {
+  local tsv="$1" want_form="$2" want_slack="$3" want_notion="$4"
+  local rc=0
+  local n_slack=0 n_notion=0 n_email=0 n_other=0
+  local bad_form=0 bad_disabled=0
+  local other_urls="" line type event form disabled url nurl
+
+  want_slack="$(normalize_hook_url "$want_slack")"
+  want_notion="$(normalize_hook_url "$want_notion")"
+
+  while IFS="$(printf '\t')" read -r type event form disabled url; do
+    [ -n "${type:-}" ] || continue
+    [ "$event" = "submission_created" ] || continue
+
+    if [ "$type" = "email" ]; then
+      n_email=$((n_email+1))
+      continue
+    fi
+    [ "$type" = "url" ] || continue
+
+    nurl="$(normalize_hook_url "$url")"
+    case "$nurl" in
+      "$want_slack")  n_slack=$((n_slack+1)) ;;
+      "$want_notion") n_notion=$((n_notion+1)) ;;
+      *)              n_other=$((n_other+1)); other_urls="$other_urls $nurl" ;;
+    esac
+
+    # 期待URLに一致したフックだけ、form と disabled を追加検証する
+    if [ "$nurl" = "$want_slack" ] || [ "$nurl" = "$want_notion" ]; then
+      [ "$form" = "$want_form" ] || { bad_form=$((bad_form+1)); \
+        guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: $nurl が form='$form' に紐づいています（期待: '$want_form'）"; }
+      [ "$disabled" = "false" ] || { bad_disabled=$((bad_disabled+1)); \
+        guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: $nurl が disabled=$disabled です"; }
+    fi
+  done <<EOF
+$tsv
+EOF
+
+  # --- CASE A / G: Slack hook ---
+  case "$n_slack" in
+    1) guard_pass "Slack hook: $want_slack" ;;
+    0) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: Slack hook が見つかりません（期待: $want_slack）"; rc=1 ;;
+    *) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: Slack hook が $n_slack 本あります（重複通知の恐れ）"; rc=1 ;;
+  esac
+
+  # --- CASE B / G: Notion hook ---
+  case "$n_notion" in
+    1) guard_pass "Notion hook: $want_notion" ;;
+    0) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: Notion hook が見つかりません（期待: $want_notion）"; rc=1 ;;
+    *) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: Notion hook が $n_notion 本あります（重複通知の恐れ）"; rc=1 ;;
+  esac
+
+  # --- CASE C / D / H / I: 期待外の URL hook（旧 direct path・別ホスト・typo）---
+  if [ "$n_other" -eq 0 ]; then
+    guard_pass "想定外の URL hook: なし"
+  else
+    for u in $other_urls; do
+      case "$u" in
+        *"/.netlify/functions/"*)
+          guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: 旧 direct path が設定されています → $u（未配備時に 200+index.html を返し障害が無検知になる）" ;;
+        *) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: 想定外の URL hook → $u" ;;
+      esac
+    done
+    rc=1
+  fi
+
+  # --- CASE E / F ---
+  [ "$bad_form" -eq 0 ] || rc=1
+  [ "$bad_disabled" -eq 0 ] || rc=1
+  if [ "$bad_form" -eq 0 ] && [ "$bad_disabled" -eq 0 ] && [ "$n_slack" -eq 1 ] && [ "$n_notion" -eq 1 ]; then
+    guard_pass "event=submission_created / form=$want_form / disabled=false"
+  fi
+
+  # --- email 通知（宛先内容は検証しない。存在のみ）---
+  case "$n_email" in
+    0) guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: メール通知の hook がありません"; rc=1 ;;
+    *) guard_pass "メール通知 hook: $n_email 件（宛先内容は検証対象外）" ;;
+  esac
+
+  return $rc
+}
+
 # =============================================================
 # 以下は I/O 担当（テストからは呼ばない）
 # =============================================================
@@ -190,4 +293,21 @@ fetch_deploy_functions() {
 # GET のみ。本番データを一切生成しない安全なプローブ。"<status>\t<content_type>"
 probe_endpoint() {
   curl -s -o /dev/null --max-time 20 -w '%{http_code}\t%{content_type}' "$1" 2>/dev/null || printf '000\t'
+}
+
+# Netlify の hook 設定を TSV で取得（url の query/fragment は落として渡すため、
+# トークン等が付いていても出力・比較に混入しない）
+fetch_hooks_tsv() {
+  local site_id="$1"
+  npx --yes netlify-cli api listHooksBySiteId --data "{\"site_id\":\"$site_id\"}" 2>/dev/null \
+    | node -e '
+      let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+        try{
+          JSON.parse(s).forEach(h=>{
+            const raw=(h.data&&h.data.url)||"";
+            const url=raw.split("#")[0].split("?")[0];
+            process.stdout.write([h.type||"",h.event||"",h.form_name||"",String(h.disabled),url].join("\t")+"\n");
+          });
+        }catch(e){}
+      })' 2>/dev/null || true
 }

@@ -49,6 +49,7 @@ GitHub（lumenarbor/noa.Inc-official）は **履歴管理・rollback 管理の s
 | R4 デプロイ後 | Webhook が叩く `/hooks/*` が **405** を返すか（`text/html` は即 FAIL） | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` |
 | R4b デプロイ後 | 未定義の `/hooks/*` が **4xx** か（200 なら SPA catch-all に吸われている） | `ALIAS_FALLBACK_BROKEN` |
 | R4c デプロイ後 | `/.netlify/functions/*` も 405 か（内部健全性） | `PRODUCTION_DEPLOY_VERIFICATION_FAILED` |
+| R5 デプロイ後 | **Netlify Forms の Outgoing Webhook が alias URL を向いているか**（Netlify UI 側の設定監査） | `WEBHOOK_CONFIGURATION_MISMATCH` |
 
 - R3 は「ローカルにファイルがある」では PASS しない。**Netlify 側の `available_functions` を見る。**
 - R4 は 2026-08-30 の事故状態（`200 + text/html + index.html`）を確実に FAIL させる。
@@ -88,7 +89,29 @@ Netlify Forms (form = contact)
 | `/hooks/<未定義>` | — | 404 | 404 |
 | `/.netlify/functions/*` | 内部エンドポイント（監視・デバッグ用） | 405 (GET) | ⚠️ 200 + index.html |
 
-`/.netlify/functions/*` は残してあるが、**Webhook 設定には使わないこと**。
+### 正規の Outgoing Webhook（この2本以外を設定しない）
+
+| 用途 | URL |
+|---|---|
+| Slack | `https://noa-place.co.jp/hooks/slack` |
+| Notion | `https://noa-place.co.jp/hooks/notion-intake` |
+
+**禁止: Outgoing Webhook に `/.netlify/functions/*` を直接設定しない。**
+未配備時に 200 + index.html が返り、Netlify 側が「成功」と誤認するため。
+
+この設定は `bash scripts/verify-prod-deploy.sh` の
+**`[6/6] WEBHOOK_CONFIGURATION` Gate が Netlify UI の実設定まで監査する**。
+期待値は `scripts/prod-site.conf` の `EXPECTED_SLACK_WEBHOOK_URL` /
+`EXPECTED_NOTION_WEBHOOK_URL` / `EXPECTED_FORM_NAME` が正本。
+誰かが UI から旧 direct path へ戻したり、hook を無効化・重複させたり、
+別 form に付け替えたりすると `WEBHOOK_CONFIGURATION_MISMATCH` で落ちる。
+
+検査は **read-only** で、Webhook 設定を書き換えることはない。
+URL は query string / fragment を除去し、末尾スラッシュ1つを許容したうえで
+scheme・hostname・path を完全一致で比較する（前方一致では PASS しない）。
+
+`/.netlify/functions/*` は監視・デバッグ用の内部エンドポイントとして残してあるが、
+**Webhook 設定には使わないこと**。
 ルート定義は `netlify.toml` と `scripts/make-drop-package.sh`（`_redirects` 生成）の
 両方にあり、順序が意味を持つ（上から first-match）。順序は
 `scripts/test/deploy-guard-tests.sh` の CASE 10-12 が検証している。
@@ -124,6 +147,8 @@ E2E は本番フォームで行う。**本番の秘密情報を branch-deploy �
 3. **反映後は Guard が自動で検証する**
    `deploy-prod.sh` はデプロイ直後に `verify-prod-deploy.sh` を実行し、
    落ちれば non-zero exit する。手で curl する運用には戻さない。
+   検証範囲は Functions の配備・alias routing・ランタイム応答に加え、
+   **Netlify UI 側の Outgoing Webhook 設定**まで含む（6 Gate）。
 
 ---
 
@@ -237,4 +262,5 @@ npx netlify-cli link            # 本番サイト(noa-place.co.jp)を選択
 |---|---|
 | Notion に会社名が保存されない | 問い合わせフォームの `company` は Netlify Forms には保存されるが、`notion-intake.js` の `buildProperties` に会社名プロパティのマッピングが無いため Notion DB へ書かれない。2026-09-03 の Backfill でも同じ理由で未記録。対応には Notion DB 側のプロパティ追加とマッピング追加が必要 |
 | Notion Integration の権限 | Read + Insert のみで Update 権限が無いため、API からページのアーカイブ（削除）ができない。登録動作には影響しないが、テスト行の後始末は手動になる |
+| ~~Webhook URL が検証されない~~ | **RESOLVED（2026-09-04）**。`verify-prod-deploy.sh` の `[6/6] WEBHOOK_CONFIGURATION` Gate が Netlify UI の hook 設定を `prod-site.conf` の期待値と突き合わせる。旧 direct path・無効化・重複・別 form・別ホスト・path typo をすべて `WEBHOOK_CONFIGURATION_MISMATCH` で検知する |
 | ~~SPA catch-all が未配備 function を隠す~~ | **RESOLVED（2026-09-04）**。`/.netlify/*` へは redirect を書けないことが判明したため、catch-all の除外ではなく `/hooks/*` エイリアス経由へ Webhook を移行して解決した。**Function 未配備時、Webhook が叩くパスは 4xx を返す。** 直接パス `/.netlify/functions/*` は依然 200 + HTML を返すが、Webhook はそこを使わない。Guard は `/hooks/*` を主判定にしている |

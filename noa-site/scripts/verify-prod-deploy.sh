@@ -11,6 +11,10 @@
 #   4. Alias fallback       … 未定義の /hooks/* が 4xx になるか（200 を返さないこと）
 #   5. Internal endpoints   … /.netlify/functions/* も 405 を返すか（内部健全性）
 #   6. HTML fallback 検知   … 200 + text/html（= function 未配備）を FAIL にする
+#   7. Webhook configuration… Netlify Forms の Outgoing Webhook が alias URL を
+#                             向いているか（UI から旧 direct path へ戻されたら FAIL）
+#
+# すべて read-only。Netlify の設定を書き換える処理は含まない。
 #
 # deploy-prod.sh からデプロイ直後にも呼ばれる。
 # GET しか行わないため、本番の問い合わせデータを生成することはない。
@@ -35,7 +39,7 @@ echo "=============================================="
 
 # ---- 1. Site identity ------------------------------------------------
 echo ""
-echo "[1/5] SITE_IDENTITY"
+echo "[1/6] SITE_IDENTITY"
 LINKED_ID="$(fetch_linked_site_id "$SITE_ROOT")"
 FACTS="$(fetch_site_facts "${LINKED_ID:-$PROD_SITE_ID}")"
 ACTUAL_ID="$(printf '%s' "$FACTS" | cut -f1)"
@@ -45,7 +49,7 @@ assert_site_identity "${LINKED_ID:-$ACTUAL_ID}" "$ACTUAL_DOMAIN" "$PROD_SITE_ID"
 
 # ---- 2. Deployed functions (metadata) --------------------------------
 echo ""
-echo "[2/5] DEPLOYED_FUNCTIONS (Netlify deploy metadata)"
+echo "[2/6] DEPLOYED_FUNCTIONS (Netlify deploy metadata)"
 if [ -n "$TARGET_DEPLOY" ]; then
   DEPLOYED_FNS="$(fetch_deploy_functions "$TARGET_DEPLOY")"
   echo "  対象 deploy_id: $TARGET_DEPLOY"
@@ -61,7 +65,7 @@ assert_deployed_functions "$DEPLOYED_FNS" $REQUIRED_FUNCTIONS || FAIL=1
 # 200 + index.html を返してしまう（予約名前空間には redirect を書けない）。
 # Webhook は /hooks/* を経由するので、まずそちらを主判定にする。
 echo ""
-echo "[3/5] WEBHOOK_PATHS (Outgoing Webhook が叩く公開パス)"
+echo "[3/6] WEBHOOK_PATHS (Outgoing Webhook が叩く公開パス)"
 for wp in $WEBHOOK_PATHS; do
   R="$(probe_endpoint "$PROD_URL$wp")"
   assert_runtime_endpoint "$wp" "$(printf '%s' "$R" | cut -f1)" "$(printf '%s' "$R" | cut -f2)" || FAIL=1
@@ -69,7 +73,7 @@ done
 
 # ---- 4. Alias fallback（未定義 hook が 200 を返さないこと）--------------
 echo ""
-echo "[4/5] ALIAS_FALLBACK (未定義 hook は 4xx であること)"
+echo "[4/6] ALIAS_FALLBACK (未定義 hook は 4xx であること)"
 R="$(probe_endpoint "$PROD_URL/hooks/__nonexistent__")"
 FB_STATUS="$(printf '%s' "$R" | cut -f1)"
 FB_CTYPE="$(printf '%s' "$R" | cut -f2)"
@@ -80,11 +84,25 @@ esac
 
 # ---- 5. Internal endpoints（内部健全性）--------------------------------
 echo ""
-echo "[5/5] INTERNAL_FUNCTION_PATHS (直接エンドポイントの健全性)"
+echo "[5/6] INTERNAL_FUNCTION_PATHS (直接エンドポイントの健全性)"
 for ip in $INTERNAL_FUNCTION_PATHS; do
   R="$(probe_endpoint "$PROD_URL$ip")"
   assert_runtime_endpoint "$ip" "$(printf '%s' "$R" | cut -f1)" "$(printf '%s' "$R" | cut -f2)" || FAIL=1
 done
+
+# ---- 6. Webhook configuration（Netlify UI 側の設定監査・read-only）------
+# alias route が生きていても、Webhook が旧 direct path を向いていたら意味がない。
+# ここまでの Gate では検知できないため、設定そのものを突き合わせる。
+echo ""
+echo "[6/6] WEBHOOK_CONFIGURATION (Netlify Forms の Outgoing Webhook 設定)"
+HOOKS_TSV="$(fetch_hooks_tsv "${LINKED_ID:-$PROD_SITE_ID}")"
+if [ -z "$HOOKS_TSV" ]; then
+  guard_fail "WEBHOOK_CONFIGURATION_MISMATCH: hook 設定を取得できませんでした（netlify login / 権限を確認）"
+  FAIL=1
+else
+  assert_webhook_configuration "$HOOKS_TSV" "$EXPECTED_FORM_NAME" \
+    "$EXPECTED_SLACK_WEBHOOK_URL" "$EXPECTED_NOTION_WEBHOOK_URL" || FAIL=1
+fi
 
 echo ""
 echo "=============================================="
