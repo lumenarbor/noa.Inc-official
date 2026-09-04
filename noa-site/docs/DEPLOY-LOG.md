@@ -23,3 +23,13 @@
   Netlify Forms のメール通知のみ生存したため約5日間無検知。障害期間中の問い合わせ1件を取りこぼし、
   2026-09-04 に Notion へ Backfill。同日 `scripts/` に Deployment Guard を導入し、
   同種事故を機械的に検知・阻止できるようにした（詳細は `docs/OPERATIONS.md`）。
+  さらに Outgoing Webhook を `/hooks/*` エイリアスへ移行し、Function 未配備時に
+  200 ではなく 4xx が返る構成にしたうえで、Webhook 設定そのものを検査する
+  Gate を追加した。
+
+  **Incident Status: CLOSED（2026-09-04）**
+  最終状態: 本番 commit `702f2eb` / `bash scripts/verify-prod-deploy.sh` が 6/6 ALL_GATES_PASS /
+  Netlify Forms・メール・Slack・Notion の4経路すべて本番 E2E 済み。
+  以降に残る項目（日次自動実行、Netlify UI からの直接 Publish、Notion の Update 権限、
+  既存レコードの会社名 Backfill 等）はインシデントの未完了事項ではなく、
+  通常のバックログ／受容済みの制約として扱う。
