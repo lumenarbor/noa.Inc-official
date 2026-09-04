@@ -169,6 +169,7 @@ function buildProperties(data, source, receivedAt) {
   const name = normalizeKey(data.name || data["氏名"] || data.fullname);
   const email = normalizeKey(data.email || data["メールアドレス"]);
   const phone = normalizeKey(data.phone || data.tel || data["電話番号"]);
+  const company = normalizeKey(data.company || data["会社名"]);
   const ageRaw = data.age != null ? data.age : data["年齢"];
   const currentJob = normalizeKey(data.current_job || data["現在の職種"]);
   const desiredJob = normalizeKey(data.desired_job || data["希望職種"]);
@@ -188,6 +189,11 @@ function buildProperties(data, source, receivedAt) {
   // 空文字は Notion がエラーにするため、値が無ければキーごと省略する
   if (email) props["メールアドレス"] = { email };
   if (phone) props["電話番号"] = { phone_number: phone };
+  // 会社名は自由入力なので select にせず rich_text。
+  // LP のように company を送らないフォームでは未設定のままにする
+  // （空文字を送ると Notion がエラーにするため、他の任意項目と同じくキーごと省略）
+  if (company)
+    props["会社名"] = { rich_text: [{ text: { content: clip(company) } }] };
 
   // Number("") は 0 になるため、数字が1文字も無い場合は明確に NaN 扱いにする。
   // （そうしないと年齢欄が無いHPフォームで 0 が登録されてしまう）

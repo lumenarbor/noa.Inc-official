@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "vite public --port 5180 --strict-port",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
-    "build": "npm run generate:sitemap && vite build"
+    "build": "npm run generate:sitemap && vite build",
+    "test": "bash scripts/test/deploy-guard-tests.sh && node scripts/test/notion-mapping-tests.js"
   },
   "devDependencies": {
     "vite": "^8.0.8"
