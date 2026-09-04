@@ -94,8 +94,12 @@ npx --yes netlify-cli deploy --prod \
   --json \
   --message "manual deploy (no build) ${REF} @ ${SHA}" > "$DEPLOY_JSON"
 
-DEPLOY_ID="$(node -e 'try{const j=require(process.argv[1]);process.stdout.write(j.deploy_id||j.deployId||j.id||(j.deploy&&j.deploy.id)||"")}catch(e){}' "$DEPLOY_JSON")"
-DEPLOY_URL="$(node -e 'try{const j=require(process.argv[1]);process.stdout.write(j.url||j.deploy_url||"")}catch(e){}' "$DEPLOY_JSON")"
+# 注意: mktemp のファイルは拡張子が無いため require() では JS として解釈される。
+#       必ず読み込んでから JSON.parse すること。
+DEPLOY_FIELD='try{const j=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(j[process.argv[2]]||(j.deploy&&j.deploy[process.argv[3]||process.argv[2]])||""))}catch(e){}'
+DEPLOY_ID="$(node -e "$DEPLOY_FIELD" "$DEPLOY_JSON" deploy_id id)"
+[ -n "$DEPLOY_ID" ] || DEPLOY_ID="$(node -e "$DEPLOY_FIELD" "$DEPLOY_JSON" id id)"
+DEPLOY_URL="$(node -e "$DEPLOY_FIELD" "$DEPLOY_JSON" url url)"
 echo ""
 echo "🚀 deploy complete"
 echo "   deploy_id : ${DEPLOY_ID:-(取得失敗)}"

@@ -260,7 +260,7 @@ npx netlify-cli link            # 本番サイト(noa-place.co.jp)を選択
 
 | 項目 | 内容 |
 |---|---|
-| Notion に会社名が保存されない | 問い合わせフォームの `company` は Netlify Forms には保存されるが、`notion-intake.js` の `buildProperties` に会社名プロパティのマッピングが無いため Notion DB へ書かれない。2026-09-03 の Backfill でも同じ理由で未記録。対応には Notion DB 側のプロパティ追加とマッピング追加が必要 |
+| ~~Notion に会社名が保存されない~~ | **RESOLVED（2026-09-04 / commit 702f2eb）**。`buildProperties` に `company → 会社名`（rich_text）のマッピングを追加した。DB 側の「会社名」property は既存だったためスキーマ変更は不要。company を送らないフォーム（LP）ではキーごと省略するため既存フローは無影響。**ただし 2026-09-04 以前に登録された既存レコードの会社名は空のまま**（一括更新はしていない）。必要なら Notion UI で手動入力する |
 | Notion Integration の権限 | Read + Insert のみで Update 権限が無いため、API からページのアーカイブ（削除）ができない。登録動作には影響しないが、テスト行の後始末は手動になる |
 | ~~Webhook URL が検証されない~~ | **RESOLVED（2026-09-04）**。`verify-prod-deploy.sh` の `[6/6] WEBHOOK_CONFIGURATION` Gate が Netlify UI の hook 設定を `prod-site.conf` の期待値と突き合わせる。旧 direct path・無効化・重複・別 form・別ホスト・path typo をすべて `WEBHOOK_CONFIGURATION_MISMATCH` で検知する |
 | ~~SPA catch-all が未配備 function を隠す~~ | **RESOLVED（2026-09-04）**。`/.netlify/*` へは redirect を書けないことが判明したため、catch-all の除外ではなく `/hooks/*` エイリアス経由へ Webhook を移行して解決した。**Function 未配備時、Webhook が叩くパスは 4xx を返す。** 直接パス `/.netlify/functions/*` は依然 200 + HTML を返すが、Webhook はそこを使わない。Guard は `/hooks/*` を主判定にしている |
